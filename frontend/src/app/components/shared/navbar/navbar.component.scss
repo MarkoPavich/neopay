@@ -5,6 +5,10 @@ nav{
 	height: 100vh;
 
 	background-color: $color-accent-3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .logo-container{
@@ -13,7 +17,7 @@ nav{
 	height: 103px;
 	width: 103px;
 
-	background-color: #fff;
+	background-color: $color-bg-light;
 
   	border-bottom-right-radius: 20%;
 
@@ -81,5 +85,53 @@ nav{
 
 		border-top-color: $color-primary-main;
 	};
+}
+
+.bottom-container{
+  width: 100%;
+}
+
+.theme-selector-container{
+  height: 84px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-img-container{
+  position: relative;
+
+  height: 89px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $color-bg-light;
+
+  &::before{
+    content: '';
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    border-top: solid 1px #494E6E;
+    background-color: $color-accent-3;
+
+    border-bottom-right-radius: 20%;
+  }
+
+  img{
+    height: 40px;
+    width: 40px;
+
+    border-radius: 50%;
+
+    z-index: 5;
+  }
 }
 
