@@ -10,3 +10,12 @@ body{
   background-color: $color-bg-light;
   font-family: $font-stack-primary;
 }
+
+.top-container{
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: $sidebar-nav-width 1fr;
+
+  border: solid 2px green;
+}

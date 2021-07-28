@@ -1,8 +1,8 @@
 @import '/src/styles/config';
 
 nav{
-	width: 103px;
-	height: 100vh;
+	width: $sidebar-nav-width;
+	height: 100%;
 
 	background-color: $color-accent-3;
 
@@ -14,8 +14,8 @@ nav{
 .logo-container{
 	position: relative;
 
-	height: 103px;
-	width: 103px;
+	height: $sidebar-nav-width;
+	width: $sidebar-nav-width;
 
 	background-color: $color-bg-light;
 
