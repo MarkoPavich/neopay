@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'invoices-list-component',
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.scss']
+  templateUrl: './invoices.list.component.html',
+  styleUrls: ['./invoices.list.component.scss']
 })
 export class InvoicesListComponent implements OnInit {
 

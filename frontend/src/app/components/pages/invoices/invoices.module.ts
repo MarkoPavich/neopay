@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { InvoicesListComponent } from './invoices.component';
+import { InvoicesListComponent } from './invoices.list.component';
 import { InvoiceComponent } from './components/invoice.component';
 import { InvoicesHeaderComponent } from './components/invoices.header.component'
 import { SharedComponentsModule } from '../../shared/shared.components.module.ts';
