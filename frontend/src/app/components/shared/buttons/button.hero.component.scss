@@ -1,0 +1,48 @@
+@import '/src/styles/config';
+
+.button-hero{
+  width: 150px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  padding-left: 8px;
+  padding-right: 15px;
+
+  border-radius: 24px;
+
+  background-color: $color-primary-main;
+
+  button{
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $color-primary-main;
+
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+
+    margin-top: -3px;
+  }
+}
+
+.add-circle{
+  height: 32px;
+  width: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: white;
+}

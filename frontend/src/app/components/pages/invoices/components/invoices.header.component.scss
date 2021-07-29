@@ -6,3 +6,13 @@ header{
 
   border: solid 1px pink;
 }
+
+.content-flex-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-flex-right{
+  display: flex;
+  align-items: center;
+}
