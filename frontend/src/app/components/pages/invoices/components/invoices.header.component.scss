@@ -13,6 +13,10 @@ header{
 }
 
 .container-flex-right{
+  width: 100%;
+  max-width: 308px;
+
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
