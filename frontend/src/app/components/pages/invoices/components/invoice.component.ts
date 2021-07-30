@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
       </div>
       <div class="container-right">
         <div class="price-box">
-          <span>€</span>
+          <span>£ </span>
           <span>1,800.90</span>
         </div>
         <status-info-button></status-info-button>
