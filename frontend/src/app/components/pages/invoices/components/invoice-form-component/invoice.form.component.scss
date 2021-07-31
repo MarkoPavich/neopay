@@ -1,0 +1,65 @@
+@import '/src/styles/config';
+
+.top-container-background-dim{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+
+  max-width: 100%;
+
+  top: 0;
+  left: 0;
+
+  z-index: 10;
+
+  &::before{ /* background-dim */
+    content: '';
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: transparent;
+
+    transition: background-color 0.3s ease-out;
+
+    opacity: 50%;
+
+    z-index: 8;
+  }
+}
+
+.top-container-background-dim.active{
+  &::before{
+    background-color: black;
+  }
+}
+
+.form-container{
+  position: relative;
+
+  transform: translate(-1000px, 0px);
+
+  height: 100vh;
+
+  width: 80%;
+  max-width: 719px;
+
+  margin-right: 300px;
+
+  background-color: white;
+
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  z-index: 10;
+
+  transition: transform 0.5s ease-out;
+}
+
+.form-container.active{
+  transform: translate(0, 0);
+}
