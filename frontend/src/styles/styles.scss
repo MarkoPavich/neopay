@@ -1,5 +1,6 @@
 @import 'config';
 
+
 *{
   box-sizing: border-box;
   margin: 0;
@@ -12,8 +13,9 @@ body{
 }
 
 .top-container{
+  min-height: 100vh;
   width: 100%;
-  display: grid;
 
+  display: grid;
   grid-template-columns: $sidebar-nav-width 1fr;
 }

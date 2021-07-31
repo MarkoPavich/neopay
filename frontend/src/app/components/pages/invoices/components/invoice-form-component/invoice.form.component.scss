@@ -12,6 +12,8 @@
 
   z-index: 10;
 
+  pointer-events: none;
+
   &::before{ /* background-dim */
     content: '';
     position: absolute;
@@ -33,6 +35,8 @@
 }
 
 .top-container-background-dim.active{
+  pointer-events: all;
+
   &::before{
     background-color: black;
   }
@@ -59,6 +63,15 @@
   transition: transform 0.5s ease-out;
 
   padding-left: $sidebar-nav-width;
+
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.form-container::-webkit-scrollbar {
+  display: none;
 }
 
 .form-container.active{
@@ -66,22 +79,26 @@
 }
  
 .form-container form{
+  width: 100%;
+  max-width: 80%;
+
   margin-left: 56px;
   margin-right: 56px;
 
   padding-top: 56px;
-}
 
-.form-container form > header{
-  margin-bottom: 56px;
+  overflow: hidden;
 }
 
 .hash-prefix{
   color: $color-contrast-medium-darker;
 }
 
-.form-container form fieldset{
+.form-container > form fieldset{
+  min-width: 0; /* This resets browser default width formatting.. lost some time to this.. */
   border: none;
+
+  margin-bottom: 48px;
 }
 
 
@@ -91,4 +108,20 @@
   font-size: 12px;
   font-weight: bold;
   color: $color-primary-main;
+}
+
+.tripple-column-field-grid-container{
+  margin-top: 24px;
+
+  display: grid;
+  grid-template-columns: 28% 28% 28%;
+  grid-column-gap: 8%;
+
+  grid-row-gap: 24px;
+}
+
+.full-width-input-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 24px;
 }

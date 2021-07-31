@@ -1,5 +1,5 @@
-<div class="top-container-background-dim active">
-  <div class="form-container active"> 
+<div [ngClass]="isActive ? 'top-container-background-dim active' :  'top-container-background-dim'">
+  <div [ngClass]="isActive ? 'form-container active' : 'form-container'"> 
     <form>
 
       <header>
@@ -14,8 +14,32 @@
           placeholder="19 Union Terrace"
           >
         </input-field>
+
+        <div class="tripple-column-field-grid-container">
+          <input-field></input-field>
+          <input-field></input-field>
+          <input-field></input-field>
+        </div>
+
       </fieldset>
 
+      <fieldset>
+        <header>Bill to</header>
+
+        <div class="full-width-input-container">
+          <input-field></input-field>
+          <input-field></input-field>
+          <input-field></input-field>
+        </div>
+
+        <div class="tripple-column-field-grid-container">
+          <input-field></input-field>
+          <input-field></input-field>
+          <input-field></input-field>
+        </div>
+      </fieldset>
+
+      <button type="button" (click)="closeForm()">Cancel</button>
     </form>
   </div>
 </div>     
