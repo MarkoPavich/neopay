@@ -6,4 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./invoice.form.component.scss']
 })
 
-export class InvoiceFormComponent {}
+export class InvoiceFormComponent {
+  private _isNew: boolean = true;
+  public _tmpInvoiceName: string = 'RT3080';
+
+  constructor () {}
+
+  get isNew(){
+    return this._isNew;
+  }
+}

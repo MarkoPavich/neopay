@@ -1,0 +1,28 @@
+@import '/src/styles/config';
+
+.input-field-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field-container > label{
+  margin-bottom: 10px;
+  
+  font-size: 12px;
+  font-weight: 500;
+
+  color: $color-contrast-medium-lighter;
+}
+
+.input-field-container > input{
+  height: 48px;
+
+  padding-left: 20px;
+  padding-right: 20px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  border: solid 2px $color-contrast-light;
+  border-radius: 4px;
+}

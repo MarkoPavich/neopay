@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { SharedComponentsModule } from '../../shared/shared.components.module.ts';
 
 import { InvoicesListComponent } from './invoices.list.component';
@@ -13,13 +15,14 @@ import { InvoiceFormComponent } from './components/invoice-form-component/invoic
     InvoicesHeaderComponent,
     InvoiceComponent,
     StatusInfoButtonComponent,
-    InvoiceFormComponent
+    InvoiceFormComponent,
   ],
   exports: [
     InvoicesListComponent
   ],
   imports: [
-    SharedComponentsModule
+    SharedComponentsModule,
+    CommonModule
   ]
 })
 export class InvoicesModule { }

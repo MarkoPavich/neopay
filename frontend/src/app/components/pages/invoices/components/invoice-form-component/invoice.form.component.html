@@ -1,5 +1,21 @@
-<div class="top-container-background-dim">
-  <div class="form-container"> 
-    
+<div class="top-container-background-dim active">
+  <div class="form-container active"> 
+    <form>
+
+      <header>
+        <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{_tmpInvoiceName}}</h2>
+        <h2 *ngIf="isNew">New Invoice</h2>
+      </header>
+
+      <fieldset>
+        <header>Bill From</header>
+        <input-field 
+          label="street adress"
+          placeholder="19 Union Terrace"
+          >
+        </input-field>
+      </fieldset>
+
+    </form>
   </div>
-</div>
+</div>     

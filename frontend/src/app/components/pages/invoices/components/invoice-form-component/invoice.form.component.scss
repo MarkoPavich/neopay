@@ -40,7 +40,6 @@
 
 .form-container{
   position: relative;
-
   transform: translate(-1000px, 0px);
 
   height: 100vh;
@@ -58,8 +57,38 @@
   z-index: 10;
 
   transition: transform 0.5s ease-out;
+
+  padding-left: $sidebar-nav-width;
 }
 
 .form-container.active{
   transform: translate(0, 0);
+}
+ 
+.form-container form{
+  margin-left: 56px;
+  margin-right: 56px;
+
+  padding-top: 56px;
+}
+
+.form-container form > header{
+  margin-bottom: 56px;
+}
+
+.hash-prefix{
+  color: $color-contrast-medium-darker;
+}
+
+.form-container form fieldset{
+  border: none;
+}
+
+
+.form-container form fieldset > header{
+  margin-bottom: 24px;
+
+  font-size: 12px;
+  font-weight: bold;
+  color: $color-primary-main;
 }
