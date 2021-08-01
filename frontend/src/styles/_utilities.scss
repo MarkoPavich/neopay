@@ -1,3 +1,5 @@
+@import './config';
+
 @mixin triangle($size, $side, $left: 0, $top: 0, $color: red){
   position: relative;
 
@@ -10,4 +12,32 @@
     border: $size solid transparent;
     border-#{$side}-color: $color;
   }
+}
+
+.button{
+  height: 48px;
+
+  padding-left: 24px;
+  padding-right: 24px;
+
+  border: none;
+  border-radius: 24px;
+
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.button-primary{
+  color: white;
+  background-color: $color-primary-main;
+}
+
+.button-aux{
+  color: $color-contrast-medium-lighter;
+  background-color: #F9FAFE;
+}
+
+.button-secondary{
+  color: $color-contrast-medium-darker;
+  background-color: $color-accent-3;
 }

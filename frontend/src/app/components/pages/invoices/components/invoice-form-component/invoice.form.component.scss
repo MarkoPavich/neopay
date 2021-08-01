@@ -1,8 +1,11 @@
 @import '/src/styles/config';
+@import '/src/styles/utilities';
 
 
-$controlls-bar-height: 110px;
+$controls-bar-height: 110px;
+$form-margin-size: 56px;
 
+/* TODO - refine active/inactive */
 
 .top-container-background-dim{
   position: absolute;
@@ -58,7 +61,7 @@ $controlls-bar-height: 110px;
 
   margin-right: 300px;
 
-  padding-bottom: $controlls-bar-height;
+  padding-bottom: $controls-bar-height;
 
   background-color: white;
 
@@ -89,10 +92,10 @@ $controlls-bar-height: 110px;
   width: 100%;
   max-width: 80%;
 
-  margin-left: 56px;
-  margin-right: 56px;
+  margin-left: $form-margin-size;
+  margin-right: $form-margin-size;
 
-  padding-top: 56px;
+  padding-top: $form-margin-size;
 
   overflow: hidden;
 }
@@ -141,17 +144,18 @@ $controlls-bar-height: 110px;
   margin-top: 48px;
 }
 
-.form-controlls-container{
+.form-controls-container{
   position: absolute;
 
   top: 100%;
   left: 0;
 
-  height: $controlls-bar-height;
+  height: $controls-bar-height;
   width: 80%;
   max-width: 719px;
 
-  margin-top: -$controlls-bar-height;
+  margin-top: -$controls-bar-height;
+  padding-left: $sidebar-nav-width;
 
   z-index: 15;
 
@@ -163,4 +167,22 @@ $controlls-bar-height: 110px;
   -webkit-box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
   box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
+}
+
+.controls-flex-container{
+  margin-left: $form-margin-size;
+  margin-right: $form-margin-size;
+
+  width: 100%;
+  max-width: 80%;
+
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls-flex-container > div > button{
+  margin-left: 8px;
 }
