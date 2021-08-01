@@ -42,14 +42,6 @@ $form-margin-size: 56px;
   }
 }
 
-.top-container-background-dim.active{
-  pointer-events: all;
-
-  &::before{
-    background-color: black;
-  }
-}
-
 .form-container{
   position: relative;
   transform: translate(-1000px, 0px);
@@ -82,10 +74,6 @@ $form-margin-size: 56px;
 
 .form-container::-webkit-scrollbar {
   display: none;
-}
-
-.form-container.active{
-  transform: translate(0, 0);
 }
  
 .form-container form{
@@ -167,6 +155,9 @@ $form-margin-size: 56px;
   -webkit-box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
   box-shadow: 0px 34px 157px 0px rgba(0,0,0,0.21);
+
+  transform: translate(-1000px, 0px);
+  transition: transform 0.5s ease-out;
 }
 
 .controls-flex-container{
@@ -185,4 +176,20 @@ $form-margin-size: 56px;
 
 .controls-flex-container > div > button{
   margin-left: 8px;
+}
+
+.top-container-background-dim.active{
+  pointer-events: all;
+
+  &::before{
+    background-color: black;
+  }
+}
+
+.top-container-background-dim.active > .form-container{
+  transform: translate(0, 0);
+}
+
+.top-container-background-dim.active > .form-controls-container{
+  transform: translate(0, 0);
 }

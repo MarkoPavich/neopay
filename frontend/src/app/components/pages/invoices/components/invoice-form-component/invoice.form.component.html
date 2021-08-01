@@ -1,5 +1,5 @@
 <div [ngClass]="isActive ? 'top-container-background-dim active' :  'top-container-background-dim'">
-  <div [ngClass]="isActive ? 'form-container active' : 'form-container'"> 
+  <div class="form-container"> 
     <form>
       <header>
         <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{_tmpInvoiceName}}</h2>
