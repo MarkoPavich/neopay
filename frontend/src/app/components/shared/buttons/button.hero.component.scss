@@ -46,3 +46,7 @@
 
   background-color: white;
 }
+
+.button-hero:hover, .button-hero > *:hover{
+  cursor: pointer;
+}
