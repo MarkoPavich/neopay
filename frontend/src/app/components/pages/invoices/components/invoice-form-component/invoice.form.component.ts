@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class InvoiceFormComponent {
   private _isNew: boolean = true;
-  private _isActive:boolean = true;
+  private _isActive:boolean = false;
 
   public _tmpInvoiceName: string = 'RT3080';
 
@@ -26,7 +26,9 @@ export class InvoiceFormComponent {
     this._isActive = false;
   }
 
-  showForm(){
+  showAddNew(){
+    this._isNew = true;
     this._isActive = true;
   }
+
 }

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'button-hero',
   template: `
 
-  <div class="button-hero">
+  <div (click)="onClick()" class="button-hero">
     <div class="add-circle">
       <img src="/assets/icon-plus.svg" alt="add.img">
     </div>
@@ -16,5 +16,11 @@ import { Component } from '@angular/core';
 })
 
 export class ButtonHero{
+  @Output() clickEmitter = new EventEmitter<void>();
+
   constructor() {}
+
+  onClick(){
+    this.clickEmitter.emit();
+  }
 }
