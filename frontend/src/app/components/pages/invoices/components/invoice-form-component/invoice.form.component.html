@@ -18,9 +18,9 @@
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field></input-field>
-          <input-field></input-field>
-          <input-field></input-field>
+          <input-field label="City"></input-field>
+          <input-field label="Post Code"></input-field>
+          <input-field label="Country"></input-field>
         </div>
 
       </fieldset>
@@ -29,27 +29,79 @@
         <header>Bill to</header>
 
         <div class="fields-grid-container">
-          <input-field></input-field>
-          <input-field></input-field>
-          <input-field></input-field>
+          <input-field label="Client's Name"></input-field>
+          <input-field label="Client's Email"></input-field>
+          <input-field label="Street Address"></input-field>
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field></input-field>
-          <input-field></input-field>
-          <input-field></input-field>
+          <input-field label="City"></input-field>
+          <input-field label="Post Code"></input-field>
+          <input-field label="Country"></input-field>
         </div>
 
         <div class="fields-grid-container dual-column-grid double-margin">
-          <input-field></input-field>
-          <input-field></input-field> 
+          <input-field label="Invoice Date"></input-field>
+          <input-field label="Payment Terms"></input-field> 
         </div>
 
         <div class="fields-grid-container">
-          <input-field></input-field>
+          <input-field label="Project Description"></input-field>
         </div>
 
       </fieldset>
+
+      <fieldset>
+        <header class="item-list-header-span">Item list</header>
+
+        <div class="invoice-items-list">
+          <table class="invoice-items-list">
+            <tr>
+              <th>Item name</th>
+              <th>Qty.</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <td>
+                <input-field [showLabel]="false"></input-field>
+              </td>
+              <td>
+                <input-field [centered]="true" [showLabel]="false"></input-field>
+              </td>
+              <td>
+                <input-field [showLabel]="false"></input-field>
+              </td>
+              <td class="totals-container">
+                <span>156.00</span>
+                <img src="/assets/icon-delete.svg" alt="delete.ico">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input-field [showLabel]="false"></input-field>
+              </td>
+              <td>
+                <input-field [centered]="true" [showLabel]="false"></input-field>
+              </td>
+              <td>
+                <input-field [showLabel]="false"></input-field>
+              </td>
+              <td class="totals-container">
+                <span>156.00</span>
+                <img src="/assets/icon-delete.svg" alt="delete.ico">
+              </td>
+            </tr>
+          </table>
+
+          <div class="fields-grid-container add-item-container">
+            <button class="button button-aux">+ Add New Item</button>
+          </div>
+
+      </div>
+
+      </fieldset>
+
     </form>
   </div>
 
