@@ -1,52 +1,113 @@
 <div [ngClass]="isActive ? 'top-container-background-dim active' :  'top-container-background-dim'">
   <div class="form-container"> 
-    <form>
+    <form [formGroup]="invoiceForm">
       <header>
         <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{_tmpInvoiceName}}</h2>
         <h2 *ngIf="isNew">New Invoice</h2>
       </header>
 
-      <fieldset>
+      <fieldset formGroupName="billFrom">
         <header>Bill From</header>
 
         <div class="fields-grid-container">
           <input-field 
             label="street adress"
             placeholder="19 Union Terrace"
+            controlName="streetAddress"
             >
           </input-field>
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field label="City"></input-field>
-          <input-field label="Post Code"></input-field>
-          <input-field label="Country"></input-field>
+          <input-field 
+            label="City"
+            placeholder="London"
+            controlName="city"
+            >
+          </input-field>
+          <input-field 
+            label="Post Code"
+            placeholder="E1 3EZ"
+            controlName="postCode"
+            >
+          </input-field>
+          <input-field 
+            label="Country"
+            placeholder="United Kingdom"
+            controlName="country"
+            >
+          </input-field>
         </div>
 
       </fieldset>
 
-      <fieldset>
+      <fieldset formGroupName="billTo">
         <header>Bill to</header>
 
         <div class="fields-grid-container">
-          <input-field label="Client's Name"></input-field>
-          <input-field label="Client's Email"></input-field>
-          <input-field label="Street Address"></input-field>
+          <input-field 
+            label="Client's Name"
+            placeholder="Alex Grim"
+            controlName="clientName"
+            >
+          </input-field>
+          <input-field 
+            label="Client's Email"
+            placeholder="alexgrim@somemail.com"
+            controlName="clientEmail"
+            >
+          </input-field>
+          <input-field 
+            label="Street Address"
+            placeholder="84 Church Way"
+            controlName="streetAddress"
+            >
+          </input-field>
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field label="City"></input-field>
-          <input-field label="Post Code"></input-field>
-          <input-field label="Country"></input-field>
+          <input-field 
+            label="City"
+            placeholder="Bradford"
+            controlName="city"
+            >
+          </input-field>
+          <input-field 
+            label="Post Code"
+            placeholder="BD1 9PB"
+            controlName="postCode"
+            >
+          </input-field>
+          <input-field 
+            label="Country"
+            placeholder="United Kingdom"
+            controlName="country"
+            >
+          </input-field>
         </div>
 
         <div class="fields-grid-container dual-column-grid double-margin">
-          <input-field label="Invoice Date"></input-field>
-          <input-field label="Payment Terms"></input-field> 
+          <input-field 
+            label="Invoice Date"
+            placeholder="20 Aug 2021"
+            controlName="date"
+            >
+          </input-field>
+          <input-field 
+            label="Payment Terms"
+            placeholder="Net 30 Days"
+            controlName="terms"
+            >
+          </input-field>
         </div>
 
         <div class="fields-grid-container">
-          <input-field label="Project Description"></input-field>
+          <input-field 
+            label="Project Description"
+            placeholder="Graphic Design"
+            controlName="description"
+            >
+          </input-field>
         </div>
 
       </fieldset>
@@ -55,47 +116,52 @@
         <header class="item-list-header-span">Item list</header>
 
         <div class="invoice-items-list">
-          <table class="invoice-items-list">
+          <table formArrayName="items" class="invoice-items-list">
             <tr>
               <th>Item name</th>
               <th>Qty.</th>
               <th>Price</th>
               <th>Total</th>
             </tr>
-            <tr>
-              <td>
-                <input-field [showLabel]="false"></input-field>
-              </td>
-              <td>
-                <input-field [centered]="true" [showLabel]="false"></input-field>
-              </td>
-              <td>
-                <input-field [showLabel]="false"></input-field>
-              </td>
-              <td class="totals-container">
-                <span>156.00</span>
-                <img src="/assets/icon-delete.svg" alt="delete.ico">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input-field [showLabel]="false"></input-field>
-              </td>
-              <td>
-                <input-field [centered]="true" [showLabel]="false"></input-field>
-              </td>
-              <td>
-                <input-field [showLabel]="false"></input-field>
-              </td>
-              <td class="totals-container">
-                <span>156.00</span>
-                <img src="/assets/icon-delete.svg" alt="delete.ico">
-              </td>
-            </tr>
+
+            <ng-container *ngFor="let item of invoiceItems.controls; let i = index;">
+              <tr [formGroup]="getFormGroupAtIndex(i)">
+                <td>
+                  <input-field
+                    [showLabel]="false"
+                    placeholder="Item"
+                    controlName="name" 
+                    >
+                  </input-field>
+                </td>
+                <td>
+                  <input-field
+                    [showLabel]="false"
+                    placeholder="0"
+                    controlName="quantity" 
+                    [centered]="true"
+                    >
+                  </input-field>
+                </td>
+                <td>
+                  <input-field
+                    [showLabel]="false"
+                    placeholder="0"
+                    controlName="price" 
+                    >
+                  </input-field>
+                </td>
+                <td class="totals-container">
+                  <span>155</span>
+                  <img (click)="removeItem(i)" src="/assets/icon-delete.svg" alt="delete.ico">
+                </td>
+              </tr>
+            </ng-container>
+
           </table>
 
           <div class="fields-grid-container add-item-container">
-            <button class="button button-aux">+ Add New Item</button>
+            <button (click)="addItem()" type="button" class="button button-aux">+ Add New Item</button>
           </div>
 
       </div>
@@ -109,8 +175,8 @@
     <div class="controls-flex-container">
       <button (click)="closeForm()" class="button button-aux">Discard</button>
       <div>
-        <button class="button button-secondary">Save as Draft</button>
-        <button class="button button-primary">Save & Send</button>
+        <button type="button" class="button button-secondary">Save as Draft</button>
+        <button (click)="onSubmit()" type="button" class="button button-primary">Save & Send</button>
       </div>
     </div>
   </div>
