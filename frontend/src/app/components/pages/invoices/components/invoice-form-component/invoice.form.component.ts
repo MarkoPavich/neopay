@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
+import { Invoice, InvoiceItem } from 'src/app/models/models';
 
 @Component({
   selector: 'invoice-form',
@@ -44,25 +45,32 @@ export class InvoiceFormComponent implements OnInit {
     return this.invoiceItems.at(index) as FormGroup
   }
 
-  closeForm(){
+  getTotal(index: number): string{
+    const item: InvoiceItem = this.invoiceItems.at(index).value;
+    const total = item.price * item.quantity;
+    return `${total.toFixed(2)}` // TODO - add better rounding
+  }
+
+  closeForm(): void{
     this._isActive = false;
   }
 
-  showAddNew(){
+  showAddNew(): void{
     this._isNew = true;
     this._isActive = true;
   }
 
-  addItem(){
+  addItem(): void{
     this.invoiceItems.push(this.formFactory.invoiceItemForm(this.formBuilder));
   }
 
-  removeItem(index: number){
+  removeItem(index: number): void{
     this.invoiceItems.removeAt(index);
   }
 
-  onSubmit(){
-    console.log(this._invoiceForm.value);
+  onSubmit(): void{
+    const invoice: Invoice = this._invoiceForm.value;
+    console.log(invoice.items);
   }
 
 }
