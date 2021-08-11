@@ -11,7 +11,7 @@ export class InvoicesListComponent {
   constructor() { }
 
   handleAddNew(){
-    this._InvoiceForm?.showAddNew();
+    this._InvoiceForm?.openNewForm();
   }
 
 }

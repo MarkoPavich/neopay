@@ -18,7 +18,7 @@ export class InvoiceFormComponent implements OnInit {
 
   constructor (
     private formBuilder: FormBuilder,
-    private formFactory: FormFactory,
+    private formFactory: FormFactory
     ) {}
 
   ngOnInit(){
@@ -53,9 +53,11 @@ export class InvoiceFormComponent implements OnInit {
 
   closeForm(): void{
     this._isActive = false;
+    this._invoiceForm.reset();
   }
 
-  showAddNew(): void{
+  openNewForm(): void{
+    this.invoiceForm.reset();
     this._isNew = true;
     this._isActive = true;
   }
@@ -70,7 +72,7 @@ export class InvoiceFormComponent implements OnInit {
 
   onSubmit(): void{
     const invoice: Invoice = this._invoiceForm.value;
-    console.log(invoice.items);
+    console.log(invoice);
   }
 
 }
