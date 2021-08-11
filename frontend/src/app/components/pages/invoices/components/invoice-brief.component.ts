@@ -2,22 +2,22 @@ import { Component, Input } from '@angular/core';
 import { Invoice } from 'src/app/models/models';
 
 @Component({
-  selector: 'invoice-item',
+  selector: 'invoice-brief',
   template: `
     
     <div class="content-container">
       <div class="container-left">
         <span class="hash-prefix">#</span>
-        <span>RTX3080</span>
+        <span>{{invoice.id}}</span>
       </div>
       <div class="container-middle">
-        <span>Due  19 Aug 2021</span>
-        <span>Jensen Huang</span>
+        <span>Due {{invoice.billTo.terms}}</span>
+        <span>{{invoice.billTo.clientName}}</span>
       </div>
       <div class="container-right">
         <div class="price-box">
           <span>£ </span>
-          <span>1,800.90</span>
+          <span>{{total}}</span>
         </div>
         <status-info-button></status-info-button>
       </div>
@@ -26,10 +26,20 @@ import { Invoice } from 'src/app/models/models';
   styleUrls: ['./invoice.component.scss']
 })
 
-export class InvoiceItemComponent {
+export class InvoiceBriefComponent {
   @Input('invoice') _invoice!: Invoice;
 
   get invoice(): Invoice{
     return this._invoice
+  }
+
+  get total(): string{
+    let total = 0;
+    for(const item of this.invoice.items){
+      total = total + item.price * item.quantity;
+    }
+
+    // TODO - rework this
+    return total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 }

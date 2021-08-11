@@ -7,6 +7,7 @@ export type InvoiceItem = {
 }
 
 export type Invoice = {
+  id: string;
   billFrom: {
     streetAddress: string;
     city: string;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Invoice } from 'src/app/models/models';
 
 @Component({
-  selector: 'invoice-item',
+  selector: 'invoice-brief',
   template: `
     
     <div class="content-container">
@@ -26,7 +26,7 @@ import { Invoice } from 'src/app/models/models';
   styleUrls: ['./invoice.component.scss']
 })
 
-export class InvoiceItemComponent {
+export class InvoiceBriefComponent {
   @Input('invoice') _invoice!: Invoice;
 
   get invoice(): Invoice{

@@ -8,6 +8,7 @@ export class FormFactory{
 
   invoiceForm(formBuilder: FormBuilder): FormGroup{
     return formBuilder.group({
+      id: '',
       billFrom: formBuilder.group({
         streetAddress: '',
         city: '',

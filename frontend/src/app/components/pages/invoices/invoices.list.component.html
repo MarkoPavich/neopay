@@ -5,11 +5,8 @@
 <invoice-form></invoice-form>
 <div class="content-container">
   <div class="invoices-list-container">
-    <invoice></invoice>
-    <invoice></invoice>
-    <invoice></invoice>
-    <invoice></invoice>
-    <invoice></invoice>
-    <invoice></invoice>
+    <ng-container *ngFor="let item of invoices">
+      <invoice-brief [invoice]="item"></invoice-brief>
+    </ng-container>
   </div>
 </div>
