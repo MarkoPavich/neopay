@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
+import { InvoiceService } from 'src/app/services/http/invoice.service';
 
 @Component({
   selector: 'invoice-form',
@@ -18,7 +19,8 @@ export class InvoiceFormComponent implements OnInit {
 
   constructor (
     private formBuilder: FormBuilder,
-    private formFactory: FormFactory
+    private formFactory: FormFactory,
+    private service: InvoiceService
     ) {}
 
   ngOnInit(){
@@ -70,9 +72,10 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceItems.removeAt(index);
   }
 
-  onSubmit(): void{
+  async onSubmit(): Promise<void>{
     const invoice: Invoice = this._invoiceForm.value;
-    console.log(invoice);
+    await this.service.post(invoice);
+    this.closeForm();
   }
 
 }
