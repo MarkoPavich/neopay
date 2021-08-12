@@ -9,7 +9,7 @@ import { InvoiceFormComponent } from './components/invoice-form-component/invoic
   styleUrls: ['./invoices.list.component.scss']
 })
 export class InvoicesListComponent implements OnInit {
-  @ViewChild(InvoiceFormComponent) _InvoiceForm: InvoiceFormComponent | undefined;
+  @ViewChild(InvoiceFormComponent) _invoiceForm: InvoiceFormComponent | undefined;
 
   private _invoices: Invoice[] = [];
 
@@ -27,8 +27,13 @@ export class InvoicesListComponent implements OnInit {
     this._invoices = await this.service.get();
   }
 
-  handleAddNew(){
-    this._InvoiceForm?.openNewForm();
+  handleOpenNew(){
+    this._invoiceForm?.openNewForm();
+  }
+
+  async handleOpenEdit(invoiceId: string){
+    const invoice = await this.service.getById(invoiceId);
+    this._invoiceForm?.openEditForm(invoice);
   }
 
 }

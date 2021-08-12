@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'status-info-button',
+  selector: 'status-info-label',
   template: `
     
     <div class="content-container">
-      <button>
-        <span class="bulletpoint">•</span>
+      <div class="info-label">
+        <div class="bulletpoint"></div>
         <span class="status-span">Paid</span>
-      </button>
+      </div>
 
       <img src="./assets/icon-arrow-right.svg" alt="gotoDetails.img">
     </div>
 
     `,
-    styleUrls: ['./status.info.button.component.scss']
+    styleUrls: ['./status-info-label.component.scss']
 })
 
-export class StatusInfoButtonComponent {}
+export class StatusInfoLabelComponent {}

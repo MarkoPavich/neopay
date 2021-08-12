@@ -12,10 +12,8 @@ import { InvoiceService } from 'src/app/services/http/invoice.service';
 
 export class InvoiceFormComponent implements OnInit {
   private _isNew: boolean = true;
-  private _isActive: boolean = true;
+  private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
-
-  public _tmpInvoiceName: string = 'RT3080';
 
   constructor (
     private formBuilder: FormBuilder,
@@ -43,6 +41,10 @@ export class InvoiceFormComponent implements OnInit {
     return this._invoiceForm.get('items') as FormArray;
   }
 
+  get invoiceId(): string{
+    return this._invoiceForm.get('id')?.value;
+  }
+
   getFormGroupAtIndex(index: number): FormGroup{
     return this.invoiceItems.at(index) as FormGroup
   }
@@ -59,9 +61,23 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   openNewForm(): void{
-    this.invoiceForm.reset();
+    this._invoiceForm.reset();
     this._isNew = true;
     this._isActive = true;
+  }
+
+  openEditForm(invoice: Invoice){
+    this._invoiceForm.reset();
+
+    this._invoiceForm.controls['id'].setValue(invoice.id);
+    this._invoiceForm.controls['billFrom'].setValue(invoice.billFrom);
+    this._invoiceForm.controls['billTo'].setValue(invoice.billTo);
+    this._invoiceForm.controls['items'].setValue(invoice.items);
+
+    this._isNew = false;
+    this._isActive = true;
+
+    invoice.id = "TestTEst"
   }
 
   addItem(): void{

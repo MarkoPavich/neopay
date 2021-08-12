@@ -6,11 +6,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./invoices.header.component.scss']
 })
 export class InvoicesHeaderComponent {
-  @Output() onAddNewInvoice = new EventEmitter<void>();
+  @Output('onClick') _clickEmitter = new EventEmitter<void>();
 
   constructor() {}
 
   onAddNew(){
-    this.onAddNewInvoice.emit();
+    this._clickEmitter.emit();
   }
 }

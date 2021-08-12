@@ -6,7 +6,7 @@ import { SharedComponentsModule } from '../../shared/shared.components.module.ts
 
 import { InvoicesListComponent } from './invoices.list.component';
 import { InvoiceBriefComponent } from './components/invoice-brief.component';
-import { StatusInfoButtonComponent } from './components/status.info.button.component';
+import { StatusInfoLabelComponent } from './components/status-info-label.component';
 import { InvoicesHeaderComponent } from './components/invoices.header.component'
 import { InvoiceFormComponent } from './components/invoice-form-component/invoice.form.component';
 
@@ -16,7 +16,7 @@ import { InvoiceFormComponent } from './components/invoice-form-component/invoic
     InvoicesListComponent,
     InvoicesHeaderComponent,
     InvoiceBriefComponent,
-    StatusInfoButtonComponent,
+    StatusInfoLabelComponent,
     InvoiceFormComponent,
   ],
   exports: [

@@ -1,12 +1,12 @@
 <invoices-header-component 
-  (onAddNewInvoice)="handleAddNew()"
+  (onClick)="handleOpenNew()"
   >
 </invoices-header-component>
 <invoice-form></invoice-form>
 <div class="content-container">
   <div class="invoices-list-container">
     <ng-container *ngFor="let item of invoices">
-      <invoice-brief [invoice]="item"></invoice-brief>
+      <invoice-brief (onClick)="handleOpenEdit($event)" [invoice]="item"></invoice-brief>
     </ng-container>
   </div>
 </div>

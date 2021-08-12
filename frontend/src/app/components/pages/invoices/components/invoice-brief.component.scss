@@ -13,6 +13,14 @@
 
   background-color: white;
   border-radius: 8px;
+  border: solid 1px transparent;
+
+  transition: border-color 0.2s ease;
+}
+
+.content-container:hover{
+  cursor: pointer;
+  border-color: $color-primary-main;
 }
 
 .container-left{

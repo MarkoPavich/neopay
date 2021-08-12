@@ -2,7 +2,7 @@
   <div class="form-container"> 
     <form [formGroup]="invoiceForm">
       <header>
-        <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{_tmpInvoiceName}}</h2>
+        <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{invoiceId}}</h2>
         <h2 *ngIf="isNew">New Invoice</h2>
       </header>
 
