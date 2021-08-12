@@ -76,8 +76,6 @@ export class InvoiceFormComponent implements OnInit {
 
     this._isNew = false;
     this._isActive = true;
-
-    invoice.id = "TestTEst"
   }
 
   addItem(): void{
