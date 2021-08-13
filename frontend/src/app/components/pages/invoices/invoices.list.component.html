@@ -5,8 +5,18 @@
 <invoice-form></invoice-form>
 <div class="content-container">
   <div class="invoices-list-container">
+
+    <div *ngIf="invoices.length === 0" class="no-content-container">
+        <img src="assets\illustration-empty.svg" alt="no-invoices.img">
+      <div class="no-content-msg-container">
+        <h3>There is nothing here</h3>
+        <span>Create an invoice by clicking the <strong>New Invoice</strong> button and get started</span>
+      </div>
+    </div>
+
     <ng-container *ngFor="let item of invoices">
       <invoice-brief (onClick)="handleOpenEdit($event)" [invoice]="item"></invoice-brief>
     </ng-container>
+
   </div>
 </div>
