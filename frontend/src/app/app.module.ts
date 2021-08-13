@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { PageFrameComponent } from './components/layout/page-frame/page-frame.component';
 
-import { InvoicesModule } from './components/pages/invoices/invoices.module';
+import { InvoicesModule } from './components/pages/invoices-list/invoices.module';
 
 @NgModule({
   declarations: [
