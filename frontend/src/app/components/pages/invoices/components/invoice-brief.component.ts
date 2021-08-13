@@ -19,7 +19,10 @@ import { Invoice } from 'src/app/models/models';
           <span>£ </span>
           <span>{{total}}</span>
         </div>
-        <status-info-label></status-info-label>
+        <div class="status-container">
+          <status-info-label></status-info-label>
+          <img src="./assets/icon-arrow-right.svg" alt="gotoDetails.img">
+        </div>
       </div>
     </div>
     `,
