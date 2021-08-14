@@ -11,7 +11,7 @@ export type Invoice = {
   billFrom: {
     streetAddress: string;
     city: string;
-    postCOde: string;
+    postCode: string;
     country: string;
   };
   billTo: {
