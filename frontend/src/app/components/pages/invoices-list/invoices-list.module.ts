@@ -26,4 +26,4 @@ import { InvoiceFormComponent } from './components/invoice-form-component/invoic
     ReactiveFormsModule
   ]
 })
-export class InvoicesModule { }
+export class InvoicesListModule { }

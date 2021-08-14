@@ -14,6 +14,37 @@
   }
 }
 
+.arrowAnchor{
+  width: 81px;
+  height: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  text-decoration: none;
+  color: black;
+
+  &:visited, &:active{
+    color: inherit;
+  }
+
+  img{
+    height: 8px;
+  }
+
+  span{
+    font-size: 12px;
+    font-weight: bold;
+  
+    transition: color 0.2s ease;
+  }
+
+  &:hover{
+    color: $color-contrast-medium-lighter;
+  }
+}
+
 .button{
   height: 48px;
 
@@ -39,6 +70,11 @@
 .button-aux{
   color: $color-contrast-medium-lighter;
   background-color: #F9FAFE;
+}
+
+.button-danger{
+  color: white;
+  background-color: $color-danger;
 }
 
 .button-secondary{

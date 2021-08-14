@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { PageFrameComponent } from './components/layout/page-frame/page-frame.component';
 
-import { InvoicesModule } from './components/pages/invoices-list/invoices.module';
+import { InvoicesListModule } from './components/pages/invoices-list/invoices-list.module';
+import { InvoiceModule } from './components/pages/invoice/invoice.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { InvoicesModule } from './components/pages/invoices-list/invoices.module
   imports: [
     BrowserModule,
     AppRoutingModule,
-    InvoicesModule
+    InvoicesListModule,
+    InvoiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

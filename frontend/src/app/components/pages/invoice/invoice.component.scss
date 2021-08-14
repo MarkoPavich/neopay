@@ -1,0 +1,134 @@
+@import 'src/styles/utilities';
+
+.back-link{
+  margin-top: 64px;
+}
+
+.page-header{
+  height: 88px;
+  
+  margin-top: 32px;
+
+  padding-left: 32px;
+  padding-right: 32px;
+
+  background-color: white;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button{
+    margin-left: 8px;
+  }
+}
+
+.status-info-container{
+  display: flex;
+  align-items: center;
+
+  span{
+    color: #858BB2;
+    font-size: 12px;
+
+    margin-right: 16px;
+  }
+}
+
+article{
+  margin-top: 24px;
+  padding: 48px;
+
+  background-color: white;
+  border-radius: 8px;
+}
+
+.invoice-header{
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 21px;
+
+  h4 span{
+    color: $color-contrast-medium-darker;
+    font-size: 18px;
+  }
+  span{
+    color: $color-contrast-medium-lighter;
+  }
+}
+
+.id-desc-container > span{
+  display: block;
+  margin-top: 8px;
+}
+
+.address-info-container span{
+  display: block;
+  text-align: right;
+
+  font-size: 11px;
+}
+
+.address-info-container span:not(:last-child){
+  margin-bottom: 3px;
+}
+
+.invoice-details-container{
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+}
+
+.txt-light{
+  color: $color-contrast-medium-lighter;
+  font-size: 12px;
+}
+
+.txt-strong{
+  margin-top: 12px;
+
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.dates-container{
+  display: flex;
+  flex-direction: column;
+
+  & span{
+    display: block;
+  }
+
+  & div:not(:last-child){
+    margin-bottom: 32px;
+  }
+}
+
+.client-info-container span{
+  display: block;
+  color: $color-contrast-medium-lighter;
+  font-size: 12px;
+}
+
+.client-info-container span:not(:last-child){
+  margin-bottom: 4px;
+}
+
+.client-info-container span:nth-child(2){
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.mail-recipient-container span{
+  display: block;
+}
+
+.mail-recipient-container > .txt-strong{
+  margin-top: 9px;
+}
+
+
