@@ -1,69 +1,91 @@
-<a routerLink="tmp" class="arrowAnchor back-link">
+<a [routerLink]="homeUrl" class="arrowAnchor back-link">
   <img src="assets/icon-arrow-left.svg" alt="">
   <span>Go Back</span>
 </a>
 
-<header class="page-header">
-  <div class="status-info-container">
-    <span>Status</span>
-    <status-info-label></status-info-label>
-  </div>
-
-  <div class="controls-container">
-    <button class="button button-aux">Edit</button>
-    <button class="button button-danger">Delete</button>
-    <button class="button button-primary">Mark as Paid</button>
-  </div>
-  
-</header>
-
-<article>
-  <header class="invoice-header">
-    <div class="id-desc-container">
-      <h4><span>#</span>XM9141</h4>
-      <span>Graphic Design</span>
+<ng-container *ngIf="haveModel">
+  <header class="page-header">
+    <div class="status-info-container">
+      <span>Status</span>
+      <status-info-label></status-info-label>
     </div>
-    <div class="address-info-container">
-      <span>19 Union Terrace</span>
-      <span>London</span>
-      <span>E1 3EZ</span>
-      <span>United Kingdom</span>
+
+    <div class="controls-container">
+      <button class="button button-aux">Edit</button>
+      <button class="button button-danger">Delete</button>
+      <button class="button button-primary">Mark as Paid</button>
     </div>
+    
   </header>
 
-  <section class="invoice-details-container">
-    <div class="dates-container">
-      <div>
-        <span class="txt-light">Invoice Date</span>
-        <span class="txt-strong">21 Aug 2021</span>
+  <article>
+    <header class="invoice-header">
+      <div class="id-desc-container">
+        <h4><span>#</span>{{invoiceId}}</h4>
+        <span>Graphic Design</span>
       </div>
-      <div>
-        <span class="txt-light">Payment Due</span>
-        <span class="txt-strong">20 Sep 2021</span>
+      <div class="address-info-container">
+        <span>19 Union Terrace</span>
+        <span>London</span>
+        <span>E1 3EZ</span>
+        <span>United Kingdom</span>
       </div>
-    </div>
+    </header>
 
-    <div class="client-info-container">
-      <span>Bill To</span>
-      <span class="txt-strong">Alex Grim</span>
-      <span>84 Church Way</span>
-      <span>Bradford</span>
-      <span>BD1 9PB</span>
-      <span>United Kingdom</span>
-    </div>
-    <div class="mail-recipient-container">
-      <span class="txt-light">Sent to</span>
-      <span class="txt-strong">alexgrim@mail.com</span>
-    </div>
-  </section>
+    <section class="invoice-details-container">
+      <div class="dates-container">
+        <div>
+          <span class="txt-light">Invoice Date</span>
+          <span class="txt-strong">21 Aug 2021</span>
+        </div>
+        <div>
+          <span class="txt-light">Payment Due</span>
+          <span class="txt-strong">20 Sep 2021</span>
+        </div>
+      </div>
 
-  <section class="invoice-item-details">
-    <div class="items-list">
-      
-    </div>
-    <div class="sum-container">
+      <div class="client-info-container">
+        <span>Bill To</span>
+        <span class="txt-strong">Alex Grim</span>
+        <span>84 Church Way</span>
+        <span>Bradford</span>
+        <span>BD1 9PB</span>
+        <span>United Kingdom</span>
+      </div>
+      <div class="mail-recipient-container">
+        <span class="txt-light">Sent to</span>
+        <span class="txt-strong">alexgrim@mail.com</span>
+      </div>
+    </section>
 
-    </div>
-  </section>
+    <section class="invoice-item-details">
+      <div class="items-table-container">
+        <table>
+          <thead>
+            <th>Item Name</th>
+            <th>QTY.</th>
+            <th>Price</th>
+            <th>total</th>
+          </thead>
+          <tr>
+            <td>Banner Design</td>
+            <td>1</td>
+            <td>£ 156.00</td>
+            <td>£ 156.00</td>
+          </tr>
+          <tr>
+            <td>Email Design</td>
+            <td>2</td>
+            <td>£ 200.00</td>
+            <td>£ 400.00</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <section class="sum-container">
+      <span>Amount Due</span>
+      <span>£ 556.00</span>
+    </section>
 
-</article>
+  </article>
+</ng-container>

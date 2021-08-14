@@ -30,10 +30,4 @@ export class InvoicesListComponent implements OnInit {
   handleOpenNew(){
     this._invoiceForm?.openNewForm();
   }
-
-  async handleOpenEdit(invoiceId: string){
-    const invoice = await this.service.getById(invoiceId);
-    this._invoiceForm?.openEditForm(invoice);
-  }
-
 }

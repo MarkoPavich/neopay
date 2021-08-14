@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Invoice } from 'src/app/models/models';
+import { URLS } from 'src/app/constants/routing-constants';
 
 @Component({
   selector: 'invoice-brief',
   template: `
     
-    <div (click)="onClick()" class="content-container">
+    <div (click)="navigateInvoice()" class="content-container">
       <div class="container-left">
         <span class="hash-prefix">#</span>
         <span>{{invoice.id}}</span>
@@ -31,7 +33,8 @@ import { Invoice } from 'src/app/models/models';
 
 export class InvoiceBriefComponent {
   @Input('invoice') _invoice!: Invoice;
-  @Output('onClick') _clickEmitter = new EventEmitter<string>()
+
+  constructor(private router: Router) {}
 
   get invoice(): Invoice{
     return this._invoice
@@ -47,7 +50,7 @@ export class InvoiceBriefComponent {
     return total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  onClick(): void {
-    this._clickEmitter.emit(this._invoice.id);
+  navigateInvoice(): void {
+    this.router.navigate([URLS.invoice, {id: this._invoice.id}])
   }
 }

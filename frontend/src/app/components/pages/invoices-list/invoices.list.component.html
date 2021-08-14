@@ -15,7 +15,7 @@
     </div>
 
     <ng-container *ngFor="let item of invoices">
-      <invoice-brief (onClick)="handleOpenEdit($event)" [invoice]="item"></invoice-brief>
+      <invoice-brief [invoice]="item"></invoice-brief>
     </ng-container>
 
   </div>
