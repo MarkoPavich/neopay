@@ -1,3 +1,5 @@
+<invoice-form (onSuccess)="loadInvoice()"></invoice-form>
+
 <a [routerLink]="homeUrl" class="arrowAnchor back-link">
   <img src="assets/icon-arrow-left.svg" alt="">
   <span>Go Back</span>
@@ -11,8 +13,8 @@
     </div>
 
     <div class="controls-container">
-      <button class="button button-aux">Edit</button>
-      <button class="button button-danger">Delete</button>
+      <button (click)="handleOnEdit()" class="button button-aux">Edit</button>
+      <button (click)="handleOnDelete()" class="button button-danger">Delete</button>
       <button class="button button-primary">Mark as Paid</button>
     </div>
     

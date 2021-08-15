@@ -9,7 +9,7 @@ import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoic
   styleUrls: ['./invoices.list.component.scss']
 })
 export class InvoicesListComponent implements OnInit {
-  @ViewChild(InvoiceFormComponent) _invoiceForm: InvoiceFormComponent | undefined;
+  @ViewChild(InvoiceFormComponent) _invoiceForm!: InvoiceFormComponent;
 
   private _invoices: Invoice[] = [];
 
@@ -28,6 +28,6 @@ export class InvoicesListComponent implements OnInit {
   }
 
   handleOpenNew(){
-    this._invoiceForm?.openNewForm();
+    this._invoiceForm.openNewForm();
   }
 }

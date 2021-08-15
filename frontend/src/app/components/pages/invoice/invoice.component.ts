@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Invoice, InvoiceItem } from "src/app/models/models";
 import { InvoiceService } from "src/app/services/http/invoice.service";
 import { URLS } from "src/app/constants/routing-constants";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { InvoiceFormComponent } from "../../shared/invoice-form-component/invoice.form.component";
 
 @Component({
   selector: 'invoice',
@@ -11,23 +12,18 @@ import { Observable } from "rxjs";
   styleUrls: ['./invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit {
+  @ViewChild(InvoiceFormComponent) _invoiceForm!: InvoiceFormComponent;
+  
   private _invoice!: Invoice;
 
   constructor(
     private service: InvoiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
     ) {}
 
   ngOnInit() {
-    const invoiceId: string = this.route.snapshot.params.id;
-    new Observable(observer => {
-      this.service.getById(invoiceId).then((invoice: Invoice) =>{
-        observer.next(invoice);
-        observer.complete();
-      })
-    }).subscribe((invoice) => {
-      this._invoice = invoice as Invoice;
-    })
+    this.loadInvoice();
   }
 
   get homeUrl(): string{
@@ -64,9 +60,36 @@ export class InvoiceComponent implements OnInit {
     return `${total.toFixed(2)}`
   }
 
+  loadInvoice(){
+    const invoiceId: string = this.route.snapshot.params.id;
+    new Observable<Invoice>(observer => {
+      this.service.getById(invoiceId).then((invoice: Invoice) =>{
+        observer.next(invoice);
+        observer.complete();
+      })
+    }).subscribe((invoice) => {
+      this._invoice = invoice as Invoice;
+    })
+  }
+
   getItemSum(index: number): string{
     const item: InvoiceItem = this.invoiceItems[index];
     const sum = item.price * item.quantity;
     return `${sum.toFixed(2)}` // TODO - add better rounding
+  }
+
+  handleOnEdit(){
+    this._invoiceForm.openEditForm(this._invoice);
+  }
+
+  handleOnDelete(){
+    new Observable<void>(observer => {
+      this.service.delete(this._invoice.id).then(() =>{
+        observer.next();
+        observer.complete();
+      })
+    }).subscribe(() => {
+      this.router.navigate([URLS.home]);
+    })
   }
 }

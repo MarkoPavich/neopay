@@ -30,4 +30,16 @@ export class InvoiceService{
       throw new Error("No invoice with provided ID exists");
     }
   }
+
+  async put(invoice: Invoice){
+    await new Promise(resolve => setTimeout(resolve, 500));
+    this._invoices = this._invoices.map(inv => {
+      return inv.id === invoice.id ? invoice : inv;
+    })
+  }
+
+  async delete(id: string){
+    await new Promise(resolve => setTimeout(resolve, 500));
+    this._invoices = this._invoices.filter(invoice => invoice.id !== id);
+  }
 }

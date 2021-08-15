@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
@@ -11,6 +11,8 @@ import { InvoiceService } from 'src/app/services/http/invoice.service';
 })
 
 export class InvoiceFormComponent implements OnInit {
+  @Output('onSuccess') _eventEmitter = new EventEmitter<void>();
+
   private _isNew: boolean = true;
   private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
@@ -86,10 +88,20 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceItems.removeAt(index);
   }
 
+  onSuccess(){
+    this._eventEmitter.emit();
+  }
+
   async onSubmit(): Promise<void>{
     const invoice: Invoice = this._invoiceForm.value;
-    await this.service.post(invoice);
+    if(this._isNew){
+      await this.service.post(invoice);
+    }
+    else{
+      await this.service.put(invoice);
+    }
     this.closeForm();
+    this.onSuccess();
   }
 
 }
