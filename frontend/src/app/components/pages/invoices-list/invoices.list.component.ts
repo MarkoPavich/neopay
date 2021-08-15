@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Invoice } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
-import { InvoiceFormComponent } from './components/invoice-form-component/invoice.form.component';
+import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 
 @Component({
   selector: 'invoices-list-component',

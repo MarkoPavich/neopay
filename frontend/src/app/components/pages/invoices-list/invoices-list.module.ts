@@ -7,7 +7,6 @@ import { SharedComponentsModule } from '../../shared/shared.components.module.ts
 import { InvoicesListComponent } from './invoices.list.component';
 import { InvoiceBriefComponent } from './components/invoice-brief.component';
 import { InvoicesHeaderComponent } from './components/invoices.header.component'
-import { InvoiceFormComponent } from './components/invoice-form-component/invoice.form.component';
 
 
 @NgModule({
@@ -15,7 +14,6 @@ import { InvoiceFormComponent } from './components/invoice-form-component/invoic
     InvoicesListComponent,
     InvoicesHeaderComponent,
     InvoiceBriefComponent,
-    InvoiceFormComponent,
   ],
   exports: [
     InvoicesListComponent
