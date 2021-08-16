@@ -21,8 +21,8 @@ export type Invoice = {
     city: string;
     postCode: string;
     country: string;
-    date: string;
-    terms: string;
+    invoiceDate: string;
+    dueDate: string;
     description: string;
   },
   items: InvoiceItem[];

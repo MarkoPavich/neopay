@@ -16,7 +16,7 @@ namespace NeoPay.Models
         public string Name { get; set; }
         public Contact Contact { get; set; }
         public string InvoiceDate { get; set; }  // TODO - datetime dates
-        public string PaymentDue { get; set; }
+        public string DueDate { get; set; }
     }
 
     public class Contact

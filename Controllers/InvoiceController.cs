@@ -2,6 +2,7 @@
 using NeoPay.Dtos;
 using NeoPay.Models;
 using NeoPay.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +37,27 @@ namespace NeoPay.Controllers
             }
 
             return Ok(invoice.ToDto());
+        }
+
+        [HttpPost]
+        public IActionResult Post(InvoiceDto invoiceDto)
+        {
+            // TODO - rework this
+            try
+            {
+                invoiceDto.GenerateId();
+                Invoice invoice = invoiceDto.FromDto();
+
+                repository.StoreNew(invoice);
+
+                return Ok(invoice);
+            }
+
+            catch(Exception ex)
+            {
+                return BadRequest(ex); 
+            }
+
         }
     }
 }

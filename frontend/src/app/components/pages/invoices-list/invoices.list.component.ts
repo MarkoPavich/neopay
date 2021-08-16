@@ -23,8 +23,10 @@ export class InvoicesListComponent implements OnInit {
     return this._invoices;
   }
 
-  async getInvoices(){
-    this._invoices = await this.service.get();
+  getInvoices(){
+    this.service.get().subscribe((invoices: Invoice[]) => {
+      this._invoices = invoices;
+    })
   }
 
   handleOpenNew(){

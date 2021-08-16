@@ -22,8 +22,8 @@ export class FormFactory{
         city: '',
         postCode: '',
         country: '',
-        date: '',
-        terms: '',
+        invoiceDate: '',
+        dueDate: '',
         description: ''
       }),
       items: formBuilder.array([this.invoiceItemForm(formBuilder)])

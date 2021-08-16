@@ -13,7 +13,7 @@ import { URLS } from 'src/app/constants/routing-constants';
         <span>{{invoice.id}}</span>
       </div>
       <div class="container-middle">
-        <span>Due {{invoice.billTo.terms}}</span>
+        <span>Due {{invoice.billTo.dueDate}}</span>
         <span>{{invoice.billTo.clientName}}</span>
       </div>
       <div class="container-right">

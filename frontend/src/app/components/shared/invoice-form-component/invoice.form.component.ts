@@ -11,8 +11,6 @@ import { InvoiceService } from 'src/app/services/http/invoice.service';
 })
 
 export class InvoiceFormComponent implements OnInit {
-  @Output('onSuccess') _eventEmitter = new EventEmitter<void>();
-
   private _isNew: boolean = true;
   private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
@@ -88,20 +86,17 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceItems.removeAt(index);
   }
 
-  onSuccess(){
-    this._eventEmitter.emit();
-  }
-
   async onSubmit(): Promise<void>{
     const invoice: Invoice = this._invoiceForm.value;
     if(this._isNew){
-      await this.service.post(invoice);
+      this.service.post(invoice).subscribe((value) => {
+        console.log(value)
+        this.closeForm();
+      })
     }
     else{
       await this.service.put(invoice);
     }
-    this.closeForm();
-    this.onSuccess();
   }
 
 }

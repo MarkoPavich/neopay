@@ -25,7 +25,7 @@ namespace NeoPay
                 options.AddDefaultPolicy(builder =>
                 {
                     builder.AllowAnyOrigin()  // TODO - define allowed origins 
-                        .AllowAnyMethod()
+                        .AllowAnyMethod()     // TODO - debug firefox
                         .AllowAnyHeader();
                 });
             });

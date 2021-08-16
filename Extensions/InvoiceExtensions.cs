@@ -15,7 +15,40 @@ namespace NeoPay
             {
                 Id = invoice.Id,
                 BillFrom = invoice.BillFrom,
-                BillTo = invoice.BillTo,
+                BillTo = new PayerDto()
+                {
+                    ClientName = invoice.BillTo.Name,
+                    City = invoice.BillTo.Contact.City,
+                    Country = invoice.BillTo.Contact.Country,
+                    ClientEmail = invoice.BillTo.Contact.Email,
+                    InvoiceDate = invoice.BillTo.InvoiceDate,
+                    DueDate = invoice.BillTo.DueDate
+                },
+                Items = invoice.Items
+            };
+        }
+
+        public static Invoice FromDto(this InvoiceDto invoice)
+        {
+
+            return new Invoice()
+            {
+                Id = invoice.Id,
+                BillFrom = invoice.BillFrom,
+                BillTo = new Payer()
+                {
+                    Name = invoice.BillTo.ClientName,
+                    InvoiceDate = invoice.BillTo.InvoiceDate,
+                    DueDate = invoice.BillTo.DueDate,
+                    Contact = new Contact()
+                    {
+                        City = invoice.BillTo.City,
+                        Country = invoice.BillTo.Country,
+                        Email = invoice.BillTo.ClientEmail,
+                        PostCode = invoice.BillTo.PostCode,
+                        StreetAddress = invoice.BillTo.StreetAddress
+                    }
+                },
                 Items = invoice.Items
             };
         }

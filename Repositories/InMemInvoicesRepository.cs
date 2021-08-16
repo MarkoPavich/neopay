@@ -18,5 +18,10 @@ namespace NeoPay.Repositories
         {
             return Invoices.Where(a => a.Id == Id).SingleOrDefault();
         }
+
+        public void StoreNew(Invoice invoice)
+        {
+            Invoices.Add(invoice);
+        }
     }
 }

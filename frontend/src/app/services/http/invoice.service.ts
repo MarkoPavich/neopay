@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Invoice } from 'src/app/models/models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService{
+  private _apiUrl = 'https://localhost:44332/api/invoice'  // TODO - refactor via config
+
   private _invoices: Invoice[] = [];
 
-  async get(): Promise<Invoice[]>{
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return this._invoices;
+  constructor(private http: HttpClient){}
+
+  getHttpOptions(){
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
   }
 
-  async post(invoice: Invoice){
-    // TODO - handle ID serverside, ofc
-    invoice.id = Math.random().toString(36).replace(/[^0-9]+/g, '').substr(0, 6),
-    await new Promise(resolve => setTimeout(resolve, 500));
-    this._invoices.push(invoice);
+  get(): Observable<Invoice[]>{
+    return this.http.get<Invoice[]>(this._apiUrl)
+  }
+
+  post(invoice: Invoice): Observable<any>{
+    return this.http.post(`${this._apiUrl}`, invoice, this.getHttpOptions())
   }
 
   async getById(invoiceId: string): Promise<Invoice>{
