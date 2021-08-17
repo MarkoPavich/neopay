@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class InvoiceService{
   private _apiUrl = 'https://localhost:44332/api/invoice'  // TODO - refactor via config
-
-  private _invoices: Invoice[] = [];
-
+  
   constructor(private http: HttpClient){}
 
   getHttpOptions(){
@@ -26,30 +24,18 @@ export class InvoiceService{
   }
 
   post(invoice: Invoice): Observable<any>{
-    return this.http.post(`${this._apiUrl}`, invoice, this.getHttpOptions())
+    return this.http.post(this._apiUrl, invoice, this.getHttpOptions());
   }
 
-  async getById(invoiceId: string): Promise<Invoice>{
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const invoice = this._invoices.find(invoice => invoice.id === invoiceId);
-    
-    if(invoice){
-      return invoice;
-    }
-    else{
-      throw new Error("No invoice with provided ID exists");
-    }
+  put(invoice: Invoice): Observable<Invoice>{
+    return this.http.put<Invoice>(`${this._apiUrl}/${invoice.id}`, invoice, this.getHttpOptions());
   }
 
-  async put(invoice: Invoice){
-    await new Promise(resolve => setTimeout(resolve, 500));
-    this._invoices = this._invoices.map(inv => {
-      return inv.id === invoice.id ? invoice : inv;
-    })
+  getById(id: string): Observable<Invoice>{
+    return this.http.get<Invoice>(`${this._apiUrl}/${id}`);
   }
 
-  async delete(id: string){
-    await new Promise(resolve => setTimeout(resolve, 500));
-    this._invoices = this._invoices.filter(invoice => invoice.id !== id);
+  delete(id: string): Observable<void>{
+    return this.http.delete<void>(`${this._apiUrl}/${id}`);
   }
 }

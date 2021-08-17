@@ -11,6 +11,8 @@ import { InvoiceService } from 'src/app/services/http/invoice.service';
 })
 
 export class InvoiceFormComponent implements OnInit {
+  @Output('success') _eventEmitter = new EventEmitter<Invoice>();
+
   private _isNew: boolean = true;
   private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
@@ -69,10 +71,12 @@ export class InvoiceFormComponent implements OnInit {
   openEditForm(invoice: Invoice){
     this._invoiceForm.reset();
 
-    this._invoiceForm.controls['id'].setValue(invoice.id);
-    this._invoiceForm.controls['billFrom'].setValue(invoice.billFrom);
-    this._invoiceForm.controls['billTo'].setValue(invoice.billTo);
-    this._invoiceForm.controls['items'].setValue(invoice.items);
+    this._invoiceForm.patchValue({
+      id: invoice.id,
+      items: invoice.items,
+      billFrom: invoice.billFrom,
+      billTo: invoice.billTo
+    });
 
     this._isNew = false;
     this._isActive = true;
@@ -86,17 +90,19 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceItems.removeAt(index);
   }
 
-  async onSubmit(): Promise<void>{
+  onSubmit(): void{
     const invoice: Invoice = this._invoiceForm.value;
     if(this._isNew){
-      this.service.post(invoice).subscribe((value) => {
-        console.log(value)
-        this.closeForm();
-      })
+      this.service.post(invoice).subscribe(invoice => {
+        this._eventEmitter.emit(invoice);
+      });
     }
     else{
-      await this.service.put(invoice);
+      this.service.put(invoice).subscribe(invoice => {
+        this._eventEmitter.emit(invoice);
+      });
     }
+    this.closeForm();
   }
 
 }

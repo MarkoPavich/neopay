@@ -32,4 +32,8 @@ export class InvoicesListComponent implements OnInit {
   handleOpenNew(){
     this._invoiceForm.openNewForm();
   }
+
+  onSuccess(invoice: Invoice){
+    this._invoices.push(invoice);
+  }
 }

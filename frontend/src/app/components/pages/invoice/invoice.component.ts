@@ -3,7 +3,6 @@ import { Invoice, InvoiceItem } from "src/app/models/models";
 import { InvoiceService } from "src/app/services/http/invoice.service";
 import { URLS } from "src/app/constants/routing-constants";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
 import { InvoiceFormComponent } from "../../shared/invoice-form-component/invoice.form.component";
 
 @Component({
@@ -23,7 +22,10 @@ export class InvoiceComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.loadInvoice();
+    const invoiceId: string = this.route.snapshot.params.id;
+    this.service.getById(invoiceId).subscribe(invoice => {
+      this._invoice = invoice;
+    })
   }
 
   get homeUrl(): string{
@@ -60,18 +62,6 @@ export class InvoiceComponent implements OnInit {
     return `${total.toFixed(2)}`
   }
 
-  loadInvoice(){
-    const invoiceId: string = this.route.snapshot.params.id;
-    new Observable<Invoice>(observer => {
-      this.service.getById(invoiceId).then((invoice: Invoice) =>{
-        observer.next(invoice);
-        observer.complete();
-      })
-    }).subscribe((invoice) => {
-      this._invoice = invoice as Invoice;
-    })
-  }
-
   getItemSum(index: number): string{
     const item: InvoiceItem = this.invoiceItems[index];
     const sum = item.price * item.quantity;
@@ -82,13 +72,12 @@ export class InvoiceComponent implements OnInit {
     this._invoiceForm.openEditForm(this._invoice);
   }
 
+  onSuccess(invoice: Invoice){
+    this._invoice = invoice;
+  }
+
   handleOnDelete(){
-    new Observable<void>(observer => {
-      this.service.delete(this._invoice.id).then(() =>{
-        observer.next();
-        observer.complete();
-      })
-    }).subscribe(() => {
+    this.service.delete(this._invoice.id).subscribe(() => {
       this.router.navigate([URLS.home]);
     })
   }

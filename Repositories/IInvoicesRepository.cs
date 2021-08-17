@@ -9,5 +9,7 @@ namespace NeoPay.Repositories
         IEnumerable<Invoice> GetAll();
         Invoice GetById(string Id);
         void StoreNew(Invoice invoice);
+        void Update(Invoice invoice);
+        void Delete(string Id);
     }
 }

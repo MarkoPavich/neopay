@@ -21,5 +21,6 @@ namespace NeoPay.Dtos
         public string ClientEmail { get; set; } = string.Empty;
         public string InvoiceDate { get; set; }  // TODO - datetime dates
         public string DueDate { get; set; }
+        public string Description { get; set; }
     }
 }

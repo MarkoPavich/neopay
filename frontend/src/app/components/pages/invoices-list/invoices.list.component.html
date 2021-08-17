@@ -1,8 +1,9 @@
 <invoices-header-component 
   (onClick)="handleOpenNew()"
+  [invoicesNum]="invoices.length"
   >
 </invoices-header-component>
-<invoice-form></invoice-form>
+<invoice-form (success)="onSuccess($event)"></invoice-form>
 <div class="content-container">
   <div class="invoices-list-container">
 
@@ -16,7 +17,7 @@
 
     <ng-container *ngFor="let item of invoices">
       <invoice-brief [invoice]="item"></invoice-brief>
-    </ng-container>
+  </ng-container>
 
   </div>
 </div>

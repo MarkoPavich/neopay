@@ -22,7 +22,10 @@ namespace NeoPay
                     Country = invoice.BillTo.Contact.Country,
                     ClientEmail = invoice.BillTo.Contact.Email,
                     InvoiceDate = invoice.BillTo.InvoiceDate,
-                    DueDate = invoice.BillTo.DueDate
+                    DueDate = invoice.BillTo.DueDate,
+                    Description = invoice.BillTo.Description,
+                    StreetAddress = invoice.BillTo.Contact.StreetAddress,
+                    PostCode = invoice.BillTo.Contact.PostCode
                 },
                 Items = invoice.Items
             };
@@ -40,6 +43,7 @@ namespace NeoPay
                     Name = invoice.BillTo.ClientName,
                     InvoiceDate = invoice.BillTo.InvoiceDate,
                     DueDate = invoice.BillTo.DueDate,
+                    Description = invoice.BillTo.Description,
                     Contact = new Contact()
                     {
                         City = invoice.BillTo.City,

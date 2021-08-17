@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'invoices-header-component',
@@ -6,9 +6,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./invoices.header.component.scss']
 })
 export class InvoicesHeaderComponent {
+  @Input('invoicesNum') _invoicesNum: number = 0;
   @Output('onClick') _clickEmitter = new EventEmitter<void>();
 
   constructor() {}
+
+  get invoicesNum(): number{
+    return this._invoicesNum;
+  }
 
   onAddNew(){
     this._clickEmitter.emit();

@@ -7,7 +7,7 @@ namespace NeoPay.Repositories
 {
     public class InMemInvoicesRepository : IInvoicesRepository
     {
-        private readonly List<Invoice> Invoices = new(){};
+        private List<Invoice> Invoices = new(){};
 
         public IEnumerable<Invoice> GetAll()
         {
@@ -22,6 +22,30 @@ namespace NeoPay.Repositories
         public void StoreNew(Invoice invoice)
         {
             Invoices.Add(invoice);
+        }
+
+        public void Update(Invoice invoice)
+        {
+            List<Invoice> invoices = new();
+
+            Invoices.ForEach(inv =>
+            {
+                if(inv.Id == invoice.Id)
+                {
+                    invoices.Add(invoice);
+                }
+                else
+                {
+                    invoices.Add(inv);
+                }
+            });
+
+            Invoices = invoices;
+        }
+
+        public void Delete(string Id)
+        {
+            Invoices = Invoices.Where(x => x.Id != Id).ToList();
         }
     }
 }

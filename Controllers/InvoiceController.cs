@@ -20,7 +20,7 @@ namespace NeoPay.Controllers
             this.repository = repository;
         }
 
-       
+        [HttpGet]
         public ActionResult<IEnumerable<InvoiceDto>> Get()
         {
             IEnumerable<InvoiceDto> invoices = repository.GetAll().Select(inv => inv.ToDto());
@@ -30,17 +30,25 @@ namespace NeoPay.Controllers
         [HttpGet("{id}")]
         public ActionResult<InvoiceDto> Get(string Id)
         {
-            Invoice invoice = repository.GetById(Id);
-            if(invoice == null)
+            try
             {
-                return NotFound();
+                Invoice invoice = repository.GetById(Id);
+                if (invoice == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(invoice.ToDto());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something went wrong");
             }
 
-            return Ok(invoice.ToDto());
         }
 
         [HttpPost]
-        public IActionResult Post(InvoiceDto invoiceDto)
+        public ActionResult<InvoiceDto> Post(InvoiceDto invoiceDto)
         {
             // TODO - rework this
             try
@@ -50,12 +58,61 @@ namespace NeoPay.Controllers
 
                 repository.StoreNew(invoice);
 
-                return Ok(invoice);
+                return Ok(invoice.ToDto());
             }
 
-            catch(Exception ex)
+            catch(Exception)
             {
-                return BadRequest(ex); 
+                return StatusCode(500, "Something went wrong"); 
+            }
+
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<InvoiceDto> Put(string Id, InvoiceDto invoiceDto)
+        {
+            try
+            {
+                Invoice invoice = repository.GetById(Id);
+                if(invoice == null)
+                {
+                    return NotFound();
+                }
+
+                if(invoice.Id != invoiceDto.Id)
+                {
+                    return BadRequest();
+                }
+
+                repository.Update(invoiceDto.FromDto());
+
+                return Ok(invoiceDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something went wrong");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(string Id)
+        {
+            try
+            {
+                Invoice invoice = repository.GetById(Id);
+
+                if (invoice == null)
+                {
+                    return NotFound();
+                }
+
+                repository.Delete(Id);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something went wrong");
             }
 
         }
