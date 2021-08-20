@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
+import { FormHelperService } from 'src/app/services/helpers/form-helper.service';
 
 @Component({
   selector: 'invoice-form',
@@ -20,7 +21,8 @@ export class InvoiceFormComponent implements OnInit {
   constructor (
     private formBuilder: FormBuilder,
     private formFactory: FormFactory,
-    private service: InvoiceService
+    private service: InvoiceService,
+    private formHelpers: FormHelperService
     ) {}
 
   ngOnInit(){
@@ -91,18 +93,23 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   onSubmit(): void{
-    const invoice: Invoice = this._invoiceForm.value;
-    if(this._isNew){
-      this.service.post(invoice).subscribe(invoice => {
-        this._eventEmitter.emit(invoice);
-      });
+    if(this._invoiceForm.valid){
+      const invoice: Invoice = this._invoiceForm.value;
+      if(this._isNew){
+        this.service.post(invoice).subscribe(invoice => {
+          this._eventEmitter.emit(invoice);
+        });
+      }
+      else{
+        this.service.put(invoice).subscribe(invoice => {
+          this._eventEmitter.emit(invoice);
+        });
+      }
+      this.closeForm();
     }
     else{
-      this.service.put(invoice).subscribe(invoice => {
-        this._eventEmitter.emit(invoice);
-      });
+      this.formHelpers.markAllAsDirty(this._invoiceForm);
     }
-    this.closeForm();
-  }
 
+  }
 }

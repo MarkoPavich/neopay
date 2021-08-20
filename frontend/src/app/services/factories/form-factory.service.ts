@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms'
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +10,21 @@ export class FormFactory{
     return formBuilder.group({
       id: '',
       billFrom: formBuilder.group({
-        streetAddress: '',
-        city: '',
-        postCode: '',
-        country: ''
+        streetAddress: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        postCode: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required)
       }),
       billTo: formBuilder.group({
-        clientName: '',
-        clientEmail: '',
-        streetAddress: '',
-        city: '',
-        postCode: '',
-        country: '',
-        invoiceDate: '',
-        dueDate: '',
-        description: ''
+        clientName: new FormControl('', Validators.required),
+        clientEmail: new FormControl('', [Validators.required, Validators.email]),
+        streetAddress: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        postCode: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        invoiceDate:new FormControl('', Validators.required),
+        dueDate: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required)
       }),
       items: formBuilder.array([this.invoiceItemForm(formBuilder)])
     })
@@ -32,7 +32,7 @@ export class FormFactory{
 
   invoiceItemForm(formBuilder: FormBuilder): FormGroup{
     return formBuilder.group({
-      name: '',
+      name: new FormControl('', [Validators.required]),
       quantity: 0,
       price: 0,
     })

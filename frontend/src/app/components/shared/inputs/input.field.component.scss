@@ -38,3 +38,7 @@
 
   text-align: center;
 }
+
+.ng-invalid.ng-dirty{
+  border-color: $color-danger !important;
+}
