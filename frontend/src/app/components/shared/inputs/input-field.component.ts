@@ -16,7 +16,7 @@ import { ControlContainer, FormGroup } from '@angular/forms';
   </div>
 
   `,
-  styleUrls: ['./input.field.component.scss']
+  styleUrls: ['./input-field.component.scss']
 })
 
 export class InputFIeldComponent implements OnInit {
