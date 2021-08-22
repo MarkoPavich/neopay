@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Invoice } from 'src/app/models/models';
 import { URLS } from 'src/app/constants/routing-constants';
+import { PaymentTermsStringRep } from 'src/app/enums/enums';
 
 @Component({
   selector: 'invoice-brief',
@@ -13,7 +14,7 @@ import { URLS } from 'src/app/constants/routing-constants';
         <span>{{invoice.id}}</span>
       </div>
       <div class="container-middle">
-        <span>Due {{invoice.billTo.dueDate}}</span>
+        <span>Due {{paymentTerm}}</span>
         <span>{{invoice.billTo.clientName}}</span>
       </div>
       <div class="container-right">
@@ -48,6 +49,10 @@ export class InvoiceBriefComponent {
 
     // TODO - rework this
     return total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  get paymentTerm(){
+    return PaymentTermsStringRep[this._invoice.billTo.dueDate];
   }
 
   navigateInvoice(): void {

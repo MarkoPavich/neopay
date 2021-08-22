@@ -7,6 +7,7 @@ import { SelectionPopupComponent } from './options/selection.popup.component';
 import { InputFIeldComponent } from "./inputs/input-field.component";
 import { StatusInfoLabelComponent } from "./misc/status-info-label.component";
 import { InvoiceFormComponent } from "./invoice-form-component/invoice.form.component";
+import { DropdownComponent } from "./inputs/dropdown.component";
 
 @NgModule({
   declarations: [
@@ -14,14 +15,16 @@ import { InvoiceFormComponent } from "./invoice-form-component/invoice.form.comp
     SelectionPopupComponent,
     InputFIeldComponent,
     StatusInfoLabelComponent,
-    InvoiceFormComponent
+    InvoiceFormComponent,
+    DropdownComponent
   ],
   exports: [
     ButtonHero,
     SelectionPopupComponent,
     InputFIeldComponent,
     StatusInfoLabelComponent,
-    InvoiceFormComponent
+    InvoiceFormComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,

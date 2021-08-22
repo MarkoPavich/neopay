@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NeoPay.Enums;
+using System.Collections.Generic;
 
 namespace NeoPay.Models
 {
@@ -16,7 +17,7 @@ namespace NeoPay.Models
         public string Name { get; set; }
         public Contact Contact { get; set; }
         public string InvoiceDate { get; set; }  // TODO - datetime dates
-        public string DueDate { get; set; }
+        public PaymentTerms DueDate { get; set; }
         public string Description { get; set; }
     }
 

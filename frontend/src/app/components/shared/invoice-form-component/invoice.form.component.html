@@ -93,12 +93,13 @@
             controlName="invoiceDate"
             >
           </input-field>
-          <input-field 
+          <dropdown-field
+            [preselectText]="paymentTermOptions[3].text"
+            [options]="paymentTermOptions"
             label="Payment Terms"
-            placeholder="Net 30 Days"
             controlName="dueDate"
             >
-          </input-field>
+        </dropdown-field>
         </div>
 
         <div class="fields-grid-container">

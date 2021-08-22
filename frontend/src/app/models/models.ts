@@ -1,4 +1,4 @@
-
+import { PaymentTerms } from "../enums/enums"
 
 export type InvoiceItem = {
   name: string;
@@ -22,7 +22,7 @@ export type Invoice = {
     postCode: string;
     country: string;
     invoiceDate: string;
-    dueDate: string;
+    dueDate: PaymentTerms;
     description: string;
   },
   items: InvoiceItem[];

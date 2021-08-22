@@ -4,6 +4,7 @@ import { InvoiceService } from "src/app/services/http/invoice.service";
 import { URLS } from "src/app/constants/routing-constants";
 import { ActivatedRoute, Router } from "@angular/router";
 import { InvoiceFormComponent } from "../../shared/invoice-form-component/invoice.form.component";
+import { PaymentTermsStringRep } from "src/app/enums/enums";
 
 @Component({
   selector: 'invoice',
@@ -60,6 +61,10 @@ export class InvoiceComponent implements OnInit {
     }
 
     return `${total.toFixed(2)}`
+  }
+
+  get paymentTerm(){
+    return PaymentTermsStringRep[this._invoice.billTo.dueDate];
   }
 
   getItemSum(index: number): string{

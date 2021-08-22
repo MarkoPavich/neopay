@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
@@ -19,14 +19,14 @@ export class InvoiceFormComponent implements OnInit {
   private _invoiceForm!: FormGroup;
 
   constructor (
-    private formBuilder: FormBuilder,
     private formFactory: FormFactory,
     private service: InvoiceService,
     private formHelpers: FormHelperService
     ) {}
 
   ngOnInit(){
-    this._invoiceForm = this.formFactory.invoiceForm(this.formBuilder)
+    this._invoiceForm = this.formFactory.invoiceForm()
+    this.formFactory.getPaymentTerms();
   }
 
   get isNew(): boolean{
@@ -49,6 +49,10 @@ export class InvoiceFormComponent implements OnInit {
     return this._invoiceForm.get('id')?.value;
   }
 
+  get paymentTermOptions(){
+    return this.formFactory.getPaymentTerms();
+  }
+
   getFormGroupAtIndex(index: number): FormGroup{
     return this.invoiceItems.at(index) as FormGroup
   }
@@ -65,7 +69,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   openNewForm(): void{
-    this._invoiceForm.reset();
+    this._invoiceForm.patchValue(this.formFactory.invoiceForm());
     this._isNew = true;
     this._isActive = true;
   }
@@ -85,7 +89,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   addItem(): void{
-    this.invoiceItems.push(this.formFactory.invoiceItemForm(this.formBuilder));
+    this.invoiceItems.push(this.formFactory.invoiceItemForm());
   }
 
   removeItem(index: number): void{

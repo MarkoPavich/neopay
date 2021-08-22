@@ -1,0 +1,104 @@
+@import '/src/styles/config';
+
+.dropdown-container{
+  display: flex;
+  flex-direction: column;
+
+  & > label{
+    margin-bottom: 10px;
+  
+    font-size: 12px;
+    font-weight: 500;
+  
+    color: $color-contrast-medium-lighter;
+  }
+
+  & select{
+    display: none;
+  }
+
+  & select.ng-dirty.ng-invalid + input{
+    border-color: $color-danger !important;
+  }
+}
+
+.dropdown-input-container{
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  
+  & > input{
+    height: 48px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+  
+    font-size: 12px;
+    font-weight: bold;
+  
+    border: solid 2px $color-contrast-light;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+
+    cursor: pointer;
+
+    background-color: white;
+  }
+
+  &:hover > input, &:focus > input{
+    outline: none;
+    border-color: $color-primary-main;
+  }
+
+  &:focus > .select-options{
+    display: block;
+  }
+}
+
+.select-options{
+  display: none;
+  position: absolute;
+
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  margin-top: 8px;
+
+  background-color: white;
+
+  border-radius: 8px;
+
+  -webkit-box-shadow: 1px 2px 23px -2px rgba(0,0,0,0.19); 
+  box-shadow: 1px 2px 23px -2px rgba(0,0,0,0.19);
+}
+
+.select-options li{
+  width: 100%;
+  height: 47px;
+
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 24px;
+  padding-right: 24px;
+
+  color: $color-contrast-dark;
+
+  &:not(:last-child){
+    border-bottom: solid 1px $color-contrast-light;
+  }
+
+  &:hover{
+    cursor: pointer;
+    color: $color-primary-main;
+  }
+
+  & span{
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
