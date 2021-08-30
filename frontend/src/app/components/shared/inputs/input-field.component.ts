@@ -12,12 +12,14 @@ import { ControlContainer, FormGroup } from '@angular/forms';
       [name]="name"
       [placeholder]="placeholder" 
       [formControlName]="formControlName"
+      [type]="type"
     />
     <input *ngIf="!formControlName"
       [ngClass]="{'input-centered': center}" 
       [name]="name"
       [placeholder]="placeholder"
       [value]="value"
+      [type]="type"
     />
   </div>
 
@@ -34,6 +36,7 @@ export class InputFIeldComponent implements OnInit {
   @Input('controlName') _formControlName: string = '';
   @Input('formGroup') _formGroup!: FormGroup;
   @Input('value') _value: string = '';
+  @Input('type') _type: string = 'text;'
 
   constructor(private controlContainer: ControlContainer) { }
 
@@ -71,6 +74,10 @@ export class InputFIeldComponent implements OnInit {
 
   get value(): string{
     return this._value
+  }
+
+  get type(): string {
+    return this._type;
   }
 
 }
