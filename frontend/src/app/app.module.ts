@@ -6,9 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { PageFrameComponent } from './components/layout/page-frame/page-frame.component';
-
-import { InvoicesListModule } from './components/pages/invoices-list/invoices-list.module';
-import { InvoiceModule } from './components/pages/invoice/invoice.module';
+import { PagesModule } from './components/pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +17,8 @@ import { InvoiceModule } from './components/pages/invoice/invoice.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    InvoicesListModule,
-    InvoiceModule,
-    HttpClientModule
+    HttpClientModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
