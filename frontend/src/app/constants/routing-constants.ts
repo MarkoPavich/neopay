@@ -1,5 +1,6 @@
 
 export const URLS = {
   home: '',
-  invoice: 'invoice'
+  invoice: 'invoice',
+  login: 'login'
 }

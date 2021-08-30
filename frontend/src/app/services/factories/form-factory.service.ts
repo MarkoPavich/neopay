@@ -42,6 +42,13 @@ export class FormFactory{
     })
   }
 
+  loginForm(): FormGroup{
+    return this.formBuilder.group({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
+    })
+  }
+
   getPaymentTerms(): SelectOption[]{
     return [
      { value: PaymentTerms.Net1Day, text: PaymentTermsStringRep[PaymentTerms.Net1Day] },
