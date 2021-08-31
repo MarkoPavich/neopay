@@ -1,7 +1,28 @@
-.content-container{
+@import '/src/styles/utilities';
+
+.login-header{
   margin-top: 72px;
+  margin-bottom: 30px;
+
+  h1{
+    margin-bottom: 10px;
+  }
+
+  span{
+    font-size: 14px;
+  }
 }
 
 .input-container{
   margin-bottom: 20px;
+}
+
+.controls-container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button{
+    margin-left: 20px;
+  }
 }

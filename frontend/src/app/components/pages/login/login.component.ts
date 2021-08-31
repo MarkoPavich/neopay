@@ -1,22 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { FormFactory } from "src/app/services/factories/form-factory.service";
+import { AuthBaseComponent } from "./auth-base.component";
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss']
 })
-export class LoginComponent implements OnInit{
-  private _loginForm!: FormGroup;
-
-  constructor(private formFactory: FormFactory) {}
+export class LoginComponent extends AuthBaseComponent implements OnInit{
 
   ngOnInit() {
-    this._loginForm = this.formFactory.loginForm();
+    this._form = this._formFactory.loginForm();
   }
 
   get loginForm(): FormGroup{
-    return this._loginForm
+    return this._form
   }
 }

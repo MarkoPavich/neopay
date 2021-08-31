@@ -1,0 +1,57 @@
+
+<header class="login-header">
+  <h1>Register</h1>
+  <span>Welcome to NeoPay, proceed to create an account</span>
+</header>
+
+<section class="content-container">
+  <div class="form-container">
+
+    <form [formGroup]="registerForm">
+      <div class="input-container">
+        <input-field
+          controlName="username"
+          label="Username"
+          placeholder="Username"
+          >
+        </input-field>
+      </div>
+
+      <div class="input-container">
+        <input-field
+          controlName="email"
+          label="Email"
+          placeholder="email"
+        >
+        </input-field>
+      </div>
+
+      <div class="input-container">
+        <input-field
+          controlName="password"
+          label="Password"
+          placeholder="Password"
+          type="password"
+        >
+        </input-field>
+      </div>
+
+      <div class="input-container">
+        <input-field
+          controlName="confirm"
+          label="Confirm Password"
+          placeholder="Password"
+          type="password"
+        >
+        </input-field>
+      </div>
+
+      <div class="controls-container">
+        <a routerLink="/login">Login</a>
+        <button class="button button-primary">Register</button>
+      </div>
+
+    </form>
+
+  </div>
+</section>
