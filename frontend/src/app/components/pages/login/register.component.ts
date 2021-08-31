@@ -7,7 +7,7 @@ import { AuthBaseComponent } from "./auth-base.component";
   templateUrl: 'register.component.html',
   styleUrls: ['login.component.scss']
 })
-export class RegisterComponent extends AuthBaseComponent  implements OnInit {
+export class RegisterComponent extends AuthBaseComponent implements OnInit {
   
   ngOnInit() {
     this._form = this._formFactory.registerForm();
@@ -16,5 +16,4 @@ export class RegisterComponent extends AuthBaseComponent  implements OnInit {
   get registerForm(): FormGroup{
     return this._form;
   }
-
 }
