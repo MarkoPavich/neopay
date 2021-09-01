@@ -3,28 +3,28 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NeoPay.Dtos
 {
-    public class AuthenticateRequest
+    public record AuthenticateRequest
     {
         [Required]
-        public string Username { get; set; }
+        public string Username { get; init; }
         [Required]
-        public string Password { get; set; }
+        public string Password { get; init; }
     }
 
-    public class AuthenticateResponse
+    public record AuthenticateResponse
     {
-        public Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Token { get; set; }
+        public Guid Id { get; init; }
+        public string Username { get; init; }
+        public string Token { get; init; }
     }
 
-    public class RegisterRequest
+    public record RegisterRequest
     {
         [Required]
-        public string Username { get; set; }
+        public string Username { get; init; }
         [Required]
-        public string Email { get; set; }
+        public string Email { get; init; }
         [Required]
-        public string Password { get; set; }
+        public string Password { get; init; }
     }
 }

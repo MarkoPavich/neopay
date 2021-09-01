@@ -4,24 +4,24 @@ using System.Collections.Generic;
 
 namespace NeoPay.Dtos
 {
-    public class InvoiceDto
+    public record InvoiceDto
     {
         public string Id { get; set; }
-        public Contact BillFrom { get; set; }
-        public PayerDto BillTo { get; set; }
-        public IEnumerable<InvoiceItem> Items { get; set; }
+        public Contact BillFrom { get; init; }
+        public PayerDto BillTo { get; init; }
+        public IEnumerable<InvoiceItem> Items { get; init; }
     }
 
-    public class PayerDto
+    public record PayerDto
     {
-        public string ClientName { get; set; }
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string PostCode { get; set; }
-        public string Country { get; set; }
-        public string ClientEmail { get; set; } = string.Empty;
-        public string InvoiceDate { get; set; }  // TODO - datetime dates
-        public PaymentTerms DueDate { get; set; }
-        public string Description { get; set; }
+        public string ClientName { get; init; }
+        public string StreetAddress { get; init; }
+        public string City { get; init; }
+        public string PostCode { get; init; }
+        public string Country { get; init; }
+        public string ClientEmail { get; init; } = string.Empty;
+        public string InvoiceDate { get; init; }  // TODO - datetime dates
+        public PaymentTerms DueDate { get; init; }
+        public string Description { get; init; }
     }
 }
