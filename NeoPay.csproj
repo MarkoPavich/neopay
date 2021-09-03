@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="project_brief\**" />
+    <Content Remove="project_brief\**" />
+    <EmbeddedResource Remove="project_brief\**" />
+    <None Remove="project_brief\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Constants\" />
   </ItemGroup>
 
