@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using NeoPay.Data.Models;
+using NeoPay.Data.Repositories;
 using NeoPay.Repositories;
+using NeoPay.Service.Services;
 
 namespace NeoPay
 {
@@ -19,6 +23,11 @@ namespace NeoPay
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // DbContext
+            services.AddDbContext<NeoPayContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
+            });
 
             services.AddCors(options =>
             {
@@ -30,9 +39,13 @@ namespace NeoPay
                 });
             });
 
+            services.AddControllers();
+
+            // DI registrations
             services.AddSingleton<IInvoicesRepository, InMemInvoicesRepository>();
 
-            services.AddControllers();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

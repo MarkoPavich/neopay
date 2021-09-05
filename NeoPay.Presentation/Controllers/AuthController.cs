@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
+using NeoPay.Service.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace NeoPay.Controllers
 {
@@ -8,6 +10,20 @@ namespace NeoPay.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public AuthController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            var users = await _userService.GetAll();
+            return Ok(users);
+        }
+
         [HttpPost]
         public ActionResult<AuthenticateResponse> Register(RegisterRequest request)
         {
