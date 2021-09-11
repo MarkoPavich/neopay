@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using NeoPay.Service.Interfaces;
 
 namespace NeoPay.Dtos
 {
@@ -18,7 +19,7 @@ namespace NeoPay.Dtos
         public string Token { get; init; }
     }
 
-    public record RegisterRequest
+    public record RegisterRequest : IUserRegistrationModel
     {
         [Required]
         public string Username { get; init; }

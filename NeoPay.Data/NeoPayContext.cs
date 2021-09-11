@@ -13,6 +13,14 @@ namespace NeoPay.Data
             : base(options)
         {
         }
+
         DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var users = modelBuilder.Entity<User>();
+            users.HasIndex(u => u.Email).IsUnique();
+            users.HasIndex(u => u.Username).IsUnique();
+        }
     }
 }

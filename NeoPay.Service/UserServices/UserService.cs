@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using NeoPay.Data.Models;
 using NeoPay.Data.Repositories;
+using NeoPay.Service.Interfaces;
 
 namespace NeoPay.Service.UserServices
 {
@@ -19,9 +19,17 @@ namespace NeoPay.Service.UserServices
             return await _userRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task RegisterUserAsync(IUserRegistrationModel userData)
         {
-            return await _userRepository.GetAllAsync();
+            User user = new()
+            {
+                Id = Guid.NewGuid(),
+                Username = userData.Username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(userData.Password),
+                Email = userData.Email
+            };
+
+            await _userRepository.AddUserAsync(user);
         }
     }
 }
