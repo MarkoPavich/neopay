@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using NeoPay.Data.Models;
 using NeoPay.Data.Repositories;
 
-namespace NeoPay.Service.Services
+namespace NeoPay.Service.UserServices
 {
     public class UserService: IUserService
     {

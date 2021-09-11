@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using NeoPay.Data.Models;
 using NeoPay.Data.Repositories;
 using NeoPay.Repositories;
-using NeoPay.Service.Services;
+using NeoPay.Service.UserServices;
 
 namespace NeoPay
 {

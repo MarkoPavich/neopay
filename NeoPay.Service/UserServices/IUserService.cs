@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NeoPay.Service.Services
+namespace NeoPay.Service.UserServices
 {
     public interface IUserService
     {

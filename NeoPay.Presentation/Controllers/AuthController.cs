@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
-using NeoPay.Service.Services;
+using NeoPay.Service.UserServices;
 using System;
 using System.Threading.Tasks;
 
