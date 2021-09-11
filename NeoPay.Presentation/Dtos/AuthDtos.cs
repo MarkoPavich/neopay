@@ -1,10 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using NeoPay.Presentation.Dtos;
 using NeoPay.Service.Interfaces;
 
 namespace NeoPay.Dtos
 {
-    public record AuthenticateRequest
+    public record LoginRequest
     {
         [Required]
         public string Username { get; init; }
@@ -14,8 +14,7 @@ namespace NeoPay.Dtos
 
     public record AuthenticateResponse
     {
-        public Guid Id { get; init; }
-        public string Username { get; init; }
+        public UserDto User { get; init; }
         public string Token { get; init; }
     }
 

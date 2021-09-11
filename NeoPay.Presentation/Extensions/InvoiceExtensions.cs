@@ -3,7 +3,7 @@ using NeoPay.Models;
 using System;
 using System.Linq;
 
-namespace NeoPay
+namespace NeoPay.Presentation.Extensions
 {
     public static class InvoiceExtensions
     {

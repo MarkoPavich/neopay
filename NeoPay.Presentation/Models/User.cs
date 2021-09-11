@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NeoPay.Service.Interfaces;
+using System;
 
 namespace NeoPay.Models
 {
-    public class User
+    public class User : IUserModel
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
