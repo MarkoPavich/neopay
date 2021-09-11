@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NeoPay.Data.Models;
 
-namespace NeoPay.Data.Models
+namespace NeoPay.Data
 {
     public class NeoPayContext : DbContext
     {

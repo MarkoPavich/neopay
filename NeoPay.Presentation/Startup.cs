@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using NeoPay.Data.Models;
+using NeoPay.Data;
 using NeoPay.Data.Repositories;
 using NeoPay.Repositories;
 using NeoPay.Service.UserServices;
