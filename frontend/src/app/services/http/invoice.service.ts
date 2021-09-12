@@ -8,27 +8,25 @@ import { Observable } from 'rxjs';
 })
 export class InvoiceService{
   private _apiUrl = 'https://localhost:44332/api/invoice'  // TODO - refactor via config
+
+  private _headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
   
   constructor(private http: HttpClient){}
-
-  getHttpOptions(){
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-  }
 
   get(): Observable<Invoice[]>{
     return this.http.get<Invoice[]>(this._apiUrl)
   }
 
   post(invoice: Invoice): Observable<any>{
-    return this.http.post(this._apiUrl, invoice, this.getHttpOptions());
+    return this.http.post(this._apiUrl, invoice, this._headers);
   }
 
   put(invoice: Invoice): Observable<Invoice>{
-    return this.http.put<Invoice>(`${this._apiUrl}/${invoice.id}`, invoice, this.getHttpOptions());
+    return this.http.put<Invoice>(`${this._apiUrl}/${invoice.id}`, this._headers);
   }
 
   getById(id: string): Observable<Invoice>{

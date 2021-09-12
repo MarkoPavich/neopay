@@ -27,3 +27,8 @@ export type Invoice = {
   },
   items: InvoiceItem[];
 }
+
+export type LoginForm = {
+  username: string;
+  password: string;
+}
