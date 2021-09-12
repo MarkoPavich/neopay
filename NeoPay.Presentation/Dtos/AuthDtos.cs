@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NeoPay.Presentation.Dtos;
-using NeoPay.Service.Interfaces;
+using NeoPay.Service.ModelInterfaces.User;
 
 namespace NeoPay.Dtos
 {

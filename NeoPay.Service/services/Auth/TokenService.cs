@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NeoPay.Service.Interfaces;
+using NeoPay.Service.ModelInterfaces.User;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace NeoPay.Service.AuthServices
+namespace NeoPay.Service.Services.Auth
 {
     public class TokenService : ITokenService
     {

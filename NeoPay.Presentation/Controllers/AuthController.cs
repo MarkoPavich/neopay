@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
 using NeoPay.Models;
 using NeoPay.Presentation.Extensions;
-using NeoPay.Service.Interfaces;
+using NeoPay.Service.Services.Auth;
 using System;
 using System.Threading.Tasks;
 

@@ -5,15 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using NeoPay.Data;
-using NeoPay.Data.Repositories;
 using NeoPay.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using NeoPay.Service.Interfaces;
-using NeoPay.Service.AuthServices;
 using Microsoft.AspNetCore.Identity;
-using System;
+using NeoPay.Service.Services.Auth;
 
 namespace NeoPay
 {

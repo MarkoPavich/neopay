@@ -1,4 +1,5 @@
-﻿using NeoPay.Service.Interfaces;
+﻿
+using NeoPay.Service.ModelInterfaces.User;
 using System;
 
 namespace NeoPay.Models

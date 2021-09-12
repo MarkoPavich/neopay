@@ -1,6 +1,7 @@
-﻿
+﻿using NeoPay.Service.ModelInterfaces.User;
 
-namespace NeoPay.Service.Interfaces
+
+namespace NeoPay.Service.Services.Auth
 {
     public interface ITokenService
     {
