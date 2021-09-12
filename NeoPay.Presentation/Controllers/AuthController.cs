@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
-using NeoPay.Models;
 using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Services.Auth;
 using System;
@@ -66,11 +65,33 @@ namespace NeoPay.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult> Login(LoginRequest userLogin)
+        public async Task<ActionResult> Login(LoginRequest request)
         {
-            // testTemplate
+            var user = await _userManager.FindByNameAsync(request.Username);
 
-            return Ok();
+            if(user == null)
+            {
+                return Unauthorized("Invalid username and/or password");
+            }
+
+            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+
+            if (signInResult.Succeeded)
+            {
+                var userDto = user.ToDto();
+
+                var tokenDescriptor = _tokenService.GenerateToken(userDto);
+                var response = new AuthenticateResponse()
+                {
+                    User = userDto,
+                    Token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor),
+                    ValidTo = tokenDescriptor.ValidTo
+                };
+
+                return Ok(response);
+            }
+
+            return Unauthorized("Invalid username and/or password");
         }
     }
 }
