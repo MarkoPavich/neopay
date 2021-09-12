@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using NeoPay.Service.Interfaces;
 using NeoPay.Service.AuthServices;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace NeoPay
 {
@@ -44,6 +46,8 @@ namespace NeoPay
                 });
             });
 
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<NeoPayContext>();
+
             services.AddControllers();
 
             // DI registrations
@@ -57,10 +61,12 @@ namespace NeoPay
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {
+                options.SaveToken = false;
+                options.RequireHttpsMetadata = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
@@ -86,6 +92,7 @@ namespace NeoPay
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

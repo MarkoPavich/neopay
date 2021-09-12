@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
 using NeoPay.Models;
 using NeoPay.Presentation.Extensions;
@@ -13,20 +14,60 @@ namespace NeoPay.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AuthController(IUserService userService, ITokenService tokenService)
+        public AuthController(
+            IUserService userService, 
+            ITokenService tokenService, 
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager
+            )
         {
-            _userService = userService;
+
             _tokenService = tokenService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<AuthenticateResponse>> Register(RegisterRequest request)
         {
-            await _userService.RegisterUserAsync(request);
-            return Ok();
+            var identityUser = new IdentityUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = request.Username,
+                Email = request.Email
+            };
+
+            var result = await _userManager.CreateAsync(identityUser, request.Password);
+
+            if (result.Succeeded)
+            {
+                var user = new User()
+                {
+                    Id = Guid.Parse(identityUser.Id),
+                    Username = identityUser.UserName,
+                    Email = identityUser.Email
+                };
+
+                var token = _tokenService.GenerateToken(user);
+                var response = new AuthenticateResponse()
+                {
+                    User = user.ToDto(),
+                    Token = token
+                };
+
+                return Ok(response);
+            }
+
+            foreach(var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return BadRequest(ModelState);
         }
 
         [HttpPost("Login")]

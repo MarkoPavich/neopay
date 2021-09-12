@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NeoPay.Data.Models;
 
 namespace NeoPay.Data
 {
-    public class NeoPayContext : DbContext
+    public class NeoPayContext : IdentityDbContext
     {
         public NeoPayContext()
         {
@@ -12,15 +13,6 @@ namespace NeoPay.Data
         public NeoPayContext(DbContextOptions<NeoPayContext> options)
             : base(options)
         {
-        }
-
-        DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            var users = modelBuilder.Entity<User>();
-            users.HasIndex(u => u.Email).IsUnique();
-            users.HasIndex(u => u.Username).IsUnique();
         }
     }
 }

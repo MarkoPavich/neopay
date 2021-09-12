@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NeoPay.Presentation.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NeoPay.Controllers
 {
@@ -14,7 +15,7 @@ namespace NeoPay.Controllers
     [ApiController]
     public class InvoiceController : ControllerBase
     {
-        private readonly IInvoicesRepository repository; // TODO - use DI instead of explicit dependency
+        private readonly IInvoicesRepository repository;
 
         public InvoiceController(IInvoicesRepository repository)
         {
@@ -22,6 +23,7 @@ namespace NeoPay.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public ActionResult<IEnumerable<InvoiceDto>> Get()
         {
             IEnumerable<InvoiceDto> invoices = repository.GetAll().Select(inv => inv.ToDto());
