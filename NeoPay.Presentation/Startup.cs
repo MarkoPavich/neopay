@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using NeoPay.Data;
 using NeoPay.Data.Repositories;
 using NeoPay.Repositories;
-using NeoPay.Service.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -53,8 +52,6 @@ namespace NeoPay
             // DI registrations
             services.AddSingleton<IInvoicesRepository, InMemInvoicesRepository>();
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITokenService, TokenService>();
 
             //Auth

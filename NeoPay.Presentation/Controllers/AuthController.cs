@@ -4,7 +4,6 @@ using NeoPay.Dtos;
 using NeoPay.Models;
 using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Interfaces;
-using NeoPay.Service.UserServices;
 using System;
 using System.Threading.Tasks;
 
@@ -19,7 +18,6 @@ namespace NeoPay.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
 
         public AuthController(
-            IUserService userService, 
             ITokenService tokenService, 
             UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager
