@@ -10,7 +10,7 @@ using NeoPay.Data;
 namespace NeoPay.Data.Migrations
 {
     [DbContext(typeof(NeoPayContext))]
-    [Migration("20210912065124_initial")]
+    [Migration("20210912144645_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

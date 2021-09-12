@@ -42,7 +42,11 @@ namespace NeoPay
                 });
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<NeoPayContext>();
+            // Use Microsoft IdentityUser solution
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<NeoPayContext>();
 
             services.AddControllers();
 
