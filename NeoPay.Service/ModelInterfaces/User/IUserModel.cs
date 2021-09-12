@@ -4,8 +4,8 @@ namespace NeoPay.Service.ModelInterfaces.User
 {
     public interface IUserModel
     {
-        Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
+        Guid Id { get; init; }
+        public string Username { get; init; }
+        public string Email { get; init; }
     }
 }

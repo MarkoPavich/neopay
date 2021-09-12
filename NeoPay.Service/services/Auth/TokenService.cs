@@ -17,7 +17,7 @@ namespace NeoPay.Service.Services.Auth
             _configuration = configuration;
         }
 
-        public string GenerateToken(IUserModel user)
+        public JwtSecurityToken GenerateToken(IUserModel user)
         {
             var claims = new[]
             {
@@ -36,7 +36,7 @@ namespace NeoPay.Service.Services.Auth
 
             var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims, expires: expires, signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            return tokenDescriptor;
         }
 
     }

@@ -1,16 +1,16 @@
-﻿using NeoPay.Models;
+﻿using Microsoft.AspNetCore.Identity;
 using NeoPay.Presentation.Dtos;
 
 namespace NeoPay.Presentation.Extensions
 {
     public static class UserExtensions
     {
-        public static UserDto ToDto(this User user)
+        public static UserDto ToDto(this IdentityUser user)
         {
             return new UserDto()
             {
-                Id = user.Id,
-                Username = user.Username,
+                Id = System.Guid.Parse(user.Id),
+                Username = user.UserName,
                 Email = user.Email
             };
         }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using NeoPay.Service.ModelInterfaces.User;
+using System;
 
 namespace NeoPay.Presentation.Dtos
 {
-    public record UserDto
+    public record UserDto : IUserModel
     {
         public Guid Id { get; init; }
         public string Username { get; init; }

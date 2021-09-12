@@ -5,6 +5,7 @@ using NeoPay.Models;
 using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Services.Auth;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
 namespace NeoPay.Controllers
@@ -32,29 +33,25 @@ namespace NeoPay.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AuthenticateResponse>> Register(RegisterRequest request)
         {
-            var identityUser = new IdentityUser()
+            var user = new IdentityUser()
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = request.Username,
                 Email = request.Email
             };
 
-            var result = await _userManager.CreateAsync(identityUser, request.Password);
+            var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
             {
-                var user = new User()
-                {
-                    Id = Guid.Parse(identityUser.Id),
-                    Username = identityUser.UserName,
-                    Email = identityUser.Email
-                };
+                var userDto = user.ToDto();
 
-                var token = _tokenService.GenerateToken(user);
+                var tokenDescriptor = _tokenService.GenerateToken(userDto);
                 var response = new AuthenticateResponse()
                 {
-                    User = user.ToDto(),
-                    Token = token
+                    User = userDto,
+                    Token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor),
+                    ValidTo = tokenDescriptor.ValidTo
                 };
 
                 return Ok(response);
@@ -72,21 +69,8 @@ namespace NeoPay.Controllers
         public async Task<ActionResult> Login(LoginRequest userLogin)
         {
             // testTemplate
-            User user = new()
-            { 
-                Id = Guid.NewGuid(),
-                Username = userLogin.Username,
-                Email = "someMail@mail.com",
-                PasswordHash = "ibbghgbks"
-            };
 
-            var response = new AuthenticateResponse()
-            {
-                User = user.ToDto(),
-                Token = _tokenService.GenerateToken(user)
-            };
-
-            return Ok(response);
+            return Ok();
         }
     }
 }
