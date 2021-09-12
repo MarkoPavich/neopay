@@ -34,7 +34,7 @@ namespace NeoPay.Service.AuthServices
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-            var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims, expires, signingCredentials: credentials);
+            var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims, expires: expires, signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
