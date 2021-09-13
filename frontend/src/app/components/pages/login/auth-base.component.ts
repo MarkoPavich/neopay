@@ -3,28 +3,33 @@ import { FormGroup } from "@angular/forms";
 import { LoginForm } from "src/app/models/models";
 import { FormFactory } from "src/app/services/factories/form-factory.service";
 import { AuthService } from "src/app/services/http/auth.service";
+import { SessionService } from "src/app/services/http/session.service";
 
 @Directive()
 export class AuthBaseComponent{
   protected _form!: FormGroup;
-  protected _formFactory: FormFactory;
+  protected _isLoading!: boolean;
 
   constructor(
-    private formFactory: FormFactory,
-    private authService: AuthService
-    ){
-    this._formFactory = formFactory;
+    protected formFactory: FormFactory,
+    private authService: AuthService,
+    protected sessionService: SessionService
+    ){}
+
+  get isLoading(): boolean{
+    return this._isLoading;
+  }
+
+  init(){
+    this.sessionService.monitorIsLoading().subscribe(observer => {
+      this._isLoading = observer;
+    })
   }
 
   onLoginSubmit(){
-    const credentials = this._form.value as LoginForm;
-    
-    this.authService.login(credentials).subscribe(
-      res => { console.log("response ", res);}, // TODO - continue here
-      err => {
-        console.log(err);  // TODO - proper error handling
-        alert("Invalid username and/or password");
-      }
-      )
+    if(!this._isLoading){
+      const credentials = this._form.value as LoginForm;
+      this.authService.login(credentials);
+    }
   }
 }

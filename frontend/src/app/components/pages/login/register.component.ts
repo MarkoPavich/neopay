@@ -10,7 +10,8 @@ import { AuthBaseComponent } from "./auth-base.component";
 export class RegisterComponent extends AuthBaseComponent implements OnInit {
   
   ngOnInit() {
-    this._form = this._formFactory.registerForm();
+    super.init();
+    this._form = this.formFactory.registerForm();
   }
 
   get registerForm(): FormGroup{

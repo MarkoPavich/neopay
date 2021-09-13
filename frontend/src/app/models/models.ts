@@ -32,3 +32,15 @@ export type LoginForm = {
   username: string;
   password: string;
 }
+
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export type SessionModel = {
+  user: User | null;
+  token: string;
+  expires: string;
+}
