@@ -3,8 +3,8 @@ import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LoginForm, RegistrationForm } from "src/app/models/models";
 import { FormFactory } from "src/app/services/factories/form-factory.service";
-import { AuthService } from "src/app/services/http/auth.service";
-import { SessionService } from "src/app/services/http/session.service";
+import { AuthService } from "src/app/services/auth/auth.service";
+import { SessionService } from "src/app/services/auth/session.service";
 
 @Directive()
 export class AuthBaseComponent{
