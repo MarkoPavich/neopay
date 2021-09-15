@@ -23,6 +23,10 @@ export class SessionService {
     return this._session.value.user;
   }
 
+  get isLoggedIn(): boolean{
+    return this.user !== null;
+  }
+
   monitorIsLoading(): Observable<boolean>{
     return this._isLoading;
   }

@@ -1,6 +1,7 @@
 import { Directive } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { LoginForm } from "src/app/models/models";
+import { Router } from "@angular/router";
+import { LoginForm, RegistrationForm } from "src/app/models/models";
 import { FormFactory } from "src/app/services/factories/form-factory.service";
 import { AuthService } from "src/app/services/http/auth.service";
 import { SessionService } from "src/app/services/http/session.service";
@@ -13,7 +14,8 @@ export class AuthBaseComponent{
   constructor(
     protected formFactory: FormFactory,
     private authService: AuthService,
-    protected sessionService: SessionService
+    protected sessionService: SessionService,
+    private router: Router
     ){}
 
   get isLoading(): boolean{
@@ -26,10 +28,29 @@ export class AuthBaseComponent{
     })
   }
 
+  onRegistrationSubmit(){
+    if(!this._isLoading){
+      const form = this._form.value;
+      if(form['password'] === form['confirm']){
+        const registration: RegistrationForm = {
+          username: form['username'],
+          email: form['email'],
+          password: form['password']
+        }
+
+        this.authService.register(registration).subscribe(() => {
+          this.router.navigate(['']);
+        })
+      }
+    }
+  }
+
   onLoginSubmit(){
     if(!this._isLoading){
       const credentials = this._form.value as LoginForm;
-      this.authService.login(credentials);
+      this.authService.login(credentials).subscribe(() => {
+        this.router.navigate(['']);  // TODO - navigate to possible url from history, instead of default home
+      });
     }
   }
 }
