@@ -28,7 +28,7 @@ export class SessionService {
   }
 
   monitorIsLoading(): Observable<boolean>{
-    return this._isLoading;
+    return this._isLoading.asObservable();
   }
 
   setIsLoading(isLoading: boolean){
