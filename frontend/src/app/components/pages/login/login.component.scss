@@ -1,5 +1,56 @@
 @import '/src/styles/utilities';
 
+.content-container{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.oauth-container{
+  padding-left: 60px;
+  margin-left: 60px;
+  border-left: solid 1px black;
+
+  header > span{
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+.auth-options-container{
+  margin-top: 30px;
+
+  ul{
+    list-style: none;
+  };
+
+  ul li{
+    padding: 7px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 200px;
+  }
+
+  ul li img{
+    height: 100%;
+    margin-right: 10px;
+  }
+
+}
+
+.google-oa2{
+  background-color: #4285f4;
+  span{
+    color: white;
+  }
+}
+
+.form-container{
+  width: 100%;
+  max-width: 300px;
+}
+
 .login-header{
   margin-top: 72px;
   margin-bottom: 30px;
