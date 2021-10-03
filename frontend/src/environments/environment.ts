@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  googleSignInUrl: 'https://localhost:44332/api/auth/google-login',
 };
 
 /*

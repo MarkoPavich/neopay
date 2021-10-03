@@ -1,10 +1,12 @@
 import { Directive } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { LoginForm, RegistrationForm } from "src/app/models/models";
+import { LoginForm, RegistrationForm, SessionModel } from "src/app/models/models";
 import { FormFactory } from "src/app/services/factories/form-factory.service";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { SessionService } from "src/app/services/auth/session.service";
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 
 @Directive()
 export class AuthBaseComponent{
@@ -15,7 +17,8 @@ export class AuthBaseComponent{
     protected formFactory: FormFactory,
     private authService: AuthService,
     protected sessionService: SessionService,
-    private router: Router
+    protected router: Router,
+    protected socialAuthService: SocialAuthService
     ){}
 
   get isLoading(): boolean{
@@ -53,4 +56,15 @@ export class AuthBaseComponent{
       });
     }
   }
+
+  googleSignIn(){
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((response: any) => {
+      console.log(response);
+      this.authService.googleSignIn(response.idToken).subscribe((response: SessionModel) => {
+        this.sessionService.setSession(response);
+        this.router.navigate(['']);
+      })
+    });
+  }
+
 }

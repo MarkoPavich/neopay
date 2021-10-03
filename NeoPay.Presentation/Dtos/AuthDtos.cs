@@ -29,4 +29,10 @@ namespace NeoPay.Dtos
         [Required]
         public string Password { get; init; }
     }
+
+    public record GoogleSignInCredentials
+    {
+        [Required]
+        public string IdToken { get; init; }
+    }
 }

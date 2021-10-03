@@ -17,5 +17,4 @@ export class LoginComponent extends AuthBaseComponent implements OnInit{
   get loginForm(): FormGroup{
     return this._form;
   };
-
 }
