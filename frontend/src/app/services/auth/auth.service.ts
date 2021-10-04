@@ -25,49 +25,25 @@ export class AuthService {
     private sessionService: SessionService
   ) {}
 
-  login(credentials: LoginForm): Observable<void> {
-    this.sessionService.setIsLoading(true);
-
-    return new Observable((subscriber) => {
-      this.http
-        .post(this._apiUrl + 'login', credentials, this._headers)
-        .subscribe(
-          (response) => {
-            this.sessionService.setSession(response as SessionModel);
-            this.sessionService.setIsLoading(false);
-            subscriber.next();
-            subscriber.complete();
-          },
-          (err) => {
-            console.log(err);
-            alert('Something went wrong'); // TODO
-            this.sessionService.setIsLoading(false);
-          }
-        );
-    });
+  login(credentials: LoginForm): Observable<SessionModel> {
+    return this.http.post<SessionModel>(
+      this._apiUrl + 'login',
+      credentials,
+      this._headers
+    );
   }
 
-  register(form: RegistrationForm): Observable<void> {
-    this.sessionService.setIsLoading(true);
-
-    return new Observable((subscriber) => {
-      this.http.post(this._apiUrl + 'register', form, this._headers).subscribe(
-        (response) => {
-          this.sessionService.setSession(response as SessionModel);
-          this.sessionService.setIsLoading(false);
-          subscriber.next();
-          subscriber.complete();
-        },
-        (err) => {
-          console.log(err);
-          alert('Something went wrong'); // TODO
-          this.sessionService.setIsLoading(false);
-        }
-      );
-    });
+  register(form: RegistrationForm): Observable<SessionModel> {
+    return this.http.post<SessionModel>(
+      this._apiUrl + 'register',
+      form,
+      this._headers
+    );
   }
 
-  googleSignIn(idToken: string): Observable<any> {
-    return this.http.post(this._apiUrl + 'google-signin', { idToken });
+  googleSignIn(idToken: string): Observable<SessionModel> {
+    return this.http.post<SessionModel>(this._apiUrl + 'google-signin', {
+      idToken,
+    });
   }
 }

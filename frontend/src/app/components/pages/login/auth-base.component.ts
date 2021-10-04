@@ -1,15 +1,20 @@
-import { Directive } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { Router } from "@angular/router";
-import { LoginForm, RegistrationForm, SessionModel } from "src/app/models/models";
-import { FormFactory } from "src/app/services/factories/form-factory.service";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { SessionService } from "src/app/services/auth/session.service";
-import { SocialAuthService } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+import { Directive } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+  GoogleSignInResponse,
+  LoginForm,
+  RegistrationForm,
+  SessionModel,
+} from 'src/app/models/models';
+import { FormFactory } from 'src/app/services/factories/form-factory.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { SessionService } from 'src/app/services/auth/session.service';
+import { SocialAuthService } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 @Directive()
-export class AuthBaseComponent{
+export class AuthBaseComponent {  // TODO - toasts
   protected _form!: FormGroup;
   protected _isLoading!: boolean;
 
@@ -19,52 +24,64 @@ export class AuthBaseComponent{
     protected sessionService: SessionService,
     protected router: Router,
     protected socialAuthService: SocialAuthService
-    ){}
+  ) {}
 
-  get isLoading(): boolean{
+  get isLoading(): boolean {
     return this._isLoading;
   }
 
-  init(){
-    this.sessionService.monitorIsLoading().subscribe(observer => {
+  init() {
+    this.sessionService.monitorIsLoading().subscribe((observer) => {
       this._isLoading = observer;
-    })
-  }
-
-  onRegistrationSubmit(){
-    if(!this._isLoading){
-      const form = this._form.value;
-      if(form['password'] === form['confirm']){
-        const registration: RegistrationForm = {
-          username: form['username'],
-          email: form['email'],
-          password: form['password']
-        }
-
-        this.authService.register(registration).subscribe(() => {
-          this.router.navigate(['']);
-        })
-      }
-    }
-  }
-
-  onLoginSubmit(){
-    if(!this._isLoading){
-      const credentials = this._form.value as LoginForm;
-      this.authService.login(credentials).subscribe(() => {
-        this.router.navigate(['']);  // TODO - navigate to possible url from history, instead of default home
-      });
-    }
-  }
-
-  googleSignIn(){
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((response: any) => {
-      console.log(response);
-      this.authService.googleSignIn(response.idToken).subscribe((response: SessionModel) => {
-        this.sessionService.setSession(response);
-        this.router.navigate(['']);
-      })
     });
   }
 
+  onSuccessful(session: SessionModel) {
+    this.sessionService.setSession(session);
+    this.router.navigate(['']); // TODO - navigate to possible url from history, instead of default home
+  }
+
+  onRegistrationSubmit() {
+    if (this._form.valid) {
+      const form = this._form.value;
+      // TODO - custom validator
+      if (form['password'] === form['confirm']) {
+        const registration: RegistrationForm = {
+          ...form,
+        };
+        this.authService
+          .register(registration)
+          .subscribe((response: SessionModel) => {
+            this.onSuccessful(response);
+          });
+      }
+    } else {
+      // TODO user notification
+    }
+  }
+
+  onLoginSubmit() {
+    if (this._form.valid) {
+      const credentials: LoginForm = this._form.value;
+      this.authService
+        .login(credentials)
+        .subscribe((response: SessionModel) => {
+          this.onSuccessful(response);
+        });
+    }
+  }
+
+  googleSignIn() {
+    this.socialAuthService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((response: GoogleSignInResponse) => {
+        this.authService
+          .googleSignIn(response.idToken)
+          .subscribe((response: SessionModel) => {
+            this.onSuccessful(response);
+          });
+      }).catch(error => {
+        // TODO
+      });
+  }
 }
