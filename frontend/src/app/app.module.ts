@@ -14,7 +14,7 @@ import {
   SocialLoginModule,
 } from 'angularx-social-login';
 import { secrets } from 'src/environments/secrets';
-import { SharedComponentsModule } from './components/shared/shared.components.module.ts';
+import { ModalsModule } from './components/modals/modals-module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, PageFrameComponent],
@@ -24,7 +24,7 @@ import { SharedComponentsModule } from './components/shared/shared.components.mo
     HttpClientModule,
     PagesModule,
     SocialLoginModule,
-    SharedComponentsModule
+    ModalsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
