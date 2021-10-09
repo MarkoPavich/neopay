@@ -15,6 +15,7 @@ import {
 } from 'angularx-social-login';
 import { secrets } from 'src/environments/secrets';
 import { ModalsModule } from './components/modals/modals-module';
+import { SecureHttpInterceptor } from './services/http/http-interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, PageFrameComponent],
@@ -24,10 +25,15 @@ import { ModalsModule } from './components/modals/modals-module';
     HttpClientModule,
     PagesModule,
     SocialLoginModule,
-    ModalsModule
+    ModalsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SecureHttpInterceptor,
+      multi: true,
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

@@ -1,52 +1,61 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { SessionModel, User } from "src/app/models/models";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { SessionModel, User } from 'src/app/models/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionService {
-
   private _session = new BehaviorSubject({
     user: null,
     token: '',
-    expires: ''
-  } as SessionModel)
+    expires: '',
+  } as SessionModel);
 
-  private _isLoading = new BehaviorSubject(false);
+  private _loading: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  get authToken(): string{
+  get authToken(): string {
     return this._session.value['token'];
   }
 
-  get user(): User | null{
+  get user(): User | null {
     return this._session.value.user;
   }
 
-  get isLoggedIn(): boolean{
+  get isLoggedIn(): boolean {
     return this.user !== null;
   }
 
-  monitorIsLoading(): Observable<boolean>{
-    return this._isLoading.asObservable();
+  get isLoading(): Observable<boolean> {
+    return this._loading
+      .pipe(
+        map((loadingCount: number) => {
+          return loadingCount > 0;
+        })
+      )
+      .pipe(distinctUntilChanged());
   }
 
-  setIsLoading(isLoading: boolean){
-    this._isLoading.next(isLoading);
+  startLoading() {
+    this._loading.next(this._loading.value + 1);
   }
 
-  setSession(session: SessionModel){
+  completeLoading() {
+    this._loading.next(this._loading.value - 1);
+  }
+
+  setSession(session: SessionModel) {
     this._session.next(session);
   }
 
-  clearSession(){
+  clearSession() {
     const session: SessionModel = {
       user: null,
       token: '',
-      expires: ''
-    }
+      expires: '',
+    };
 
     this._session.next(session);
   }
-
 }

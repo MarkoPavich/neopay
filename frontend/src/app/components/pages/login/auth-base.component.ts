@@ -14,7 +14,8 @@ import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
 @Directive()
-export class AuthBaseComponent {  // TODO - toasts
+export class AuthBaseComponent {
+  // TODO - toasts
   protected _form!: FormGroup;
   protected _isLoading!: boolean;
 
@@ -25,16 +26,6 @@ export class AuthBaseComponent {  // TODO - toasts
     protected router: Router,
     protected socialAuthService: SocialAuthService
   ) {}
-
-  get isLoading(): boolean {
-    return this._isLoading;
-  }
-
-  init() {
-    this.sessionService.monitorIsLoading().subscribe((observer) => {
-      this._isLoading = observer;
-    });
-  }
 
   onSuccessful(session: SessionModel) {
     this.sessionService.setSession(session);
@@ -80,7 +71,8 @@ export class AuthBaseComponent {  // TODO - toasts
           .subscribe((response: SessionModel) => {
             this.onSuccessful(response);
           });
-      }).catch(error => {
+      })
+      .catch((error) => {
         // TODO
       });
   }

@@ -1,20 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { AuthBaseComponent } from "./auth-base.component";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { AuthBaseComponent } from './auth-base.component';
 
 @Component({
   selector: 'register',
   templateUrl: 'register.component.html',
-  styleUrls: ['login.component.scss']
+  styleUrls: ['login.component.scss'],
 })
 export class RegisterComponent extends AuthBaseComponent implements OnInit {
-  
   ngOnInit() {
-    super.init();
     this._form = this.formFactory.registerForm();
   }
 
-  get registerForm(): FormGroup{
+  get registerForm(): FormGroup {
     return this._form;
   }
 }

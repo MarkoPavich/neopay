@@ -1,5 +1,5 @@
 import { ModalsRegister } from "./modals.types";
 
-export const modals: ModalsRegister = {
+export const modalsRegister: ModalsRegister = {
   spinner: 'spinner'
 }
