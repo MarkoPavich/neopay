@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace NeoPay.Data.Repositories
 {
-    public interface IRepository<TEntity> where TEntity : class, new()
+    public interface IRepository<TEntity> where TEntity : class,  new()
     {
         IQueryable<TEntity> GetAll();
         Task<TEntity> AddAsync(TEntity entity);

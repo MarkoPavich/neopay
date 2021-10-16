@@ -1,5 +1,5 @@
-﻿using NeoPay.Dtos;
-using NeoPay.Models;
+﻿using NeoPay.Data.Entities;
+using NeoPay.Dtos;
 using System;
 using System.Linq;
 
@@ -18,14 +18,14 @@ namespace NeoPay.Presentation.Extensions
                 BillTo = new PayerDto()
                 {
                     ClientName = invoice.BillTo.Name,
-                    City = invoice.BillTo.Contact.City,
-                    Country = invoice.BillTo.Contact.Country,
-                    ClientEmail = invoice.BillTo.Contact.Email,
+                    City = invoice.BillTo.City,
+                    Country = invoice.BillTo.Country,
+                    ClientEmail = invoice.BillTo.Email,
                     InvoiceDate = invoice.BillTo.InvoiceDate,
                     DueDate = invoice.BillTo.DueDate,
                     Description = invoice.BillTo.Description,
-                    StreetAddress = invoice.BillTo.Contact.StreetAddress,
-                    PostCode = invoice.BillTo.Contact.PostCode
+                    StreetAddress = invoice.BillTo.StreetAddress,
+                    PostCode = invoice.BillTo.PostCode
                 },
                 Items = invoice.Items
             };
@@ -44,14 +44,11 @@ namespace NeoPay.Presentation.Extensions
                     InvoiceDate = invoice.BillTo.InvoiceDate,
                     DueDate = invoice.BillTo.DueDate,
                     Description = invoice.BillTo.Description,
-                    Contact = new Contact()
-                    {
-                        City = invoice.BillTo.City,
-                        Country = invoice.BillTo.Country,
-                        Email = invoice.BillTo.ClientEmail,
-                        PostCode = invoice.BillTo.PostCode,
-                        StreetAddress = invoice.BillTo.StreetAddress
-                    }
+                    City = invoice.BillTo.City,
+                    Country = invoice.BillTo.Country,
+                    Email = invoice.BillTo.ClientEmail,
+                    PostCode = invoice.BillTo.PostCode,
+                    StreetAddress = invoice.BillTo.StreetAddress
                 },
                 Items = invoice.Items
             };

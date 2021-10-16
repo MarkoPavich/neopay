@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NeoPay.Dtos;
-using NeoPay.Models;
-using NeoPay.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using NeoPay.Presentation.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using NeoPay.Data.Entities;
+using NeoPay.Service.services;
+using System.Threading.Tasks;
 
 namespace NeoPay.Controllers
 {
@@ -15,27 +16,27 @@ namespace NeoPay.Controllers
     [ApiController]
     public class InvoiceController : ControllerBase
     {
-        private readonly IInvoicesRepository repository;
+        private readonly IInvoiceService _service;
 
-        public InvoiceController(IInvoicesRepository repository)
+        public InvoiceController(IInvoiceService repository)
         {
-            this.repository = repository;
+            _service = repository;
         }
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public ActionResult<IEnumerable<InvoiceDto>> Get()
+        public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get()
         {
-            IEnumerable<InvoiceDto> invoices = repository.GetAll().Select(inv => inv.ToDto());
-            return Ok(invoices);
+            IEnumerable<Invoice> invoices = await _service.GetAll();
+            return Ok(invoices.Select(inv => inv.ToDto()));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<InvoiceDto> Get(string Id)
+        public async Task<ActionResult<InvoiceDto>> Get(string Id)
         {
             try
             {
-                Invoice invoice = repository.GetById(Id);
+                Invoice invoice = await _service.GetById(Id);
                 if (invoice == null)
                 {
                     return NotFound();
@@ -51,7 +52,7 @@ namespace NeoPay.Controllers
         }
 
         [HttpPost]
-        public ActionResult<InvoiceDto> Post(InvoiceDto invoiceDto)
+        public async Task <ActionResult<InvoiceDto>> Post(InvoiceDto invoiceDto)
         {
             // TODO - rework this
             try
@@ -59,7 +60,7 @@ namespace NeoPay.Controllers
                 invoiceDto.GenerateId();
                 Invoice invoice = invoiceDto.FromDto();
 
-                repository.StoreNew(invoice);
+                await _service.AddAsync(invoice);
 
                 return Ok(invoice.ToDto());
             }
@@ -72,11 +73,11 @@ namespace NeoPay.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<InvoiceDto> Put(string Id, InvoiceDto invoiceDto)
+        public async Task <ActionResult<InvoiceDto>> Put(string Id, InvoiceDto invoiceDto)
         {
             try
             {
-                Invoice invoice = repository.GetById(Id);
+                Invoice invoice = await _service.GetById(Id);
                 if(invoice == null)
                 {
                     return NotFound();
@@ -87,7 +88,7 @@ namespace NeoPay.Controllers
                     return BadRequest();
                 }
 
-                repository.Update(invoiceDto.FromDto());
+                await _service.Update(invoiceDto.FromDto());
 
                 return Ok(invoiceDto);
             }
@@ -98,18 +99,18 @@ namespace NeoPay.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(string Id)
+        public async Task <ActionResult> Delete(string Id)
         {
             try
             {
-                Invoice invoice = repository.GetById(Id);
+                Invoice invoice = await _service.GetById(Id);
 
                 if (invoice == null)
                 {
                     return NotFound();
                 }
 
-                repository.Delete(Id);
+                await _service.Delete(Id);
 
                 return NoContent();
             }

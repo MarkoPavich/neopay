@@ -1,5 +1,4 @@
-﻿using NeoPay.Data.Models;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 namespace NeoPay.Data.Repositories

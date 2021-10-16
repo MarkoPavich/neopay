@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using NeoPay.Data.Entities;
 using NeoPay.Dtos;
 using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Services.Auth;
@@ -17,14 +18,14 @@ namespace NeoPay.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ITokenService _tokenService;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<NeoPayUser> _userManager;
+        private readonly SignInManager<NeoPayUser> _signInManager;
         private readonly IConfiguration _configuration;
 
         public AuthController(
             ITokenService tokenService, 
-            UserManager<IdentityUser> userManager, 
-            SignInManager<IdentityUser> signInManager,
+            UserManager<NeoPayUser> userManager, 
+            SignInManager<NeoPayUser> signInManager,
             IConfiguration configuration
             )
         {
@@ -39,7 +40,7 @@ namespace NeoPay.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AuthenticateResponse>> Register(RegisterRequest request)
         {
-            var user = new IdentityUser()
+            var user = new NeoPayUser()
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = request.Username,
@@ -94,7 +95,7 @@ namespace NeoPay.Controllers
 
             if(user == null)
             {
-                user = new IdentityUser()
+                user = new NeoPayUser()
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = payload.Email,
@@ -113,7 +114,7 @@ namespace NeoPay.Controllers
             return Ok(CreateAuthResponse(user));
         }
 
-        private AuthenticateResponse CreateAuthResponse(IdentityUser user)
+        private AuthenticateResponse CreateAuthResponse(NeoPayUser user)
         {
             var userDto = user.ToDto();
 

@@ -1,5 +1,5 @@
-﻿using NeoPay.Enums;
-using NeoPay.Models;
+﻿using NeoPay.Data.Entities;
+using NeoPay.Data.Enums;
 using System.Collections.Generic;
 
 namespace NeoPay.Dtos
