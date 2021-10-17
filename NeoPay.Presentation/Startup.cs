@@ -11,8 +11,8 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using NeoPay.Service.Services.Auth;
 using NeoPay.Data.Entities;
-using NeoPay.Data.Repositories.Invoice;
-using NeoPay.Service.services.Invoice;
+using NeoPay.Data.Repositories;
+using NeoPay.Service.services;
 
 namespace NeoPay
 {
@@ -56,10 +56,10 @@ namespace NeoPay
             services.AddControllers();
 
             // DI registrations
-            services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
-
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            
             services.AddTransient<ITokenService, TokenService>();
-            services.AddTransient<IInvoiceService, InvoiceService>();
 
             //Auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -80,6 +80,9 @@ namespace NeoPay
                         )
                 };
             });
+            
+            // Allows using HttpContext in other layers
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

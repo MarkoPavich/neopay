@@ -12,24 +12,24 @@ namespace NeoPay.Data.Repositories
             Context = context;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return Context.Set<TEntity>();
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await Context.AddAsync(entity);
             return entity;
         }
 
-        public TEntity Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             Context.Update(entity);
             return entity;
         }
 
-        public TEntity Remove(TEntity entity)
+        public virtual TEntity Remove(TEntity entity)
         {
             Context.Remove(entity);
             return entity;

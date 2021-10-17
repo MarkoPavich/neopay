@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using NeoPay.Data.Entities;
 using NeoPay.Service.services;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace NeoPay.Controllers
 {
@@ -27,7 +28,7 @@ namespace NeoPay.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get()
         {
-            IEnumerable<Invoice> invoices = await _service.GetAll();
+            IEnumerable<Invoice> invoices = await _service.GetAllAsync();
             return Ok(invoices.Select(inv => inv.ToDto()));
         }
 
@@ -36,7 +37,7 @@ namespace NeoPay.Controllers
         {
             try
             {
-                Invoice invoice = await _service.GetById(Id);
+                Invoice invoice = await _service.GetByIdAsync(Id);
                 if (invoice == null)
                 {
                     return NotFound();
@@ -52,13 +53,15 @@ namespace NeoPay.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task <ActionResult<InvoiceDto>> Post(InvoiceDto invoiceDto)
         {
-            // TODO - rework this
             try
             {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
                 invoiceDto.GenerateId();
-                Invoice invoice = invoiceDto.FromDto();
+                Invoice invoice = invoiceDto.FromDto(userId);
 
                 await _service.AddAsync(invoice);
 
@@ -77,7 +80,7 @@ namespace NeoPay.Controllers
         {
             try
             {
-                Invoice invoice = await _service.GetById(Id);
+                Invoice invoice = await _service.GetByIdAsync(Id);
                 if(invoice == null)
                 {
                     return NotFound();
@@ -88,7 +91,9 @@ namespace NeoPay.Controllers
                     return BadRequest();
                 }
 
-                await _service.Update(invoiceDto.FromDto());
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                await _service.Update(invoiceDto.FromDto(userId));
 
                 return Ok(invoiceDto);
             }
@@ -103,7 +108,7 @@ namespace NeoPay.Controllers
         {
             try
             {
-                Invoice invoice = await _service.GetById(Id);
+                Invoice invoice = await _service.GetByIdAsync(Id);
 
                 if (invoice == null)
                 {

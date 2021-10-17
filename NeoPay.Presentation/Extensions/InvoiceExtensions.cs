@@ -31,12 +31,12 @@ namespace NeoPay.Presentation.Extensions
             };
         }
 
-        public static Invoice FromDto(this InvoiceDto invoice)
+        public static Invoice FromDto(this InvoiceDto invoice, string userId)
         {
-
             return new Invoice()
             {
                 Id = invoice.Id,
+                UserId = userId,
                 BillFrom = invoice.BillFrom,
                 BillTo = new Payer()
                 {
