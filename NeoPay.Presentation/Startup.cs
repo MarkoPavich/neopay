@@ -62,7 +62,10 @@ namespace NeoPay
             services.AddTransient<ITokenService, TokenService>();
 
             //Auth
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options => 
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddJwtBearer(options =>
             {
                 options.SaveToken = false;

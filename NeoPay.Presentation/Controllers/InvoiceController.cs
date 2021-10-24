@@ -13,6 +13,7 @@ using System.Security.Claims;
 namespace NeoPay.Controllers
 {
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class InvoiceController : ControllerBase
@@ -25,7 +26,6 @@ namespace NeoPay.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get()
         {
             IEnumerable<Invoice> invoices = await _service.GetAllAsync();
