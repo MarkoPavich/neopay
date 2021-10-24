@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SessionModel, User } from 'src/app/models/models';
 
 @Injectable({
@@ -30,6 +30,7 @@ export class SessionService {
   get isLoading(): Observable<boolean> {
     return this._loading
       .pipe(
+        debounceTime(200),
         map((loadingCount: number) => {
           return loadingCount > 0;
         })
