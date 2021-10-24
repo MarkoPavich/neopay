@@ -31,10 +31,8 @@ namespace NeoPay
             // DbContext
             services.AddDbContext<NeoPayContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
-                
                 // Connects to MariaDb server instance running on RaspberyPi server - connection string stored in secrets
-                //options.UseMySql(Configuration["ConnectionStrings:RpiMariaDb"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:RpiMariaDb"]));
+                options.UseMySql(Configuration["ConnectionStrings:RpiMariaDb"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:RpiMariaDb"]));
             });
 
             services.AddCors(options =>
