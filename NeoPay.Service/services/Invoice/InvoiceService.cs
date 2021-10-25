@@ -27,9 +27,13 @@ namespace NeoPay.Service.services
             return _repository.AddAsync(invoice);
         }
 
-        public async Task Delete(string Id)
+        public async Task Delete(string invoiceId)
         {
-            throw new System.NotImplementedException();
+            var invoice = await _repository.GetByIdAsync(invoiceId);
+
+            _repository.Remove(invoice);
+            await _repository.Complete();
+
         }
 
         public async Task<IEnumerable<Invoice>> GetAllAsync()
