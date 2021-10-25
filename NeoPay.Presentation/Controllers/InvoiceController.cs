@@ -53,7 +53,6 @@ namespace NeoPay.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task <ActionResult<InvoiceDto>> Post(InvoiceDto invoiceDto)
         {
             try
