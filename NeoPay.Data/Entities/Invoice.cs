@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NeoPay.Data.Enums;
+using System.Collections.Generic;
 
 namespace NeoPay.Data.Entities
 {
@@ -8,6 +9,7 @@ namespace NeoPay.Data.Entities
         public virtual string UserId { get; init; }
         public Contact BillFrom { get; init; }
         public Payer BillTo { get; init; }
+        public InvoiceStatus Status { get; init; }
         public virtual NeoPayUser User { get; init; }
         public IEnumerable<InvoiceItem> Items { get; init; }
     }
