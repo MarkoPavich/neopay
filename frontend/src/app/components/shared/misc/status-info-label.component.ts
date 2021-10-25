@@ -1,16 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { InvoiceStatus } from 'src/app/enums/enums';
 
 @Component({
   selector: 'status-info-label',
   template: `
-    
     <div class="info-label">
       <div class="bulletpoint"></div>
-      <span class="status-span">Paid</span>
+      <span class="status-span">{{statusSpan}}</span>
     </div>
-
-    `,
-    styleUrls: ['./status-info-label.component.scss']
+  `,
+  styleUrls: ['./status-info-label.component.scss'],
 })
+export class StatusInfoLabelComponent {
+  @Input('invoiceStatus') _status!: InvoiceStatus;
 
-export class StatusInfoLabelComponent {}
+  get statusSpan(): string {
+    switch (this._status) {
+      case InvoiceStatus.draft:
+        return 'Draft';
+      case InvoiceStatus.paid:
+        return 'Paid';
+      case InvoiceStatus.pending:
+        return 'Pending';
+    }
+  }
+}

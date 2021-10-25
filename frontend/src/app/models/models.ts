@@ -1,4 +1,4 @@
-import { PaymentTerms } from '../enums/enums';
+import { InvoiceStatus, PaymentTerms } from '../enums/enums';
 
 export type InvoiceItem = {
   name: string;
@@ -8,6 +8,7 @@ export type InvoiceItem = {
 
 export type Invoice = {
   id: string;
+  status: InvoiceStatus;
   billFrom: {
     streetAddress: string;
     city: string;

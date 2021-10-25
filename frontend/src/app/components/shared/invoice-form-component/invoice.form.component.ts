@@ -4,13 +4,13 @@ import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { FormHelperService } from 'src/app/services/helpers/form-helper.service';
+import { InvoiceStatus } from 'src/app/enums/enums';
 
 @Component({
   selector: 'invoice-form',
   templateUrl: './invoice.form.component.html',
   styleUrls: ['./invoice.form.component.scss'],
 })
-
 export class InvoiceFormComponent implements OnInit {
   @Output('success') _eventEmitter = new EventEmitter<Invoice>();
 
@@ -18,102 +18,104 @@ export class InvoiceFormComponent implements OnInit {
   private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
 
-  constructor (
+  constructor(
     private formFactory: FormFactory,
     private service: InvoiceService,
     private formHelpers: FormHelperService
-    ) {}
+  ) {}
 
-  ngOnInit(){
-    this._invoiceForm = this.formFactory.invoiceForm()
+  ngOnInit() {
+    this._invoiceForm = this.formFactory.invoiceForm();
     this.formFactory.getPaymentTerms();
   }
 
-  get isNew(): boolean{
+  get isNew(): boolean {
     return this._isNew;
   }
 
-  get isActive(): boolean{
+  get isActive(): boolean {
     return this._isActive;
   }
 
-  get invoiceForm(): FormGroup{
+  get invoiceForm(): FormGroup {
     return this._invoiceForm;
   }
 
-  get invoiceItems(): FormArray{
+  get invoiceItems(): FormArray {
     return this._invoiceForm.get('items') as FormArray;
   }
 
-  get invoiceId(): string{
+  get invoiceId(): string {
     return this._invoiceForm.get('id')?.value;
   }
 
-  get paymentTermOptions(){
+  get paymentTermOptions() {
     return this.formFactory.getPaymentTerms();
   }
 
-  getFormGroupAtIndex(index: number): FormGroup{
-    return this.invoiceItems.at(index) as FormGroup
+  get invoiceStatus(): typeof InvoiceStatus {
+    return InvoiceStatus;
   }
 
-  getTotal(index: number): string{
+  getFormGroupAtIndex(index: number): FormGroup {
+    return this.invoiceItems.at(index) as FormGroup;
+  }
+
+  getTotal(index: number): string {
     const item: InvoiceItem = this.invoiceItems.at(index).value;
     const total = item.price * item.quantity;
-    return `${total.toFixed(2)}` // TODO - add better rounding
+    return `${total.toFixed(2)}`; // TODO - add better rounding
   }
 
-  closeForm(): void{
+  closeForm(): void {
     this._isActive = false;
     this._invoiceForm.reset();
   }
 
-  openNewForm(): void{
+  openNewForm(): void {
     this._invoiceForm.patchValue(this.formFactory.invoiceForm());
     this._isNew = true;
     this._isActive = true;
   }
 
-  openEditForm(invoice: Invoice){
+  openEditForm(invoice: Invoice) {
     this._invoiceForm.reset();
 
     this._invoiceForm.patchValue({
       id: invoice.id,
       items: invoice.items,
       billFrom: invoice.billFrom,
-      billTo: invoice.billTo
+      billTo: invoice.billTo,
     });
 
     this._isNew = false;
     this._isActive = true;
   }
 
-  addItem(): void{
+  addItem(): void {
     this.invoiceItems.push(this.formFactory.invoiceItemForm());
   }
 
-  removeItem(index: number): void{
+  removeItem(index: number): void {
     this.invoiceItems.removeAt(index);
   }
 
-  onSubmit(): void{
-    if(this._invoiceForm.valid){
+  onSubmit(status: InvoiceStatus): void {
+    if (this._invoiceForm.valid) {
       const invoice: Invoice = this._invoiceForm.value;
-      if(this._isNew){
-        this.service.post(invoice).subscribe(invoice => {
+      invoice.status = status;
+      if (this._isNew) {
+        this.service.post(invoice).subscribe((invoice) => {
           this._eventEmitter.emit(invoice);
         });
-      }
-      else{
-        this.service.put(invoice).subscribe(invoice => {
+      } else {
+        this.service.put(invoice).subscribe((invoice) => {
           this._eventEmitter.emit(invoice);
         });
       }
       this.closeForm();
-    }
-    else{
+    } else {
       this.formHelpers.markAllAsDirty(this._invoiceForm);
     }
-
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
-import { PaymentTerms, PaymentTermsStringRep } from 'src/app/enums/enums';
+import { InvoiceStatus, PaymentTerms, PaymentTermsStringRep } from 'src/app/enums/enums';
 import { SelectOption } from 'src/app/models/generic';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class FormFactory{
   invoiceForm(): FormGroup{
     return this.formBuilder.group({
       id: '',
+      status: InvoiceStatus.draft,
       billFrom: this.formBuilder.group({
         streetAddress: new FormControl('', Validators.required),
         city: new FormControl('', Validators.required),

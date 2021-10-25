@@ -7,6 +7,7 @@ namespace NeoPay.Dtos
     public record InvoiceDto
     {
         public string Id { get; set; }
+        public InvoiceStatus Status { get; set; }
         public Contact BillFrom { get; init; }
         public PayerDto BillTo { get; init; }
         public IEnumerable<InvoiceItem> Items { get; init; }

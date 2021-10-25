@@ -14,6 +14,7 @@ namespace NeoPay.Presentation.Extensions
             return new InvoiceDto()
             {
                 Id = invoice.Id,
+                Status = invoice.Status,
                 BillFrom = invoice.BillFrom,
                 BillTo = new PayerDto()
                 {
@@ -36,6 +37,7 @@ namespace NeoPay.Presentation.Extensions
             return new Invoice()
             {
                 Id = invoice.Id,
+                Status = invoice.Status,
                 UserId = userId,
                 BillFrom = invoice.BillFrom,
                 BillTo = new Payer()
