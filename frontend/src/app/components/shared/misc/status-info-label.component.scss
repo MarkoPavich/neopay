@@ -29,21 +29,18 @@
     width: 100%;
     height: 100%;
 
-    background-color: #33D69F;
-
     opacity: 5.71%;
 
     z-index: -1;
   }
 
   span{
-    color: #33D69F;
     font-weight: bold;
   }
 }
 
 .status-span{
-  font-weight: 12px;
+  font-size: 12px;
 }
 
 .bulletpoint{
@@ -51,7 +48,47 @@
   width: 8px;
 
   border-radius: 50%;
-
-  background-color: #33D69F;
   margin-right: 8px;
+}
+
+.info-label.status-Paid{
+  ::before{
+    background-color: #33D69F;
+  }
+
+  span{
+    color: #33D69F;
+  }
+
+  & > .bulletpoint{
+    background-color: #33D69F;
+  }
+}
+
+.info-label.status-Pending{
+  ::before{
+    background-color: #FF8F00;
+  }
+
+  span{
+    color: #FF8F00;
+  }
+
+  & > .bulletpoint{
+    background-color: #FF8F00;
+  }
+}
+
+.info-label.status-Draft{
+  ::before{
+    background-color: #373B53;
+  }
+
+  span{
+    color: #373B53;
+  }
+
+  & > .bulletpoint{
+    background-color: #373B53;
+  }
 }

@@ -4,7 +4,7 @@ import { InvoiceStatus } from 'src/app/enums/enums';
 @Component({
   selector: 'status-info-label',
   template: `
-    <div class="info-label">
+    <div [ngClass]="'info-label status-' + statusSpan">
       <div class="bulletpoint"></div>
       <span class="status-span">{{statusSpan}}</span>
     </div>
