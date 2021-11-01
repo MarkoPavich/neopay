@@ -7,10 +7,10 @@ namespace NeoPay.Data.Entities
     {
         public string Id { get; init; }
         public virtual string UserId { get; init; }
-        public Contact BillFrom { get; init; }
-        public Payer BillTo { get; init; }
-        public InvoiceStatus Status { get; init; }
+        public Contact BillFrom { get; set; }
+        public Payer BillTo { get; set; }
+        public InvoiceStatus Status { get; set; }
         public virtual NeoPayUser User { get; init; }
-        public IEnumerable<InvoiceItem> Items { get; init; }
+        public IEnumerable<InvoiceItem> Items { get; set; }
     }
 }
