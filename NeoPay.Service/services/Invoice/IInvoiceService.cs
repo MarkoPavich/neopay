@@ -9,7 +9,7 @@ namespace NeoPay.Service.services
         Task<Invoice> GetByIdAsync(string Id);
         Task<IEnumerable<Invoice>> GetAllAsync();
         Task AddAsync(Invoice invoice);
-        Task Update(Invoice invoice);
-        Task Delete(string Id);
+        Task DeleteAsync(string Id);
+        Task SaveChangesAsync();
     }
 }

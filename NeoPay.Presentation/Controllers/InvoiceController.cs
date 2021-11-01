@@ -9,6 +9,7 @@ using NeoPay.Data.Entities;
 using NeoPay.Service.services;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using NeoPay.Data.Enums;
 
 namespace NeoPay.Controllers
 {
@@ -74,25 +75,32 @@ namespace NeoPay.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task <ActionResult<InvoiceDto>> Put(string Id, InvoiceDto invoiceDto)
+        [HttpPut]
+        public async Task <ActionResult<InvoiceDto>> Put(InvoiceDto invoiceDto)
         {
             try
             {
-                Invoice invoice = await _service.GetByIdAsync(Id);
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                Invoice invoice = await _service.GetByIdAsync(invoiceDto.Id);
+
                 if(invoice == null)
                 {
                     return NotFound();
                 }
 
-                if(invoice.Id != invoiceDto.Id)
+                if(invoice.UserId != userId || invoice.Status != InvoiceStatus.Draft)
                 {
                     return BadRequest();
                 }
 
-                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                Invoice updated = invoiceDto.FromDto(userId);
 
-                await _service.Update(invoiceDto.FromDto(userId));
+                invoice.BillTo = updated.BillTo;
+                invoice.BillFrom = updated.BillFrom;
+                invoice.Status = updated.Status;
+                invoice.Items = updated.Items;
+
+                await _service.SaveChangesAsync();
 
                 return Ok(invoiceDto);
             }
@@ -114,7 +122,7 @@ namespace NeoPay.Controllers
                     return NotFound();
                 }
 
-                await _service.Delete(Id);
+                await _service.DeleteAsync(Id);
 
                 return NoContent();
             }
@@ -123,6 +131,29 @@ namespace NeoPay.Controllers
                 return StatusCode(500, "Something went wrong");
             }
 
+        }
+
+        [HttpGet("setStatusPaid/{id}")]
+        public async Task <ActionResult> SetStatusPaid(string Id)
+        {
+            try
+            {
+                Invoice invoice = await _service.GetByIdAsync(Id);
+
+                if(invoice == null || invoice.Status == InvoiceStatus.Paid)
+                {
+                    return BadRequest();
+                }
+
+                invoice.Status = InvoiceStatus.Paid;
+                await _service.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something went wrong");
+            }
         }
     }
 }

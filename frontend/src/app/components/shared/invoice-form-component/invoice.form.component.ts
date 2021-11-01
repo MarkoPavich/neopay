@@ -109,6 +109,7 @@ export class InvoiceFormComponent implements OnInit {
           this._eventEmitter.emit(invoice);
         });
       } else {
+        console.log(invoice);
         this.service.put(invoice).subscribe((invoice) => {
           this._eventEmitter.emit(invoice);
         });

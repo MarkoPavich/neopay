@@ -27,7 +27,7 @@ namespace NeoPay.Service.services
             return _repository.AddAsync(invoice);
         }
 
-        public async Task Delete(string invoiceId)
+        public async Task DeleteAsync(string invoiceId)
         {
             var invoice = await _repository.GetByIdAsync(invoiceId);
 
@@ -55,9 +55,9 @@ namespace NeoPay.Service.services
             return invoice;
         }
 
-        public Task Update(Invoice invoice)
+        public Task SaveChangesAsync()
         {
-            throw new System.NotImplementedException();
+            return _repository.SaveChanges();
         }
     }
 }

@@ -90,4 +90,10 @@ export class InvoiceComponent implements OnInit {
       this.router.navigate([URLS.home]);
     });
   }
+
+  setStatusPaid() {
+    this.service.setStatusPaid(this._invoice.id).subscribe(() => {
+      this._invoice.status = InvoiceStatus.paid;
+    });
+  }
 }
