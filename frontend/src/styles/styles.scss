@@ -17,6 +17,6 @@ body{
   width: 100%;
 
   display: grid;
-  grid-template-columns: $sidebar-nav-width 1fr;
+  grid-template-columns: $sidebar-nav-desktop-width 1fr;
 }
 

@@ -3,7 +3,7 @@
 nav{
   position: relative; 
 
-	width: $sidebar-nav-width;
+	width: $sidebar-nav-desktop-width;
   height: 100%;
 
   background-color: transparent;
@@ -19,8 +19,8 @@ nav{
 .logo-container{
 	position: relative;
 
-	min-height: $sidebar-nav-width;
-	min-width: $sidebar-nav-width;
+	min-height: $sidebar-nav-desktop-width;
+	min-width: $sidebar-nav-desktop-width;
 
 	background-color: transparent;
 
@@ -154,10 +154,54 @@ nav{
     top: -20px;
     left: 0;
 
-    width: $sidebar-nav-width;
+    width: $sidebar-nav-desktop-width;
     height: 20px;
 
     background-color: $color-accent-3;
   }
+}
+
+@media(max-width: 800px){
+  nav{
+    width: 100vw;
+    height: $sidebar-nav-mobile-height;
+
+    flex-direction: row;
+
+    background-color: $color-accent-3;
+    border-radius: 0;
+  }
+
+  .bottom-container{
+    width: 192px;
+    height: 100%;
+
+    display: flex;
+  }
+
+  .theme-selector-container{
+    width: 96px;
+  }
+
+  .profile-img-container{
+    width: 96px;
+
+    border-radius: 0;
+
+    &::before{
+      border-left: solid 1px #494E6E;
+    }
+  }
+
+  .logo-container{
+    min-height: $sidebar-nav-mobile-height;
+    min-width: $sidebar-nav-mobile-height;
+  }
+
+  .pacman-logo{
+    height: 29px;
+    width: 31px;
+  }
+  
 }
 
