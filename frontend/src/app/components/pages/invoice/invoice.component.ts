@@ -71,6 +71,14 @@ export class InvoiceComponent implements OnInit {
     return PaymentTermsStringRep[this._invoice.billTo.dueDate];
   }
 
+  get isDraft(): boolean {
+    return this._invoice.status === InvoiceStatus.draft;
+  }
+
+  get isPending(): boolean {
+    return this._invoice.status !== InvoiceStatus.paid;
+  }
+
   getItemSum(index: number): string {
     const item: InvoiceItem = this.invoiceItems[index];
     const sum = item.price * item.quantity;

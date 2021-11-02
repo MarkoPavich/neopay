@@ -88,7 +88,7 @@ namespace NeoPay.Controllers
                     return NotFound();
                 }
 
-                if(invoice.UserId != userId || invoice.Status != InvoiceStatus.Draft)
+                if(invoice.UserId != userId || invoice.Status == InvoiceStatus.Draft)
                 {
                     return BadRequest();
                 }
