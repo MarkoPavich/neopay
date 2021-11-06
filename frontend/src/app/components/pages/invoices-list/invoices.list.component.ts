@@ -1,6 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Invoice } from 'src/app/models/models';
-import { SessionService } from 'src/app/services/auth/session.service';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 
