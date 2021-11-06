@@ -32,6 +32,13 @@
   font-weight: bold;
 }
 
+.dude-date-container{
+  font-size: 12px;
+  font-weight: bold;
+
+  color: #888EB0;
+}
+
 .container-right{
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -47,6 +54,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+
+  & > span{
+    color: #888EB0;
+  }
 }
 
 .hash-prefix{
@@ -70,3 +81,43 @@
   align-items: center;
 }
 
+.container-mobile{
+  display: none;
+}
+
+@media(max-width: $breakpoint-tablet-width-medium){
+  .client-price-container{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .status-container{
+    justify-content: center
+  }
+
+  .status-container img{
+    display: none;
+  }
+}
+
+@media(max-width: $breakpoint-tablet-width-small){
+  .content-container{
+    height: 134px;
+
+    grid-template-columns: none;
+
+    & > div{
+      display: flex;
+      justify-content: space-between;
+      border: solid 2px red;
+    }
+  }
+
+  .container-mobile{
+    display: inherit;
+  }
+
+  .container-desktop{
+    display: none;
+  }
+}

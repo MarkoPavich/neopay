@@ -13,12 +13,24 @@ import { PaymentTermsStringRep } from 'src/app/enums/enums';
           <span class="hash-prefix">#</span>
           <span>{{ invoice.id }}</span>
         </div>
-        <div class="dude-date-container">
+        <div class="client-price-container container-mobile">
+          <span>{{ invoice.billTo.clientName }}</span>
+        </div>
+        <div class="dude-date-container container-desktop">
           <span>Due {{ paymentTerm }}</span>
         </div>
       </div>
       <div class="container-right">
-        <div class="client-price-container">
+        <div class="container-mobile">
+          <div class="dude-date-container">
+            <span>Due {{ paymentTerm }}</span>
+          </div>
+          <div class="price-box">
+            <span>£ </span>
+            <span>{{ total }}</span>
+          </div>
+        </div>
+        <div class="client-price-container container-desktop">
           <span>{{ invoice.billTo.clientName }}</span>
           <div class="price-box">
             <span>£ </span>
