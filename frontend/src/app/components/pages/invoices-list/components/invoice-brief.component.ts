@@ -9,17 +9,21 @@ import { PaymentTermsStringRep } from 'src/app/enums/enums';
   template: `
     <div (click)="navigateInvoice()" class="content-container">
       <div class="container-left">
-        <span class="hash-prefix">#</span>
-        <span>{{ invoice.id }}</span>
-      </div>
-      <div class="container-middle">
-        <span>Due {{ paymentTerm }}</span>
-        <span>{{ invoice.billTo.clientName }}</span>
+        <div class="invoice-id-container">
+          <span class="hash-prefix">#</span>
+          <span>{{ invoice.id }}</span>
+        </div>
+        <div class="dude-date-container">
+          <span>Due {{ paymentTerm }}</span>
+        </div>
       </div>
       <div class="container-right">
-        <div class="price-box">
-          <span>£ </span>
-          <span>{{ total }}</span>
+        <div class="client-price-container">
+          <span>{{ invoice.billTo.clientName }}</span>
+          <div class="price-box">
+            <span>£ </span>
+            <span>{{ total }}</span>
+          </div>
         </div>
         <div class="status-container">
           <status-info-label
