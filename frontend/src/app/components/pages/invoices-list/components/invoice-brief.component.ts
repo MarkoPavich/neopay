@@ -21,7 +21,7 @@ import { PaymentTermsStringRep } from 'src/app/enums/enums';
         </div>
       </div>
       <div class="container-right">
-        <div class="container-mobile">
+        <div class="duedate-price-container container-mobile">
           <div class="dude-date-container">
             <span>Due {{ paymentTerm }}</span>
           </div>

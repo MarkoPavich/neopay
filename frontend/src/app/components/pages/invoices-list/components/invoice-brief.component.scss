@@ -81,6 +81,16 @@
   align-items: center;
 }
 
+.duedate-price-container{
+  height: 100%;
+  
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .container-mobile{
   display: none;
 }
@@ -92,7 +102,7 @@
   }
 
   .status-container{
-    justify-content: center
+    justify-content: flex-end;
   }
 
   .status-container img{
@@ -105,11 +115,23 @@
     height: 134px;
 
     grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+
+    padding: 24px;
 
     & > div{
+      height: 100%;
+
       display: flex;
       justify-content: space-between;
-      border: solid 2px red;
+    }
+
+    & > div:first-child{
+      align-items: flex-start;
+    }
+
+    & > div:nth-child(2){
+      align-items: flex-end;
     }
   }
 
