@@ -51,11 +51,11 @@ article{
   margin-bottom: 21px;
 
   h4 span{
-    color: $color-contrast-medium-darker;
+    color: var(--color-contrast-medium-darker);
     font-size: 18px;
   }
   span{
-    color: $color-contrast-medium-lighter;
+    color: var(--color-contrast-medium-lighter);
   }
 }
 
@@ -80,7 +80,7 @@ article{
 }
 
 .txt-light{
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
   font-size: 12px;
 }
 
@@ -106,7 +106,7 @@ article{
 
 .client-info-container span{
   display: block;
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
   font-size: 12px;
 }
 
@@ -167,13 +167,13 @@ article{
   table thead{
     margin-bottom: 32px;
 
-    color: $color-contrast-medium-lighter;
+    color: var(--color-contrast-medium-lighter);
     font-size: 11px;
   }
 
   table tr{
     font-size: 12px;
-    color: $color-contrast-medium-lighter;
+    color: var(--color-contrast-medium-lighter);
     font-weight: bold;
   }
 
@@ -196,7 +196,7 @@ article{
   padding-left: 32px;
   padding-right: 32px;
 
-  background-color: $color-accent-3;
+  background-color: var(--color-accent-3);
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;

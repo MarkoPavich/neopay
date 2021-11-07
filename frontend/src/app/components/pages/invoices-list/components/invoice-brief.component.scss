@@ -19,7 +19,7 @@
 
   &:hover{
     cursor: pointer;
-    border-color: $color-primary-main;
+    border-color: var(--color-primary-main);
   }
 }
 
@@ -61,7 +61,7 @@
 }
 
 .hash-prefix{
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
 }
 
 .price-box{

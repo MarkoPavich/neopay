@@ -41,7 +41,7 @@
   }
 
   &:hover{
-    color: $color-contrast-medium-lighter;
+    color: var(--color-contrast-medium-lighter);
   }
 }
 
@@ -64,20 +64,20 @@
 
 .button-primary{
   color: white;
-  background-color: $color-primary-main;
+  background-color: var(--color-primary-main);
 }
 
 .button-aux{
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
   background-color: #F9FAFE;
 }
 
 .button-danger{
   color: white;
-  background-color: $color-danger;
+  background-color: var(--color-danger);
 }
 
 .button-secondary{
-  color: $color-contrast-medium-darker;
-  background-color: $color-accent-3;
+  color: var(--color-contrast-medium-darker);
+  background-color: var(--color-accent-3);
 }

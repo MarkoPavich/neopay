@@ -96,7 +96,7 @@ $form-transition-duration: 0.35s;
 }
 
 .hash-prefix{
-  color: $color-contrast-medium-darker;
+  color: var(--color-contrast-medium-darker);
 }
 
 .form-container > form fieldset{
@@ -110,7 +110,7 @@ $form-transition-duration: 0.35s;
 
   font-size: 12px;
   font-weight: bold;
-  color: $color-primary-main;
+  color: var(--color-primary-main);
 }
 
 .fields-grid-container{
@@ -217,7 +217,7 @@ $form-transition-duration: 0.35s;
 .invoice-items-list tr:first-child{
   text-align: left;
   font-size: 12px;
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
 
   margin-bottom: 16px;
 }
@@ -229,7 +229,7 @@ $form-transition-duration: 0.35s;
 
   font-weight: bold;
   font-size: 12px;
-  color: $color-contrast-medium-darker;
+  color: var(--color-contrast-medium-darker);
 }
 
 .add-item-container{

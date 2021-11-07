@@ -10,7 +10,7 @@
     font-size: 12px;
     font-weight: 500;
   
-    color: $color-contrast-medium-lighter;
+    color: var(--color-contrast-medium-lighter);
   }
 
   & select{
@@ -18,7 +18,7 @@
   }
 
   & select.ng-dirty.ng-invalid + input{
-    border-color: $color-danger !important;
+    border-color: var(--color-danger) !important;
   }
 }
 
@@ -37,7 +37,7 @@
     font-size: 12px;
     font-weight: bold;
   
-    border: solid 2px $color-contrast-light;
+    border: solid 2px var(--color-contrast-light);
     border-radius: 4px;
     transition: border-color 0.3s ease;
 
@@ -48,7 +48,7 @@
 
   &:hover > input, &:focus > input{
     outline: none;
-    border-color: $color-primary-main;
+    border-color: var(--color-primary-main);
   }
 
   &:focus > .select-options{
@@ -86,15 +86,15 @@
   padding-left: 24px;
   padding-right: 24px;
 
-  color: $color-contrast-dark;
+  color: var(--color-contrast-dark);
 
   &:not(:last-child){
-    border-bottom: solid 1px $color-contrast-light;
+    border-bottom: solid 1px var(--color-contrast-light);
   }
 
   &:hover{
     cursor: pointer;
-    color: $color-primary-main;
+    color: var(--color-primary-main);
   }
 
   & span{

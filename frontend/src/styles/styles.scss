@@ -1,5 +1,26 @@
 @import 'config';
 
+// Main color scheme
+
+html{
+  --color-primary-main: #7C5DFA;
+  --color-primary-accent: #9277FF;
+
+  --color-bg-light: #F8F8FB;
+  --color-bg-dark: #141625;
+
+  --color-accent-1: #1E2139;
+  --color-accent-2: #252945;
+  --color-accent-3: #373B53;
+
+  --color-contrast-medium-darker: #888EB0;
+  --color-contrast-medium-lighter: #7E88C3;
+  --color-contrast-light: #DFE3FA;
+  --color-contrast-dark: #0C0E16;
+
+  --color-danger: #EC5757;
+  --color-danger-faded: #9277FF;
+}
 
 *{
   box-sizing: border-box;
@@ -8,7 +29,7 @@
 }
 
 body{
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
   font-family: $font-stack-primary;
 }
 

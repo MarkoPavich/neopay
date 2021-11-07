@@ -11,7 +11,7 @@
   font-size: 12px;
   font-weight: 500;
 
-  color: $color-contrast-medium-lighter;
+  color: var(--color-contrast-medium-lighter);
 }
 
 .input-field-container > input{
@@ -23,14 +23,14 @@
   font-size: 12px;
   font-weight: bold;
 
-  border: solid 2px $color-contrast-light;
+  border: solid 2px var(--color-contrast-light);
   border-radius: 4px;
   transition: border-color 0.3s ease;
 }
 
 .input-field-container > input:focus{
   outline: none;
-  border-color: $color-primary-main;
+  border-color: var(--color-primary-main);
 }
 
 .input-centered{
@@ -40,5 +40,5 @@
 }
 
 .ng-invalid.ng-dirty{
-  border-color: $color-danger !important;
+  border-color: var(--color-danger) !important;
 }

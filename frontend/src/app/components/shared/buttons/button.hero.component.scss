@@ -15,7 +15,7 @@
 
   border-radius: 24px;
 
-  background-color: $color-primary-main;
+  background-color: var(--color-primary-main);
 
   button{
     border: none;
@@ -24,7 +24,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: $color-primary-main;
+    background-color: var(--color-primary-main);
 
     span{
       color: white;
