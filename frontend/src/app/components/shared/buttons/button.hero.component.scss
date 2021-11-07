@@ -26,9 +26,15 @@
 
     background-color: $color-primary-main;
 
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
+    span{
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    & span:nth-child(2){
+      white-space: pre;
+    }
 
     margin-top: -3px;
   }
@@ -49,4 +55,14 @@
 
 .button-hero:hover, .button-hero > *:hover{
   cursor: pointer;
+}
+
+@media(max-width: $breakpoint-tablet-width-small){
+  .button-hero{
+    width: 90px;
+
+    button span:nth-child(2){
+      display: none;
+    }
+  }
 }

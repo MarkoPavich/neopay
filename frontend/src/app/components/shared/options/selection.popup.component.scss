@@ -1,3 +1,5 @@
+@import '/src/styles/config';
+
 .content-container{
   display: flex;
   align-items: center;
@@ -7,5 +9,19 @@
     font-weight: bold;
 
     margin-right: 16px;
+  }
+}
+
+.span-short{
+  display: none;
+}
+
+@media(max-width: $breakpoint-tablet-width-small){
+  .span-short{
+    display: inherit;
+  }
+
+  .span-full-width{
+    display: none;
   }
 }

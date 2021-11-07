@@ -33,3 +33,32 @@ header{
   align-items: center;
   justify-content: space-between;
 }
+
+.span-short{
+  display: none;
+}
+
+@media(max-width: $breakpoint-tablet-width-small){
+  .container-flex-right{
+    flex-basis: 100px;
+    justify-content: flex-end;
+
+    & > *:first-child{
+      margin-right: 18px;
+    }
+  }
+
+  .container-flex-left{
+    h1{
+      font-size: 20px;
+    }
+  }
+
+  .span-short{
+    display: inherit;
+  }
+
+  .span-full-width{
+    display: none;
+  }
+}

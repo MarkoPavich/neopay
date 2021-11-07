@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   template: `
 
     <div class="content-container">
-      <span>Filter by status</span>
+      <span class="span-full-width">Filter by status</span>
+      <span class="span-short">Filter</span>
       <img src="/assets/icon-arrow-down.svg" alt="menu_arrow.img">
     </div>
     `,

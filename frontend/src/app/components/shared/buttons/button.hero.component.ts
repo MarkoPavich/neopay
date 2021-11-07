@@ -8,7 +8,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
     <div class="add-circle">
       <img src="/assets/icon-plus.svg" alt="add.img">
     </div>
-    <button>New Invoice</button>
+    <button>
+      <span>New</span>
+      <span> Invoice</span>
+    </button>
   </div>
 
   `,
