@@ -105,6 +105,10 @@ article{
   }
 }
 
+.bottom-clear{
+  display: none;
+}
+
 .client-info-container span{
   display: block;
   color: var(--color-contrast-medium-lighter);
@@ -219,8 +223,9 @@ article{
 
 @media(max-width: $breakpoint-tablet-width-small){
 
-  .invoice-details-top-container{
-    margin-bottom: 91px; // controls container height
+  .bottom-clear{
+    display: block;
+    height: 91px; // controls-container height
   }
 
   .controls-container{

@@ -1,7 +1,7 @@
 <invoice-form (success)="onSuccess($event)"></invoice-form>
 
 <a [routerLink]="homeUrl" class="arrowAnchor back-link">
-  <img src="assets/icon-arrow-left.svg" alt="">
+  <img src="assets/icon-arrow-left.svg" alt="" />
   <span>Go Back</span>
 </a>
 
@@ -9,28 +9,41 @@
   <header class="page-header">
     <div class="status-info-container">
       <span>Status</span>
-      <status-info-label [invoiceStatus]="invoiceStatus" ></status-info-label>
+      <status-info-label [invoiceStatus]="invoiceStatus"></status-info-label>
     </div>
 
     <div class="controls-container">
-      <button *ngIf="isDraft" (click)="handleOnEdit()" class="button button-aux">Edit</button>
-      <button (click)="handleOnDelete()" class="button button-danger">Delete</button>
-      <button *ngIf="isPending" (click)="setStatusPaid()" class="button button-primary">Mark as Paid</button>
+      <button
+        *ngIf="isDraft"
+        (click)="handleOnEdit()"
+        class="button button-aux"
+      >
+        Edit
+      </button>
+      <button (click)="handleOnDelete()" class="button button-danger">
+        Delete
+      </button>
+      <button
+        *ngIf="isPending"
+        (click)="setStatusPaid()"
+        class="button button-primary"
+      >
+        Mark as Paid
+      </button>
     </div>
-    
   </header>
 
-  <article class="invoice-details-top-container">
+  <article>
     <header class="invoice-header">
       <div class="id-desc-container">
-        <h4><span>#</span>{{invoiceId}}</h4>
-        <span>{{billTo.description}}</span>
+        <h4><span>#</span>{{ invoiceId }}</h4>
+        <span>{{ billTo.description }}</span>
       </div>
       <div class="address-info-container">
-        <span>{{billFrom.streetAddress}}</span>
-        <span>{{billFrom.city}}</span>
-        <span>{{billFrom.postCode}}</span>
-        <span>{{billFrom.country}}</span>
+        <span>{{ billFrom.streetAddress }}</span>
+        <span>{{ billFrom.city }}</span>
+        <span>{{ billFrom.postCode }}</span>
+        <span>{{ billFrom.country }}</span>
       </div>
     </header>
 
@@ -38,25 +51,25 @@
       <div class="dates-container">
         <div>
           <span class="txt-light">Invoice Date</span>
-          <span class="txt-strong">{{billTo.invoiceDate}}</span>
+          <span class="txt-strong">{{ billTo.invoiceDate }}</span>
         </div>
         <div>
           <span class="txt-light">Payment Due</span>
-          <span class="txt-strong">{{paymentTerm}}</span>
+          <span class="txt-strong">{{ paymentTerm }}</span>
         </div>
       </div>
 
       <div class="client-info-container">
         <span>Bill To</span>
-        <span class="txt-strong">{{billTo.clientName}}</span>
-        <span>{{billTo.streetAddress}}</span>
-        <span>{{billTo.city}}</span>
-        <span>{{billTo.postCode}}</span>
-        <span>{{billTo.country}}</span>
+        <span class="txt-strong">{{ billTo.clientName }}</span>
+        <span>{{ billTo.streetAddress }}</span>
+        <span>{{ billTo.city }}</span>
+        <span>{{ billTo.postCode }}</span>
+        <span>{{ billTo.country }}</span>
       </div>
       <div class="mail-recipient-container">
         <span class="txt-light">Sent to</span>
-        <span class="txt-strong">{{billTo.clientEmail}}</span>
+        <span class="txt-strong">{{ billTo.clientEmail }}</span>
       </div>
     </section>
 
@@ -69,21 +82,21 @@
             <th>Price</th>
             <th>total</th>
           </thead>
-          <ng-container *ngFor="let item of invoiceItems; let i = index;">
+          <ng-container *ngFor="let item of invoiceItems; let i = index">
             <tr>
-              <td>{{item.name}}</td>
-              <td>{{item.quantity}}</td>
-              <td>£ {{item.price}}</td>
-              <td>£ {{getItemSum(i)}}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>£ {{ item.price }}</td>
+              <td>£ {{ getItemSum(i) }}</td>
             </tr>
-        </ng-container>
+          </ng-container>
         </table>
       </div>
     </section>
     <section class="sum-container">
       <span>Amount Due</span>
-      <span>£ {{totalSum}}</span>
+      <span>£ {{ totalSum }}</span>
     </section>
-
   </article>
 </ng-container>
+<div class="bottom-clear"></div>
