@@ -77,7 +77,8 @@ article{
 }
 
 .invoice-details-container{
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .txt-light{
@@ -256,6 +257,30 @@ article{
 
     display: flex;
     justify-content: space-between;
+  }
+
+  .invoice-header{
+    flex-direction: column;
+
+    & div:first-child{
+      margin-bottom: 30px;
+    }
+  }
+
+  .address-info-container span{
+    text-align: left;
+  }
+
+  .invoice-details-container{
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 32px;
+  }
+
+  .items-table-container table{
+
+    & thead{
+      display: none;
+    }
   }
 }
 
