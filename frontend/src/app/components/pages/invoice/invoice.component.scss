@@ -1,4 +1,5 @@
 @import 'src/styles/utilities';
+@import 'src/styles/_config';
 
 .back-link{
   margin-top: 64px;
@@ -216,4 +217,40 @@ article{
   }
 }
 
+@media(max-width: $breakpoint-tablet-width-small){
+
+  .invoice-details-top-container{
+    margin-bottom: 91px; // controls container height
+  }
+
+  .controls-container{
+    position: fixed;
+
+    left:0;
+    bottom: 0;
+
+    height: 91px;
+    width: 100vw;
+
+    background-color: var(--color-background-light-contrast);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    padding-left: 24px;
+    padding-right: 24px;
+
+    & button{
+      margin: 0;
+    }
+  }
+
+  .status-info-container{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
