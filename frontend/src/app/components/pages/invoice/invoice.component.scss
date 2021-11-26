@@ -228,6 +228,11 @@ article{
 
 @media(max-width: $breakpoint-tablet-width-small){
 
+  .page-header{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .item-table-mobile{
     display: flex !important;
     justify-content: space-between;

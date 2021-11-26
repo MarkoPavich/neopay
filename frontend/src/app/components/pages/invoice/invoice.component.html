@@ -103,7 +103,7 @@
       </div>
     </section>
     <section class="sum-container">
-      <span>Amount Due</span>
+      <span>{{invoiceStatus === 1 ? 'Amount Due' : 'Grand Total'}}</span>
       <span>£ {{ totalSum }}</span>
     </section>
   </article>
