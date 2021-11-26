@@ -83,11 +83,20 @@
             <th>total</th>
           </thead>
           <ng-container *ngFor="let item of invoiceItems; let i = index">
-            <tr>
+            <tr class="item-table-desktop">
               <td>{{ item.name }}</td>
               <td>{{ item.quantity }}</td>
               <td>£ {{ item.price }}</td>
               <td>£ {{ getItemSum(i) }}</td>
+            </tr>
+            <tr class="item-table-mobile">
+              <td>
+                <span>{{ item.name }}</span>
+                <span>{{ item.quantity }}x£{{ item.price }}</span>
+              </td>
+              <td>
+                £ {{ getItemSum(i) }}
+              </td>
             </tr>
           </ng-container>
         </table>

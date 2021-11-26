@@ -222,7 +222,54 @@ article{
   }
 }
 
+.item-table-mobile{
+  display: none !important;
+}
+
 @media(max-width: $breakpoint-tablet-width-small){
+
+  .item-table-mobile{
+    display: flex !important;
+    justify-content: space-between;
+
+    & td:first-child{
+      display: flex;
+      flex-direction: column;
+
+      & span:first-child{
+        margin-bottom: 8px;
+        
+        font-weight: bold;
+        color: var(--color-contrast-dark);
+      }
+
+      & span:nth-child(2){
+        color: var(--color-contrast-medium-lighter);
+      }
+    }
+
+    & td:nth-child(2){
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  article{
+    padding: 24px;
+  }
+
+  .sum-container{
+    padding-left: 24px;
+    padding-right: 24px;
+
+    & span:nth-child(2){
+      font-size: 20px;
+    }
+  }
+
+  .item-table-desktop{
+    display: none !important;
+  }
 
   .bottom-clear{
     display: block;
