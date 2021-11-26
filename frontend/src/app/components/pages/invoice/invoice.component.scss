@@ -228,6 +228,10 @@ article{
 
 @media(max-width: $breakpoint-tablet-width-small){
 
+  .invoice-item-details{
+    padding: 24px;
+  }
+
   .page-header{
     padding-left: 24px;
     padding-right: 24px;
@@ -294,13 +298,13 @@ article{
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
 
     padding-left: 24px;
     padding-right: 24px;
 
-    & button{
-      margin: 0;
+    & button:first-child{
+      margin-left: 0;
     }
   }
 
@@ -332,6 +336,10 @@ article{
 
     & thead{
       display: none;
+    }
+
+    & tr:last-child{
+      margin-bottom: 0px;
     }
   }
 }
