@@ -1,8 +1,16 @@
-<div [ngClass]="isActive ? 'top-container-background-dim active' :  'top-container-background-dim'">
-  <div class="form-container"> 
+<div
+  [ngClass]="
+    isActive
+      ? 'top-container-background-dim active'
+      : 'top-container-background-dim'
+  "
+>
+  <div class="form-container">
     <form [formGroup]="invoiceForm">
       <header>
-        <h2 *ngIf="!isNew">Edit <span class="hash-prefix">#</span>{{invoiceId}}</h2>
+        <h2 *ngIf="!isNew">
+          Edit <span class="hash-prefix">#</span>{{ invoiceId }}
+        </h2>
         <h2 *ngIf="isNew">New Invoice</h2>
       </header>
 
@@ -10,107 +18,97 @@
         <header>Bill From</header>
 
         <div class="fields-grid-container">
-          <input-field 
+          <input-field
             label="street adress"
             placeholder="19 Union Terrace"
             controlName="streetAddress"
-            >
+          >
           </input-field>
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field 
-            label="City"
-            placeholder="London"
-            controlName="city"
-            >
+          <input-field label="City" placeholder="London" controlName="city">
           </input-field>
-          <input-field 
+          <input-field
             label="Post Code"
             placeholder="E1 3EZ"
             controlName="postCode"
-            >
+          >
           </input-field>
-          <input-field 
+          <input-field
             label="Country"
             placeholder="United Kingdom"
             controlName="country"
-            >
+          >
           </input-field>
         </div>
-
       </fieldset>
 
       <fieldset formGroupName="billTo">
         <header>Bill to</header>
 
         <div class="fields-grid-container">
-          <input-field 
+          <input-field
             label="Client's Name"
             placeholder="Alex Grim"
             controlName="clientName"
-            >
+          >
           </input-field>
-          <input-field 
+          <input-field
             label="Client's Email"
             placeholder="alexgrim@somemail.com"
             controlName="clientEmail"
-            >
+          >
           </input-field>
-          <input-field 
+          <input-field
             label="Street Address"
             placeholder="84 Church Way"
             controlName="streetAddress"
-            >
+          >
           </input-field>
         </div>
 
         <div class="fields-grid-container tripple-column-grid">
-          <input-field 
-            label="City"
-            placeholder="Bradford"
-            controlName="city"
-            >
+          <input-field label="City" placeholder="Bradford" controlName="city">
           </input-field>
-          <input-field 
+          <input-field
             label="Post Code"
             placeholder="BD1 9PB"
             controlName="postCode"
-            >
+          >
           </input-field>
-          <input-field 
+          <input-field
             label="Country"
             placeholder="United Kingdom"
             controlName="country"
-            >
+          >
           </input-field>
         </div>
 
         <div class="fields-grid-container dual-column-grid double-margin">
-          <input-field 
+          <input-field
             label="Invoice Date"
             placeholder="20 Aug 2021"
             controlName="invoiceDate"
-            >
+          >
           </input-field>
           <dropdown-field
             [preselectText]="paymentTermOptions[3].text"
             [options]="paymentTermOptions"
             label="Payment Terms"
             controlName="dueDate"
-            >
-        </dropdown-field>
+          >
+          </dropdown-field>
         </div>
 
         <div class="fields-grid-container">
-          <input-field 
+          <input-field
             label="Project Description"
             placeholder="Graphic Design"
             controlName="description"
-            >
+          >
           </input-field>
         </div>
-
       </fieldset>
 
       <fieldset>
@@ -125,50 +123,54 @@
               <th>Total</th>
             </tr>
 
-            <ng-container *ngFor="let item of invoiceItems.controls; let i = index;">
+            <ng-container
+              *ngFor="let item of invoiceItems.controls; let i = index"
+            >
               <tr [formGroup]="getFormGroupAtIndex(i)">
-                <td>
+                <td data-thead="Item name">
                   <input-field
                     [showLabel]="false"
                     placeholder="Item"
-                    controlName="name" 
-                    >
+                    controlName="name"
+                  >
                   </input-field>
                 </td>
-                <td>
+                <td data-thead="Qty.">
                   <input-field
                     [showLabel]="false"
                     placeholder="0"
-                    controlName="quantity" 
+                    controlName="quantity"
                     [centered]="true"
-                    >
+                  >
                   </input-field>
                 </td>
-                <td>
+                <td data-thead="Price">
                   <input-field
                     [showLabel]="false"
                     placeholder="0"
-                    controlName="price" 
-                    >
+                    controlName="price"
+                  >
                   </input-field>
                 </td>
-                <td class="totals-container">
-                  <span>{{getTotal(i)}}</span>
-                  <img (click)="removeItem(i)" src="/assets/icon-delete.svg" alt="delete.ico">
+                <td data-thead="Total" class="totals-container">
+                  <span>{{ getTotal(i) }}</span>
+                  <img
+                    (click)="removeItem(i)"
+                    src="/assets/icon-delete.svg"
+                    alt="delete.ico"
+                  />
                 </td>
               </tr>
             </ng-container>
-
           </table>
 
           <div class="fields-grid-container add-item-container">
-            <button (click)="addItem()" type="button" class="button button-aux">+ Add New Item</button>
+            <button (click)="addItem()" type="button" class="button button-aux">
+              + Add New Item
+            </button>
           </div>
-
-      </div>
-
+        </div>
       </fieldset>
-
     </form>
   </div>
 
@@ -176,10 +178,21 @@
     <div class="controls-flex-container">
       <button (click)="closeForm()" class="button button-aux">Discard</button>
       <div>
-        <button type="button" (click)="onSubmit(invoiceStatus.draft)" class="button button-secondary">Save as Draft</button>
-        <button (click)="onSubmit(invoiceStatus.pending)" type="button" class="button button-primary">Save & Send</button>
+        <button
+          type="button"
+          (click)="onSubmit(invoiceStatus.draft)"
+          class="button button-secondary"
+        >
+          Save as Draft
+        </button>
+        <button
+          (click)="onSubmit(invoiceStatus.pending)"
+          type="button"
+          class="button button-primary"
+        >
+          Save & Send
+        </button>
       </div>
     </div>
   </div>
-
-</div>     
+</div>
