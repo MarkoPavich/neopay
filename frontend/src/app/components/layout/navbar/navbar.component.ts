@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/auth/session.service';
 
@@ -8,7 +8,13 @@ import { SessionService } from 'src/app/services/auth/session.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  @Output('themeSelect') _themeEmitter = new EventEmitter<void>();
+
   constructor(private sessionService: SessionService, private router: Router) {}
+
+  onThemeChange() {
+    this._themeEmitter.emit();
+  }
 
   onLogout() {
     this.sessionService.clearSession();

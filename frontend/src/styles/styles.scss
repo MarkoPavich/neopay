@@ -2,7 +2,7 @@
 
 // Main color scheme
 
-html{
+#top-container{
   --color-primary-main: #7C5DFA;
   --color-primary-accent: #9277FF;
 
@@ -12,6 +12,7 @@ html{
   --color-accent-1: #1E2139;
   --color-accent-2: #252945;
   --color-accent-3: #373B53;
+  --color-accent-4: #F9FAFE;
 
   --color-contrast-medium-darker: #888EB0;
   --color-contrast-medium-lighter: #7E88C3;
@@ -23,6 +24,19 @@ html{
 
   --color-background-light-contrast: #FFFFFF
 }
+ 
+#top-container.dark-theme{
+  --color-accent-3: #1E2139;
+  --color-bg-light: #141625;
+  --color-background-light-contrast: #1E2139;
+  --color-accent-4: #252945;
+
+  --color-contrast-dark: #FFFFFF;
+}
+
+#top-container{
+  background-color: var(--color-bg-light);
+}
 
 *{
   box-sizing: border-box;
@@ -31,7 +45,6 @@ html{
 }
 
 body{
-  background-color: var(--color-bg-light);
   font-family: $font-stack-primary;
 }
 
