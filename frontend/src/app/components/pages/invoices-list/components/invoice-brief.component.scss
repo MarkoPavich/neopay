@@ -36,7 +36,7 @@
   font-size: 12px;
   font-weight: bold;
 
-  color: #888EB0;
+  color: var(--color-contrast-medium-darker);
 }
 
 .container-right{
@@ -56,8 +56,12 @@
   align-items: center;
 
   & > span{
-    color: #888EB0;
+    color: var(--color-contrast-strong);
   }
+}
+
+.invoice-id-container span:nth-child(2){
+  color: var(--color-contrast-dark);
 }
 
 .hash-prefix{
@@ -70,6 +74,7 @@
   span{
     font-size: 16px;
     font-weight: bold;
+    color: var(--color-contrast-dark);
   }
 }
 

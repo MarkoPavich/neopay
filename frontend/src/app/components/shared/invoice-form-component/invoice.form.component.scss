@@ -59,7 +59,7 @@ $form-transition-duration: 0.35s;
 
   padding-bottom: $controls-bar-height;
 
-  background-color: white;
+  background-color: var(--color-bg-light-b);
 
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -74,6 +74,10 @@ $form-transition-duration: 0.35s;
 
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+
+  & header h2{
+    color: var(--color-contrast-dark);
+  }
 }
 
 .form-container::-webkit-scrollbar {
@@ -153,7 +157,7 @@ $form-transition-duration: 0.35s;
 
   z-index: 15;
 
-  background-color: white;
+  background-color: var(--color-bg-light-b);
 
   //border-top-right-radius: 20px;  ??
   border-bottom-right-radius: 20px;

@@ -23,9 +23,13 @@
   font-size: 12px;
   font-weight: bold;
 
+  background-color: var(--color-background-light-contrast);
+
   border: solid 2px var(--color-contrast-light);
   border-radius: 4px;
   transition: border-color 0.3s ease;
+
+  color: var(--color-contrast-dark);
 }
 
 .input-field-container > input:focus{

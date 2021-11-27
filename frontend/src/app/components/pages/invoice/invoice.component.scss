@@ -3,6 +3,10 @@
 
 .back-link{
   margin-top: 64px;
+
+  & span{
+    color: var(--color-contrast-dark);
+  }
 }
 
 .page-header{
@@ -30,7 +34,7 @@
   align-items: center;
 
   span{
-    color: #858BB2;
+    color: var(--color-contrast-medium);
     font-size: 12px;
 
     margin-right: 16px;
@@ -51,12 +55,17 @@ article{
 
   margin-bottom: 21px;
 
-  h4 span{
-    color: var(--color-contrast-medium-darker);
-    font-size: 18px;
-  }
   span{
     color: var(--color-contrast-medium-lighter);
+  }
+
+  h4 span{
+    color: #888EB0;
+    font-size: 18px;
+  }
+
+  h4{
+    color: var(--color-contrast-dark);
   }
 }
 
@@ -91,6 +100,7 @@ article{
 
   font-size: 15px;
   font-weight: bold;
+  color: var(--color-contrast-dark);
 }
 
 .dates-container{
@@ -121,7 +131,7 @@ article{
 }
 
 .client-info-container span:nth-child(2){
-  color: black;
+  color: var(--color-contrast-dark);
   font-size: 15px;
   font-weight: bold;
 
@@ -192,7 +202,7 @@ article{
   }
 
   table tr td:first-child, table tr td:last-child{
-    color: black;
+    color: var(--color-contrast-dark);
   }
 }
 
@@ -202,7 +212,7 @@ article{
   padding-left: 32px;
   padding-right: 32px;
 
-  background-color: var(--color-accent-3);
+  background-color: var(--color-accent-3-b);
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -212,7 +222,7 @@ article{
   align-items: center;
 
   span{
-    color: var(--color-background-light-contrast);
+    color: #FFFFFF;
     font-size: 11px;
   }
 

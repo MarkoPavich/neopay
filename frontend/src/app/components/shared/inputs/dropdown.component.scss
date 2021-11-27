@@ -43,7 +43,8 @@
 
     cursor: pointer;
 
-    background-color: white;
+    background-color: var(--color-background-light-contrast);
+    color: var(--color-contrast-dark);
   }
 
   &:hover > input, &:focus > input{

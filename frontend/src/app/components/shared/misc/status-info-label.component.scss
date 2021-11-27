@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
 
-  background: white;
+  background: transparent;
   border: none;
 
   border-radius: 6px;
@@ -85,10 +85,10 @@
   }
 
   span{
-    color: #373B53;
+    color: var(--color-contrast-dark);
   }
 
   & > .bulletpoint{
-    background-color: #373B53;
+    background-color: var(--color-contrast-dark);
   }
 }

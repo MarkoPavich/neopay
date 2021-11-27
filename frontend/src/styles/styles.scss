@@ -7,31 +7,44 @@
   --color-primary-accent: #9277FF;
 
   --color-bg-light: #F8F8FB;
+  --color-bg-light-b: #FFFFFF;
   --color-bg-dark: #141625;
 
   --color-accent-1: #1E2139;
   --color-accent-2: #252945;
   --color-accent-3: #373B53;
+  --color-accent-3-b: #373B53;
   --color-accent-4: #F9FAFE;
 
   --color-contrast-medium-darker: #888EB0;
+  --color-contrast-medium: #858BB2;
   --color-contrast-medium-lighter: #7E88C3;
+  --color-contrast-strong: #858BB2;
   --color-contrast-light: #DFE3FA;
   --color-contrast-dark: #0C0E16;
 
   --color-danger: #EC5757;
   --color-danger-faded: #9277FF;
 
-  --color-background-light-contrast: #FFFFFF
+  --color-background-light-contrast: #FFFFFF;
 }
  
 #top-container.dark-theme{
   --color-accent-3: #1E2139;
+  --color-accent-3-b: #0C0E16;
   --color-bg-light: #141625;
+  --color-bg-light-b: #141625;
   --color-background-light-contrast: #1E2139;
   --color-accent-4: #252945;
 
   --color-contrast-dark: #FFFFFF;
+  --color-contrast-light: #252945;
+
+  --color-contrast-medium-darker: #DFE3FA;
+  --color-contrast-medium-lighter: #DFE3FA;
+
+  --color-contrast-strong: #FFFFFF;
+  --color-contrast-medium: #DFE3FA;
 }
 
 #top-container{
