@@ -15,8 +15,8 @@
 
 
   <div class="bottom-container">
-    <div (click)="onThemeChange()" class="theme-selector-container">
-      <img [src]="'assets/icon-moon.svg'" alt="">
+    <div class="theme-selector-container">
+      <img (click)="onThemeChange()" [src]="isDarkTheme ? 'assets/icon-sun.svg' :'assets/icon-moon.svg'" alt="">
     </div>
     <div class="profile-img-container">
       <img [src]="'assets/image-avatar.jpg'" alt="profile.img">

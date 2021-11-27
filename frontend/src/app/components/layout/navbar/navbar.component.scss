@@ -102,6 +102,10 @@ nav{
   align-items: center;
 
   background-color: var(--color-accent-3);
+
+  & img{
+    cursor: pointer;
+  }
 }
 
 .profile-img-container{
