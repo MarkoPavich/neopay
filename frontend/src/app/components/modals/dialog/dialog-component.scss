@@ -2,8 +2,6 @@
 @import 'src/styles/_config';
 
 .modal-container{
-  position: absolute;
-
   height: 249px;
   width: 100%;
   max-width: 480px;
@@ -11,12 +9,9 @@
   border-radius: 8px;
   background-color: var(--color-background-light-contrast);
 
-  top: 50%;
-  left: 50%;
-
   padding: 48px;
 
-  transform: translate(-50%, -50%);
+  margin-left: $sidebar-nav-desktop-width;
 }
 
 .text-container{
