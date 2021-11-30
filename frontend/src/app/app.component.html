@@ -1,5 +1,13 @@
-<modals-container></modals-container>
-<div id="top-container" class="top-container" [ngClass]="darkThemeEnabled ? 'dark-theme' : 'light-theme'">
-  <app-navbar [isDarkTheme]="darkThemeEnabled" (themeSelect)="handleThemeChange()"></app-navbar>
-  <app-page-frame></app-page-frame>
+<div
+  id="top-container"
+  [ngClass]="darkThemeEnabled ? 'dark-theme' : 'light-theme'"
+>
+  <modals-container></modals-container>
+  <div class="layout-container">
+    <app-navbar
+      [isDarkTheme]="darkThemeEnabled"
+      (themeSelect)="handleThemeChange()"
+    ></app-navbar>
+    <app-page-frame></app-page-frame>
+  </div>
 </div>

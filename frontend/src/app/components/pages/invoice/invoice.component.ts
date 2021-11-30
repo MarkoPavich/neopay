@@ -5,6 +5,7 @@ import { URLS } from 'src/app/constants/routing-constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 import { InvoiceStatus, PaymentTermsStringRep } from 'src/app/enums/enums';
+import { ModalService } from 'src/app/services/modals/modal.service';
 
 @Component({
   selector: 'invoice',
@@ -19,6 +20,7 @@ export class InvoiceComponent implements OnInit {
   constructor(
     private service: InvoiceService,
     private route: ActivatedRoute,
+    private modalService: ModalService,
     private router: Router
   ) {}
 
@@ -94,9 +96,15 @@ export class InvoiceComponent implements OnInit {
   }
 
   handleOnDelete() {
-    this.service.delete(this._invoice.id).subscribe(() => {
-      this.router.navigate([URLS.home]);
-    });
+    this.modalService
+      .deleteDialog(this._invoice.id)
+      .subscribe((selection: boolean) => {
+        if(selection){
+          this.service.delete(this._invoice.id).subscribe(() => {
+            this.router.navigate(['']);
+          });
+        }
+      });
   }
 
   setStatusPaid() {

@@ -8,6 +8,9 @@ import { ModalsRegister } from './modals.types';
   template: `
     <div *ngIf="showModal" class="modals-container">
       <modal-spinner *ngIf="isActive(modals.spinner)"></modal-spinner>
+      <delete-confirmation-dialog
+        *ngIf="isActive(modals.deleteConfirmation)"
+      ></delete-confirmation-dialog>
     </div>
   `,
   styleUrls: ['modals-container.component.scss'],
@@ -35,6 +38,6 @@ export class ModalsContainerComponent implements OnInit {
   }
 
   isActive(modal: string) {
-    return this._activeModals.includes(modal)
+    return this._activeModals.includes(modal);
   }
 }
