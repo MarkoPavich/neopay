@@ -10,6 +10,7 @@ using NeoPay.Service.services;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using NeoPay.Data.Enums;
+using NeoPay.Data.Models;
 
 namespace NeoPay.Controllers
 {
@@ -27,9 +28,29 @@ namespace NeoPay.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get()
+        public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get([FromQuery(Name = "StatusFilter")] List<int> statusFilters)
         {
-            IEnumerable<Invoice> invoices = await _service.GetAllAsync();
+            IEnumerable<Invoice> invoices; 
+            
+            if(statusFilters == null)
+            {
+                invoices = await _service.GetAllAsync();
+            }
+            else
+            {
+                InvoiceFilters filters = new()
+                {
+                    AllowedStatuses = new List<InvoiceStatus>()
+                };
+
+                foreach(int filter in statusFilters)
+                {
+                    filters.AllowedStatuses.Add((InvoiceStatus)filter);
+                }
+
+                invoices = await _service.GetFilteredAsync(filters);
+            }
+            
             return Ok(invoices.Select(inv => inv.ToDto()));
         }
 

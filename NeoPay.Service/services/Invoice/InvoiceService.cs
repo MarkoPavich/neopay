@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using NeoPay.Data.Enums;
 using System;
+using NeoPay.Data.Models;
 
 namespace NeoPay.Service.services
 {
@@ -39,6 +40,11 @@ namespace NeoPay.Service.services
         public async Task<IEnumerable<Invoice>> GetAllAsync()
         {
             return await _repository.GetAllAsync(_userId);
+        }
+
+        public async Task<IEnumerable<Invoice>> GetFilteredAsync(InvoiceFilters filters)
+        {
+            return await _repository.GetFiltered(_userId, filters);
         }
 
         public async Task<Invoice> GetByIdAsync(string invoiceId)

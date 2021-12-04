@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Invoice, InvoiceStatusFilter } from 'src/app/models/models';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,8 +17,18 @@ export class InvoiceService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Invoice[]> {
-    return this.http.get<Invoice[]>(this._apiUrl);
+  get(filters?: InvoiceStatusFilter[]): Observable<Invoice[]> {
+    let filterParams = new HttpParams()
+
+    if (filters) {
+      for (const filter of filters) {
+        if(filter.checked){
+          filterParams = filterParams.append('statusFilter', filter.value)
+        }
+      }
+    }
+
+    return this.http.get<Invoice[]>(this._apiUrl, {params: filterParams});
   }
 
   post(invoice: Invoice): Observable<any> {
@@ -41,7 +51,7 @@ export class InvoiceService {
     return this.http.get<void>(`${this._apiUrl}/setStatusPaid/${id}`);
   }
 
-  statusFiltersLookup(): Observable<InvoiceStatusFilter[]>{
+  statusFiltersLookup(): Observable<InvoiceStatusFilter[]> {
     return this.http.get<any>(`${this._apiUrl}/statusesLookup`);
   }
 }

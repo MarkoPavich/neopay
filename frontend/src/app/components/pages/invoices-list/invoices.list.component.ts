@@ -1,6 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { Invoice, InvoiceStatusFilter, StatusFiltersResponse } from 'src/app/models/models';
+import {
+  Invoice,
+  InvoiceStatusFilter,
+  StatusFiltersResponse,
+} from 'src/app/models/models';
 import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
@@ -39,9 +43,13 @@ export class InvoicesListComponent implements OnInit {
     return this._isLoading;
   }
 
-  getInvoices() {
+  onStatusFiltersChange(statusFilters: InvoiceStatusFilter[]) {
+    this.getInvoices(statusFilters)
+  }
+
+  getInvoices(filters?: InvoiceStatusFilter[]) {
     this._isLoading = true;
-    this.service.get().subscribe(
+    this.service.get(filters).subscribe(
       (invoices: Invoice[]) => {
         this._isLoading = false;
         this._invoices = invoices;
@@ -53,6 +61,12 @@ export class InvoicesListComponent implements OnInit {
   initFilters(statusFilters: StatusFiltersResponse[]) {
     this._statusFiltersForm =
       this.formFactory.invoiceFiltersForm(statusFilters);
+
+    this._statusFiltersForm.valueChanges.subscribe(
+      (statusFilters: InvoiceStatusFilter[]) => {
+        this.onStatusFiltersChange(statusFilters);
+      }
+    );
   }
 
   getStatusFilters() {
