@@ -88,19 +88,12 @@ namespace NeoPay.Controllers
                     return NotFound();
                 }
 
-                if(invoice.UserId != userId || invoice.Status == InvoiceStatus.Draft)
+                if(invoice.UserId != userId || invoice.Status != InvoiceStatus.Draft)
                 {
                     return BadRequest();
                 }
 
-                Invoice updated = invoiceDto.FromDto(userId);
-
-                invoice.BillTo = updated.BillTo;
-                invoice.BillFrom = updated.BillFrom;
-                invoice.Status = updated.Status;
-                invoice.Items = updated.Items;
-
-                await _service.SaveChangesAsync();
+                await _service.UpdateInvoiceAsync(invoiceDto.FromDto(userId));
 
                 return Ok(invoiceDto);
             }
@@ -138,20 +131,16 @@ namespace NeoPay.Controllers
         {
             try
             {
-                Invoice invoice = await _service.GetByIdAsync(Id);
-
-                if(invoice == null || invoice.Status == InvoiceStatus.Paid)
+                await _service.UpdateInvoiceStatusAsync(Id, InvoiceStatus.Paid);
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                if(exception is InvalidOperationException)
                 {
                     return BadRequest();
                 }
 
-                invoice.Status = InvoiceStatus.Paid;
-                await _service.SaveChangesAsync();
-
-                return Ok();
-            }
-            catch (Exception)
-            {
                 return StatusCode(500, "Something went wrong");
             }
         }

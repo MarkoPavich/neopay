@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using NeoPay.Data.Enums;
+using System;
 
 namespace NeoPay.Service.services
 {
@@ -32,21 +32,13 @@ namespace NeoPay.Service.services
             var invoice = await _repository.GetByIdAsync(invoiceId);
 
             _repository.Remove(invoice);
-            await _repository.Complete();
+            await _repository.SaveChanges();
 
         }
 
         public async Task<IEnumerable<Invoice>> GetAllAsync()
         {
-
-            IEnumerable<Invoice> invoices = _repository.GetAll()
-                .Include(s => s.BillFrom)
-                .Include(s => s.BillTo)
-                .Include(s => s.Items)
-                .Where(a => a.UserId == _userId).ToList();
-            await _repository.Complete();
-
-            return invoices;
+            return await _repository.GetAllAsync(_userId);
         }
 
         public async Task<Invoice> GetByIdAsync(string invoiceId)
@@ -55,9 +47,29 @@ namespace NeoPay.Service.services
             return invoice;
         }
 
-        public Task SaveChangesAsync()
+        public async Task UpdateInvoiceAsync(Invoice invoice)
         {
-            return _repository.SaveChanges();
+            Invoice record = await _repository.GetByIdAsync(invoice.Id);
+
+            record.BillFrom = invoice.BillFrom;
+            record.BillTo = invoice.BillTo;
+            record.Status = invoice.Status;
+            record.Items = invoice.Items;
+
+            await _repository.SaveChanges();
+        } 
+
+        public async Task UpdateInvoiceStatusAsync(string invoiceId, InvoiceStatus status)
+        {
+            Invoice invoice = await _repository.GetByIdAsync(invoiceId);
+
+            if(invoice.Status == status)
+            {
+                throw new InvalidOperationException();
+            }
+
+            invoice.Status = status;
+            await _repository.SaveChanges();
         }
     }
 }

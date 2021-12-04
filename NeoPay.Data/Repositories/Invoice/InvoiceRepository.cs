@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using NeoPay.Data.Entities;
+using NeoPay.Data.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +15,12 @@ namespace NeoPay.Data.Repositories
         {
         }
 
-        public Task Complete()
+        public override IQueryable<Invoice> GetAll()
         {
-            return base.SaveChanges();
+            return base.GetAll()
+                .Include(s => s.BillFrom)
+                .Include(s => s.BillTo)
+                .Include(s => s.Items);
         }
 
         public override async Task<Invoice> AddAsync(Invoice invoice)
@@ -25,15 +30,24 @@ namespace NeoPay.Data.Repositories
             return invoice;
         }
 
+        public async Task<IEnumerable<Invoice>> GetAllAsync(string userId)
+        {
+            return await GetAll().Where(a => a.UserId == userId).ToListAsync();
+        }
+
         public async Task<Invoice> GetByIdAsync(string invoiceId)
         {
-            var invoice = await base.GetAll().Where(a => a.Id == invoiceId)
-                .Include(s => s.BillFrom)
-                .Include(s => s.BillTo)
-                .Include(s => s.Items)
-                .FirstOrDefaultAsync();
+            return await GetAll().Where(a => a.Id == invoiceId).FirstOrDefaultAsync();
+        }
 
-            return invoice;
+        public async Task<IEnumerable<Invoice>> GetFiltered(string userId, InvoiceFilters filters)
+        {
+            return await GetAll()
+                .Where(
+                    a => a.UserId == userId 
+                    && filters.AllowedStatuses.Contains(a.Status)
+                    )
+                .ToListAsync();
         }
     }
 }

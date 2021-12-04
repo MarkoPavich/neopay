@@ -8,7 +8,7 @@ namespace NeoPay.Data.Repositories
         IQueryable<TEntity> GetAll();
         Task<TEntity> AddAsync(TEntity entity);
         TEntity Update(TEntity entity);
-        TEntity Remove(TEntity entity);
+        void Remove(TEntity entity);
         Task SaveChanges();
     }
 }

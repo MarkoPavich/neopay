@@ -29,10 +29,9 @@ namespace NeoPay.Data.Repositories
             return entity;
         }
 
-        public virtual TEntity Remove(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
             Context.Remove(entity);
-            return entity;
         }
 
         public async Task SaveChanges()
