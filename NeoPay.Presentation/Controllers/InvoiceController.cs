@@ -144,5 +144,24 @@ namespace NeoPay.Controllers
                 return StatusCode(500, "Something went wrong");
             }
         }
+
+        [HttpGet("statusesLookup")]
+        public async Task<ActionResult> StatusLookup()
+        {
+            var statusEnums = await _service.GetAvailableStatuses();
+
+            List<InvoiceStatusDto> statusDtos = new();
+
+            foreach(InvoiceStatus status in statusEnums)
+            {
+                statusDtos.Add(new InvoiceStatusDto
+                {
+                    Name = status.ToString(),
+                    Value = status
+                });
+            }
+
+            return Ok(statusDtos);
+        }
     }
 }

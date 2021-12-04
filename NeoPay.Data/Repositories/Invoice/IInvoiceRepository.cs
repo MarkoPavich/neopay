@@ -1,4 +1,5 @@
 ﻿using NeoPay.Data.Entities;
+using NeoPay.Data.Enums;
 using NeoPay.Data.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace NeoPay.Data.Repositories
         Task<IEnumerable<Invoice>> GetFiltered(string userId, InvoiceFilters filters);
         Task<Invoice> AddAsync(Invoice invoice);
         void Remove(Invoice invoice);  
+        Task<IEnumerable<InvoiceStatus>> GetAvailableStatuses(string userId);
     }
 }

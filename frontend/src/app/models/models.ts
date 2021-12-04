@@ -64,3 +64,12 @@ export type GoogleSignInResponse = {
   provider: string;
   response: any;
 };
+
+export type StatusFiltersResponse = {
+  name: string;
+  value: number;
+}
+
+export type InvoiceStatusFilter = StatusFiltersResponse &{
+  checked: boolean;
+}

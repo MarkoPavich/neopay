@@ -47,6 +47,11 @@ namespace NeoPay.Service.services
             return invoice;
         }
 
+        public async Task<IEnumerable<InvoiceStatus>> GetAvailableStatuses()
+        {
+            return await _repository.GetAvailableStatuses(_userId);
+        }
+
         public async Task UpdateInvoiceAsync(Invoice invoice)
         {
             Invoice record = await _repository.GetByIdAsync(invoice.Id);

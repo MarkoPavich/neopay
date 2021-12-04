@@ -1,6 +1,7 @@
 <invoices-header-component 
   (onClick)="handleOpenNew()"
   [invoicesNum]="invoices.length"
+  [statusFiltersForm]="statusFiltersForm"
   >
 </invoices-header-component>
 <invoice-form (success)="onSuccess($event)"></invoice-form>

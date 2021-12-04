@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using NeoPay.Data.Entities;
+using NeoPay.Data.Enums;
 using NeoPay.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,14 @@ namespace NeoPay.Data.Repositories
                     && filters.AllowedStatuses.Contains(a.Status)
                     )
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<InvoiceStatus>> GetAvailableStatuses(string userId)
+        {
+            return await GetAll()
+                .Where(a => a.UserId == userId)
+                .Select(a => a.Status)
+                .Distinct().ToListAsync();
         }
     }
 }

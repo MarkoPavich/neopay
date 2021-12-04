@@ -6,6 +6,10 @@
 
   ul li{
     list-style: none;
+
+    &:not(:last-child){
+      margin-bottom: 16px;
+    }
   }
 }
 

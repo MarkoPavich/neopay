@@ -99,7 +99,7 @@ export class InvoiceComponent implements OnInit {
     this.modalService
       .deleteDialog(this._invoice.id)
       .subscribe((selection: boolean) => {
-        if(selection){
+        if (selection) {
           this.service.delete(this._invoice.id).subscribe(() => {
             this.router.navigate(['']);
           });

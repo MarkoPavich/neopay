@@ -13,5 +13,6 @@ namespace NeoPay.Service.services
         Task DeleteAsync(string Id);
         Task UpdateInvoiceStatusAsync(string Id, InvoiceStatus status);
         Task UpdateInvoiceAsync(Invoice invoice);
+        Task<IEnumerable<InvoiceStatus>> GetAvailableStatuses();
     }
 }

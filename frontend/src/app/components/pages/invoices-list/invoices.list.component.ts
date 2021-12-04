@@ -1,5 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Invoice } from 'src/app/models/models';
+import { FormArray } from '@angular/forms';
+import { Invoice, InvoiceStatusFilter, StatusFiltersResponse } from 'src/app/models/models';
+import { FormFactory } from 'src/app/services/factories/form-factory.service';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 
@@ -13,11 +15,20 @@ export class InvoicesListComponent implements OnInit {
 
   private _invoices: Invoice[] = [];
   private _isLoading: boolean = false;
+  private _statusFiltersForm: FormArray = new FormArray([]);
 
-  constructor(private service: InvoiceService) {}
+  constructor(
+    private service: InvoiceService,
+    private formFactory: FormFactory
+  ) {}
 
   ngOnInit() {
     this.getInvoices();
+    this.getStatusFilters();
+  }
+
+  get statusFiltersForm(): FormArray {
+    return this._statusFiltersForm;
   }
 
   get invoices(): Invoice[] {
@@ -37,6 +48,19 @@ export class InvoicesListComponent implements OnInit {
       },
       (error) => (this._isLoading = false)
     );
+  }
+
+  initFilters(statusFilters: StatusFiltersResponse[]) {
+    this._statusFiltersForm =
+      this.formFactory.invoiceFiltersForm(statusFilters);
+  }
+
+  getStatusFilters() {
+    this.service
+      .statusFiltersLookup()
+      .subscribe((statusFilters: StatusFiltersResponse[]) => {
+        this.initFilters(statusFilters);
+      });
   }
 
   handleOpenNew() {

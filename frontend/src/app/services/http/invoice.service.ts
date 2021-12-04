@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Invoice } from 'src/app/models/models';
+import { Invoice, InvoiceStatusFilter } from 'src/app/models/models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -39,5 +39,9 @@ export class InvoiceService {
 
   setStatusPaid(id: string): Observable<void> {
     return this.http.get<void>(`${this._apiUrl}/setStatusPaid/${id}`);
+  }
+
+  statusFiltersLookup(): Observable<InvoiceStatusFilter[]>{
+    return this.http.get<any>(`${this._apiUrl}/statusesLookup`);
   }
 }

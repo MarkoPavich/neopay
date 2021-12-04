@@ -25,4 +25,10 @@ namespace NeoPay.Dtos
         public PaymentTerms DueDate { get; init; }
         public string Description { get; init; }
     }
+
+    public record InvoiceStatusDto
+    {
+        public string Name { get; init; }
+        public InvoiceStatus Value { get; init; }
+    }
 }
