@@ -27,12 +27,11 @@ namespace NeoPay.Data.Repositories
 
         public async Task<Invoice> GetByIdAsync(string invoiceId)
         {
-            var invoice = base.GetAll().Where(a => a.Id == invoiceId)
+            var invoice = await base.GetAll().Where(a => a.Id == invoiceId)
                 .Include(s => s.BillFrom)
                 .Include(s => s.BillTo)
                 .Include(s => s.Items)
-                .FirstOrDefault();
-            await SaveChanges();
+                .FirstOrDefaultAsync();
 
             return invoice;
         }
