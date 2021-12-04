@@ -36,3 +36,9 @@
     margin-right: 8px;
   }
 }
+
+@media(max-width: $breakpoint-tablet-width){
+  .modal-container{
+    margin-left: 0;
+  }
+}

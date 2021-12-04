@@ -1,8 +1,77 @@
 @import '/src/styles/config';
 
+.options-container{
+  display: none;
+  cursor: default;
+
+  ul li{
+    list-style: none;
+  }
+}
+
+.checkbox-option{
+  display: flex;
+  cursor: pointer;
+  column-gap: 13px;
+
+  &:not(:last-child){
+    margin-bottom: 16px;
+  }
+
+  & label{
+    cursor: pointer;
+
+    font-weight: bold;
+    color: var(--color-accent-1)
+  }
+}
+
+.checkbox-icon{
+  height: 16px;
+  width: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-background-light-contrast-b);
+
+  &.checkbox-checked{
+    background-color: var(--color-primary-main);
+  }
+}
+
 .content-container{
+  position: relative;
+
   display: flex;
   align-items: center;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  &:focus > .options-container{
+    display: block;
+
+    content: "";
+    position: absolute;
+
+    margin-top: 23px;
+
+    top: 50%;
+    left: 50%;
+
+    width: 192px;
+
+    transform: translate(-50%, -0%);
+
+    background-color: var(--color-contrast-light-b);
+
+    border-radius: 8px;;
+
+    padding: 24px;
+  }
 
   span{
     font-size: 12px;
