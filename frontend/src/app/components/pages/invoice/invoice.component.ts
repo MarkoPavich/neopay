@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 import { InvoiceStatus, PaymentTermsStringRep } from 'src/app/enums/enums';
 import { ModalService } from 'src/app/services/modals/modal.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'invoice',
@@ -21,7 +22,8 @@ export class InvoiceComponent implements OnInit {
     private service: InvoiceService,
     private route: ActivatedRoute,
     private modalService: ModalService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -111,5 +113,9 @@ export class InvoiceComponent implements OnInit {
     this.service.setStatusPaid(this._invoice.id).subscribe(() => {
       this._invoice.status = InvoiceStatus.paid;
     });
+  }
+
+  onNavigateBack(){
+    this.location.back();
   }
 }

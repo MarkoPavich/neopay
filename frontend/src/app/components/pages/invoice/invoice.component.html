@@ -1,6 +1,6 @@
 <invoice-form (success)="onSuccess($event)"></invoice-form>
 
-<a [routerLink]="homeUrl" class="arrowAnchor back-link">
+<a (click)="onNavigateBack()" class="arrowAnchor back-link">
   <img src="assets/icon-arrow-left.svg" alt="" />
   <span>Go Back</span>
 </a>
