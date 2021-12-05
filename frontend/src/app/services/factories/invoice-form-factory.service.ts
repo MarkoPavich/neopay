@@ -17,7 +17,7 @@ import { StatusFiltersResponse } from 'src/app/models/models';
 @Injectable({
   providedIn: 'root',
 })
-export class FormFactory {
+export class InvoiceFormFactory {
   constructor(private formBuilder: FormBuilder) {}
 
   invoiceForm(): FormGroup {
@@ -73,22 +73,6 @@ export class FormFactory {
     }
 
     return statusFiltersForm;
-  }
-
-  loginForm(): FormGroup {
-    return this.formBuilder.group({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-    });
-  }
-
-  registerForm(): FormGroup {
-    return this.formBuilder.group({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      confirm: new FormControl('', Validators.required),
-    });
   }
 
   getPaymentTerms(): SelectOption[] {

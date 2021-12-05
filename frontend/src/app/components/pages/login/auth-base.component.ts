@@ -7,7 +7,7 @@ import {
   RegistrationForm,
   SessionModel,
 } from 'src/app/models/models';
-import { FormFactory } from 'src/app/services/factories/form-factory.service';
+import { AuthFormFactory } from 'src/app/services/factories/auth-form-factory.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/auth/session.service';
 import { SocialAuthService } from 'angularx-social-login';
@@ -20,7 +20,7 @@ export class AuthBaseComponent {
   protected _isLoading!: boolean;
 
   constructor(
-    protected formFactory: FormFactory,
+    protected formFactory: AuthFormFactory,
     private authService: AuthService,
     protected sessionService: SessionService,
     protected router: Router,

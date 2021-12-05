@@ -6,7 +6,7 @@ import {
   InvoiceStatusFilter,
   StatusFiltersResponse,
 } from 'src/app/models/models';
-import { FormFactory } from 'src/app/services/factories/form-factory.service';
+import { InvoiceFormFactory } from 'src/app/services/factories/invoice-form-factory.service';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { InvoiceFormComponent } from '../../shared/invoice-form-component/invoice.form.component';
 
@@ -24,7 +24,7 @@ export class InvoicesListComponent implements OnInit {
 
   constructor(
     private service: InvoiceService,
-    private formFactory: FormFactory,
+    private formFactory: InvoiceFormFactory,
     private router: Router,
     private route: ActivatedRoute,
   ) {}

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
-import { FormFactory } from 'src/app/services/factories/form-factory.service';
+import { InvoiceFormFactory } from 'src/app/services/factories/invoice-form-factory.service';
 import { Invoice, InvoiceItem } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { FormHelperService } from 'src/app/services/helpers/form-helper.service';
@@ -19,7 +19,7 @@ export class InvoiceFormComponent implements OnInit {
   private _invoiceForm!: FormGroup;
 
   constructor(
-    private formFactory: FormFactory,
+    private formFactory: InvoiceFormFactory,
     private service: InvoiceService,
     private formHelpers: FormHelperService
   ) {}
