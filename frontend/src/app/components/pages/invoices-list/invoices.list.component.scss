@@ -7,6 +7,8 @@
 .invoices-list-container{
   display: grid;
   grid-gap: 16px;
+
+  min-height: 100px;
 }
 
 .no-content-container{

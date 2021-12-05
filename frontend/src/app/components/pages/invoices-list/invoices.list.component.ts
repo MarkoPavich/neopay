@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Invoice,
   InvoiceStatusFilter,
@@ -23,12 +24,14 @@ export class InvoicesListComponent implements OnInit {
 
   constructor(
     private service: InvoiceService,
-    private formFactory: FormFactory
+    private formFactory: FormFactory,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.getInvoices();
-    this.getStatusFilters();
+    this._isLoading = true;
+    this.init();
   }
 
   get statusFiltersForm(): FormArray {
@@ -43,38 +46,79 @@ export class InvoicesListComponent implements OnInit {
     return this._isLoading;
   }
 
-  onStatusFiltersChange(statusFilters: InvoiceStatusFilter[]) {
-    this.getInvoices(statusFilters)
+  init() {
+    this.service
+      .statusFiltersLookup()
+      .subscribe((statusFilters: StatusFiltersResponse[]) => {
+        this.initFilters(statusFilters);
+
+        this.getInvoices();
+      });
   }
 
-  getInvoices(filters?: InvoiceStatusFilter[]) {
+  onStatusFiltersChange(statusFilters: InvoiceStatusFilter[]) {
+    const appliedStatusFilters = [];
+
+    for (const filter of statusFilters) {
+      if (filter.checked) {
+        appliedStatusFilters.push(filter.value);
+      }
+    }
+
+    this.getInvoices();
+    // append queryParams to url
+    this.router.navigate(['/'], {
+      queryParams: { statusFilter: appliedStatusFilters },
+    });
+  }
+
+  getInvoices() {
     this._isLoading = true;
-    this.service.get(filters).subscribe(
-      (invoices: Invoice[]) => {
-        this._isLoading = false;
-        this._invoices = invoices;
-      },
-      (error) => (this._isLoading = false)
-    );
+    const filters = this.statusFiltersForm.value as InvoiceStatusFilter[];
+    const filterValues = [];
+
+    for (const filter of filters) {
+      if (filter.checked) {
+        filterValues.push(filter.value);
+      }
+    }
+
+    this.service.get(filterValues).subscribe((invoices: Invoice[]) => {
+      this._isLoading = false;
+      this._invoices = invoices;
+    });
   }
 
   initFilters(statusFilters: StatusFiltersResponse[]) {
     this._statusFiltersForm =
       this.formFactory.invoiceFiltersForm(statusFilters);
 
+    this.route.queryParams.forEach((params: any) => {
+      const statusFilterParams = params['statusFilter'];
+      let filterValues: string[] = [];
+
+      if (statusFilterParams) {
+        if (statusFilterParams instanceof Array) {
+          filterValues = statusFilterParams as string[];
+        } else {
+          filterValues.push(statusFilterParams);
+        }
+
+        const filters = this._statusFiltersForm.value as InvoiceStatusFilter[];
+        for (const filter of filters) {
+          if (!filterValues.includes(filter.value.toString())) {
+            filter.checked = false;
+          }
+        }
+        this._statusFiltersForm.patchValue(filters);
+      }
+    });
+
     this._statusFiltersForm.valueChanges.subscribe(
       (statusFilters: InvoiceStatusFilter[]) => {
         this.onStatusFiltersChange(statusFilters);
       }
     );
-  }
-
-  getStatusFilters() {
-    this.service
-      .statusFiltersLookup()
-      .subscribe((statusFilters: StatusFiltersResponse[]) => {
-        this.initFilters(statusFilters);
-      });
   }
 
   handleOpenNew() {

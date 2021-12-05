@@ -17,18 +17,14 @@ export class InvoiceService {
 
   constructor(private http: HttpClient) {}
 
-  get(filters?: InvoiceStatusFilter[]): Observable<Invoice[]> {
-    let filterParams = new HttpParams()
+  get(filters: number[]): Observable<Invoice[]> {
+    let filterParams = new HttpParams();
 
-    if (filters) {
-      for (const filter of filters) {
-        if(filter.checked){
-          filterParams = filterParams.append('statusFilter', filter.value)
-        }
-      }
-    }
+    filters.forEach((filter) => {
+      filterParams = filterParams.append('statusFilter', filter);
+    });
 
-    return this.http.get<Invoice[]>(this._apiUrl, {params: filterParams});
+    return this.http.get<Invoice[]>(this._apiUrl, { params: filterParams });
   }
 
   post(invoice: Invoice): Observable<any> {

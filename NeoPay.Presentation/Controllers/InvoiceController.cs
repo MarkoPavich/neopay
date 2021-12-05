@@ -30,26 +30,18 @@ namespace NeoPay.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InvoiceDto>>> Get([FromQuery(Name = "StatusFilter")] List<int> statusFilters)
         {
-            IEnumerable<Invoice> invoices; 
-            
-            if(statusFilters == null)
-            {
-                invoices = await _service.GetAllAsync();
-            }
-            else
-            {
-                InvoiceFilters filters = new()
-                {
-                    AllowedStatuses = new List<InvoiceStatus>()
-                };
 
-                foreach(int filter in statusFilters)
-                {
-                    filters.AllowedStatuses.Add((InvoiceStatus)filter);
-                }
+            InvoiceFilters filters = new()
+            {
+                AllowedStatuses = new List<InvoiceStatus>()
+            };
 
-                invoices = await _service.GetFilteredAsync(filters);
+            foreach(int filter in statusFilters)
+            {
+                filters.AllowedStatuses.Add((InvoiceStatus)filter);
             }
+
+            IEnumerable<Invoice> invoices = await _service.GetFilteredAsync(filters);
             
             return Ok(invoices.Select(inv => inv.ToDto()));
         }
