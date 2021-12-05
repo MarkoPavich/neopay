@@ -29,15 +29,19 @@
     color: inherit;
   }
 
-  img{
+  & img{
     height: 8px;
   }
 
-  span{
+  & span{
     font-size: 12px;
     font-weight: bold;
   
     transition: color 0.2s ease;
+
+    color: var(--color-contrast-dark);
+
+    cursor: pointer;
   }
 
   &:hover{

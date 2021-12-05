@@ -8,11 +8,15 @@
 .oauth-container{
   padding-left: 60px;
   margin-left: 60px;
-  border-left: solid 1px black;
+  border-left: solid 1px var(--color-contrast-dark);
+
+  color: var(--color-contrast-dark);
 
   header > span{
     font-weight: bold;
     font-size: 18px;
+
+    color: var(--color-contrast-dark);
   }
 }
 
@@ -61,10 +65,12 @@
   margin-bottom: 30px;
 
   h1{
+    color: var(--color-contrast-dark);
     margin-bottom: 10px;
   }
 
   span{
+    color: var(--color-contrast-medium-darker);
     font-size: 14px;
   }
 }
