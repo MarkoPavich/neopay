@@ -25,10 +25,13 @@
   --color-contrast-dark: #0C0E16;
 
   --color-danger: #EC5757;
-  --color-danger-faded: #9277FF;
+  --color-danger-faded: #FF9797;
 
   --color-background-light-contrast: #FFFFFF;
   --color-background-light-contrast-b: #DFE3FA;
+
+  --color-button-aux-active: #DFE3FA;
+  --color-button-secondary-active: #0C0E16;
 }
  
 #top-container.dark-theme{
@@ -50,6 +53,9 @@
 
   --color-contrast-strong: #FFFFFF;
   --color-contrast-medium: #DFE3FA;
+
+  --color-button-aux-active: #FFFFFF;
+  --color-button-secondary-active: #1E2139;
 }
 
 .layout-container{

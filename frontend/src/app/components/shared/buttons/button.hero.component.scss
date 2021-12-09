@@ -17,6 +17,12 @@
 
   background-color: var(--color-primary-main);
 
+  transition: background-color 0.3s ease;
+
+  &:hover{
+    background-color: var(--color-primary-accent);
+  }
+
   button{
     border: none;
 
@@ -24,7 +30,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: var(--color-primary-main);
+    background-color: transparent;
 
     span{
       color: white;

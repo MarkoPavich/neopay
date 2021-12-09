@@ -60,6 +60,8 @@
 
   font-size: 12px;
   font-weight: bold;
+
+  transition: background-color 0.3s ease;
 }
 
 .button:hover{
@@ -69,19 +71,35 @@
 .button-primary{
   color: white;
   background-color: var(--color-primary-main);
+
+  &:hover{
+    background-color: var(--color-primary-accent);
+  }
 }
 
 .button-aux{
   color: var(--color-contrast-medium-lighter);
   background-color: var(--color-accent-4);
+
+  &:hover{
+    background-color: var(--color-button-aux-active);
+  }
 }
 
 .button-danger{
   color: white;
   background-color: var(--color-danger);
+
+  &:hover{
+    background-color: var(--color-danger-faded);
+  }
 }
 
 .button-secondary{
   color: var(--color-contrast-medium-darker);
-  background-color: var(--color-accent-3);
+  background-color: #373B53;
+
+  &:hover{
+    background-color: var(--color-button-secondary-active);
+  }
 }
