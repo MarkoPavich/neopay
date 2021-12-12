@@ -1,0 +1,138 @@
+.dropdown-container{
+  display: flex;
+  flex-direction: column;
+
+  & > label{
+    margin-bottom: 10px;
+  
+    font-size: 12px;
+    font-weight: 500;
+  
+    color: var(--color-contrast-medium-lighter);
+  }
+
+  & select{
+    display: none;
+  }
+
+  & select.ng-dirty.ng-invalid + input{
+    border-color: var(--color-danger) !important;
+  }
+}
+
+.dropdown-input-container{
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  
+  & > input{
+    height: 48px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+  
+    font-size: 12px;
+    font-weight: bold;
+  
+    border: solid 2px var(--color-contrast-light);
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+
+    cursor: pointer;
+
+    background-color: var(--color-background-light-contrast);
+    color: var(--color-contrast-dark);
+  }
+
+  &:hover > input, &:focus > input{
+    outline: none;
+    border-color: var(--color-primary-main);
+  }
+
+  &:focus > .select-options-container{
+    display: block;
+  }
+}
+
+.select-options-container{
+  display: none;
+  position: absolute;
+
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  margin-top: 8px;
+
+  background-color: var(--color-background-light-contrast);
+
+  border-radius: 8px;
+
+  padding: 25px;
+  padding-bottom: 32px;
+
+  -webkit-box-shadow: 1px 2px 23px -2px rgba(0,0,0,0.19); 
+  box-shadow: 1px 2px 23px -2px rgba(0,0,0,0.19);
+}
+
+.datepicker-header{
+  display: flex;
+  justify-content: space-between;
+
+  & > span{
+    color: var(--color-contrast-dark);
+    font-weight: bold;
+  }
+}
+
+.date-range-selector{
+  cursor: pointer;
+
+  &:hover > img{
+    transform: scale(1.1)
+  }
+}
+
+.date-options{
+  margin-top: 32px;
+
+  list-style: none;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-row-gap: 16px;
+
+  & > li{
+    font-weight: bold;
+    font-size: 12px;
+
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+
+    color: var(--color-contrast-dark);
+
+    transition: color ease 0.2s;
+
+    &:hover{
+      cursor: pointer;
+      color: var(--color-primary-main);
+    }
+  }
+}
+
+.date-disabled{
+  opacity: 8.14%;
+
+  cursor: default;
+  pointer-events: none;
+}
+
+.date-current{
+  background-color: #141625//lightgray; // TODO
+}
+
+.selected{
+  color: var(--color-primary-main) !important;
+}

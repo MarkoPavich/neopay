@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 import { SelectOption } from 'src/app/models/generic';
 
@@ -9,7 +9,7 @@ import { SelectOption } from 'src/app/models/generic';
   <div [formGroup]="formGroup" class="dropdown-container">
     <label *ngIf="_showLabel" [for]="name">{{label}}</label>
     <div class="dropdown-input-container" tabindex="0">
-      <select id="testDropdown" [name]="name" [formControlName]="formControlName">
+      <select [name]="name" [formControlName]="formControlName">
       </select>
       <input
         [placeholder]="placeholder"
@@ -41,7 +41,7 @@ export class DropdownComponent implements OnInit{
 
   private _fieldText: string | number = '';
 
-  constructor(private controlContainer: ControlContainer, private ref: ChangeDetectorRef) { }
+  constructor(private controlContainer: ControlContainer) { }
 
   ngOnInit() {
     if(this._preselectText){

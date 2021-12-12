@@ -8,6 +8,7 @@ import { InputFIeldComponent } from './inputs/input-field.component';
 import { StatusInfoLabelComponent } from './misc/status-info-label.component';
 import { InvoiceFormComponent } from './invoice-form-component/invoice.form.component';
 import { DropdownComponent } from './inputs/dropdown.component';
+import { DatepickerDropdownComponent } from './inputs/datepicker-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DropdownComponent } from './inputs/dropdown.component';
     StatusInfoLabelComponent,
     InvoiceFormComponent,
     DropdownComponent,
+    DatepickerDropdownComponent
   ],
   exports: [
     ButtonHero,
@@ -25,6 +27,7 @@ import { DropdownComponent } from './inputs/dropdown.component';
     StatusInfoLabelComponent,
     InvoiceFormComponent,
     DropdownComponent,
+    DatepickerDropdownComponent
   ],
   imports: [CommonModule, ReactiveFormsModule],
 })
