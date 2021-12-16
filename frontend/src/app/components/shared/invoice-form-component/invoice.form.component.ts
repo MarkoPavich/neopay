@@ -103,6 +103,12 @@ export class InvoiceFormComponent implements OnInit {
   onSubmit(status: InvoiceStatus): void {
     if (this._invoiceForm.valid) {
       const invoice: Invoice = this._invoiceForm.value;
+
+      if (invoice.billTo.invoiceDate instanceof Date) {
+        invoice.billTo.invoiceDate =
+          invoice.billTo.invoiceDate.toLocaleDateString('UTC');
+      }
+
       invoice.status = status;
       if (this._isNew) {
         this.service.post(invoice).subscribe((invoice) => {

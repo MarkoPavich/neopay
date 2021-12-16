@@ -75,6 +75,15 @@ export class InvoiceComponent implements OnInit {
     return PaymentTermsStringRep[this._invoice.billTo.dueDate];
   }
 
+  get invoiceDate(): string {
+    const date = new Date(this._invoice.billTo.invoiceDate);
+    return date.toLocaleString('default', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+
   get isDraft(): boolean {
     return this._invoice.status === InvoiceStatus.draft;
   }
@@ -115,7 +124,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  onNavigateBack(){
+  onNavigateBack() {
     this.location.back();
   }
 }

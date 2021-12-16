@@ -22,7 +22,7 @@ export type Invoice = {
     city: string;
     postCode: string;
     country: string;
-    invoiceDate: Date;
+    invoiceDate: Date | string;
     dueDate: PaymentTerms;
     description: string;
   };

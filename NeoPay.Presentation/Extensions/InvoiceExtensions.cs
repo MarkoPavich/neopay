@@ -1,6 +1,7 @@
 ﻿using NeoPay.Data.Entities;
 using NeoPay.Dtos;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace NeoPay.Presentation.Extensions
@@ -22,7 +23,7 @@ namespace NeoPay.Presentation.Extensions
                     City = invoice.BillTo.City,
                     Country = invoice.BillTo.Country,
                     ClientEmail = invoice.BillTo.Email,
-                    InvoiceDate = invoice.BillTo.InvoiceDate,
+                    InvoiceDate = invoice.BillTo.InvoiceDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
                     DueDate = invoice.BillTo.DueDate,
                     Description = invoice.BillTo.Description,
                     StreetAddress = invoice.BillTo.StreetAddress,
@@ -43,7 +44,7 @@ namespace NeoPay.Presentation.Extensions
                 BillTo = new Payer()
                 {
                     Name = invoice.BillTo.ClientName,
-                    InvoiceDate = invoice.BillTo.InvoiceDate,
+                    InvoiceDate = DateTime.ParseExact(invoice.BillTo.InvoiceDate, "MM/dd/yyyy", CultureInfo.InvariantCulture),
                     DueDate = invoice.BillTo.DueDate,
                     Description = invoice.BillTo.Description,
                     City = invoice.BillTo.City,

@@ -22,7 +22,7 @@ namespace NeoPay.Dtos
         public string PostCode { get; init; }
         public string Country { get; init; }
         public string ClientEmail { get; init; } = string.Empty;
-        public DateTime InvoiceDate { get; init; }
+        public string InvoiceDate { get; init; }
         public PaymentTerms DueDate { get; init; }
         public string Description { get; init; }
     }
