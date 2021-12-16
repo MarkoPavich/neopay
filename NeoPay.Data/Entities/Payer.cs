@@ -1,5 +1,5 @@
 ﻿using NeoPay.Data.Enums;
-
+using System;
 
 namespace NeoPay.Data.Entities
 {
@@ -7,7 +7,7 @@ namespace NeoPay.Data.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string InvoiceDate { get; set; }
+        public DateTime InvoiceDate { get; set; }
         public PaymentTerms DueDate { get; set; }
         public string Description { get; set; }
     }
