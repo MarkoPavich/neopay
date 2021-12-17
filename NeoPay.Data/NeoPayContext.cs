@@ -15,6 +15,7 @@ namespace NeoPay.Data
         public DbSet<Contact> ContactInfo { get; set; }
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<Payer> Payers { get; set; }
+        public DbSet<RefreshToken> RefreshTokens {get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
