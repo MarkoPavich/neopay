@@ -103,12 +103,7 @@ namespace NeoPay.Controllers
 
                 };
 
-                var result = await _userManager.CreateAsync(user);
-
-                if (!result.Succeeded)
-                {
-                    throw new Exception("Something went wrong");
-                }
+                await _userManager.CreateAsync(user);
             }
 
             return Ok(CreateAuthResponse(user));

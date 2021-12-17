@@ -49,94 +49,63 @@ namespace NeoPay.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InvoiceDto>> Get(string Id)
         {
-            try
+            Invoice invoice = await _service.GetByIdAsync(Id);
+            if (invoice == null)
             {
-                Invoice invoice = await _service.GetByIdAsync(Id);
-                if (invoice == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(invoice.ToDto());
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Something went wrong");
+                return NotFound();
             }
 
+            return Ok(invoice.ToDto());
         }
 
         [HttpPost]
         public async Task <ActionResult<InvoiceDto>> Post(InvoiceDto invoiceDto)
         {
-            try
-            {
-                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                invoiceDto.GenerateId();
-                Invoice invoice = invoiceDto.FromDto(userId);
+            invoiceDto.GenerateId();
+            Invoice invoice = invoiceDto.FromDto(userId);
 
-                await _service.AddAsync(invoice);
+            await _service.AddAsync(invoice);
 
-                return Ok(invoice.ToDto());
-            }
-
-            catch(Exception)
-            {
-                return StatusCode(500, "Something went wrong"); 
-            }
+            return Ok(invoice.ToDto());
 
         }
 
         [HttpPut]
         public async Task <ActionResult<InvoiceDto>> Put(InvoiceDto invoiceDto)
         {
-            try
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Invoice invoice = await _service.GetByIdAsync(invoiceDto.Id);
+
+            if(invoice == null)
             {
-                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                Invoice invoice = await _service.GetByIdAsync(invoiceDto.Id);
-
-                if(invoice == null)
-                {
-                    return NotFound();
-                }
-
-                if(invoice.UserId != userId || invoice.Status != InvoiceStatus.Draft)
-                {
-                    return BadRequest();
-                }
-
-                await _service.UpdateInvoiceAsync(invoiceDto.FromDto(userId));
-
-                return Ok(invoiceDto);
+                return NotFound();
             }
-            catch (Exception)
+
+            if(invoice.UserId != userId || invoice.Status != InvoiceStatus.Draft)
             {
-                return StatusCode(500, "Something went wrong");
+                return BadRequest();
             }
+
+            await _service.UpdateInvoiceAsync(invoiceDto.FromDto(userId));
+
+            return Ok(invoiceDto);
         }
 
         [HttpDelete("{id}")]
         public async Task <ActionResult> Delete(string Id)
         {
-            try
+            Invoice invoice = await _service.GetByIdAsync(Id);
+
+            if (invoice == null)
             {
-                Invoice invoice = await _service.GetByIdAsync(Id);
-
-                if (invoice == null)
-                {
-                    return NotFound();
-                }
-
-                await _service.DeleteAsync(Id);
-
-                return NoContent();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Something went wrong");
+                return NotFound();
             }
 
+            await _service.DeleteAsync(Id);
+
+            return NoContent();
         }
 
         [HttpGet("setStatusPaid/{id}")]
@@ -154,7 +123,7 @@ namespace NeoPay.Controllers
                     return BadRequest();
                 }
 
-                return StatusCode(500, "Something went wrong");
+                throw;
             }
         }
 
