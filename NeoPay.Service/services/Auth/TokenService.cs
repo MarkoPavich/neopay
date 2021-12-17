@@ -1,20 +1,25 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using NeoPay.Data.Entities;
+using NeoPay.Data.Repositories;
 using NeoPay.Service.ModelInterfaces.User;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NeoPay.Service.Services.Auth
 {
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
+        private readonly ITokenRepository _tokenRepository;
 
-        public TokenService(IConfiguration configuration)
+        public TokenService(IConfiguration configuration, ITokenRepository tokenRepository)
         {
             _configuration = configuration;
+            _tokenRepository = tokenRepository;
         }
 
         public JwtSecurityToken GenerateToken(IUserModel user)
@@ -39,5 +44,21 @@ namespace NeoPay.Service.Services.Auth
             return tokenDescriptor;
         }
 
+        public async Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires)
+        {
+            RefreshToken refreshToken = new()
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                CreatedAtUtc = DateTime.UtcNow,
+                ExpiresAtUtc = expires,
+                IsUsed = true,
+                IsRevoked = false,
+                Token = Guid.NewGuid().ToString(),
+            };
+
+            await _tokenRepository.AddAsync(refreshToken);
+            return refreshToken;
+        }
     }
 }
