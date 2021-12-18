@@ -110,6 +110,22 @@ namespace NeoPay.Controllers
             return Ok(await CreateAuthResponse(user));
         }
 
+        [HttpPost("refresh")]
+        public async Task<ActionResult<AuthenticateResponse>> Refresh([FromForm]string refreshToken)
+        {
+            var clientIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var token = await _tokenService.GetRefreshTokenByValue(refreshToken);
+            var user = await _userManager.FindByIdAsync(token.UserId);
+
+            // TODO - permission and validity checks
+
+            var response = await CreateAuthResponse(user);
+            await _tokenService.MarkAsUsed(token);
+
+            return Ok(response);
+
+        }
+
         private async Task<AuthenticateResponse> CreateAuthResponse(NeoPayUser user)
         {
             var userDto = user.ToDto();

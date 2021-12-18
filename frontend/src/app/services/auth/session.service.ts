@@ -10,6 +10,7 @@ export class SessionService {
   private _session = new BehaviorSubject({
     user: null,
     token: '',
+    refreshToken: '',
     expires: '',
   } as SessionModel);
 
@@ -47,6 +48,7 @@ export class SessionService {
   }
 
   setSession(session: SessionModel) {
+    localStorage.setItem('refreshToken', session.refreshToken);
     this._session.next(session);
   }
 
@@ -54,9 +56,11 @@ export class SessionService {
     const session: SessionModel = {
       user: null,
       token: '',
+      refreshToken: '',
       expires: '',
     };
 
+    localStorage.removeItem('refreshToken');
     this._session.next(session);
   }
 }

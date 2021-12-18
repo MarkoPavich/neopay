@@ -10,5 +10,7 @@ namespace NeoPay.Service.Services.Auth
     {
         JwtSecurityToken GenerateToken(IUserModel user);
         Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires, string clientIp);
+        Task<RefreshToken> GetRefreshTokenByValue(string token);
+        Task MarkAsUsed(RefreshToken refreshToken);
     }
 }

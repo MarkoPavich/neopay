@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   LoginForm,
   RegistrationForm,
@@ -38,6 +39,17 @@ export class AuthService {
       this._apiUrl + 'register',
       form,
       this._headers
+    );
+  }
+
+  refresh(refreshToken: string): Observable<boolean> {
+    let body = new HttpParams();
+    body = body.append('refreshToken', refreshToken);
+    return this.http.post<SessionModel>(this._apiUrl + 'refresh', body).pipe(
+      map((response: SessionModel) => {
+        this.sessionService.setSession(response);
+        return true;
+      })
     );
   }
 

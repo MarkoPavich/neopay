@@ -49,6 +49,7 @@ export type User = {
 export type SessionModel = {
   user: User | null;
   token: string;
+  refreshToken: string;
   expires: string;
 };
 

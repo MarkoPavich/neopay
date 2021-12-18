@@ -14,6 +14,7 @@ using NeoPay.Data.Entities;
 using NeoPay.Data.Repositories;
 using NeoPay.Service.services;
 using Microsoft.AspNetCore.HttpOverrides;
+using System;
 
 namespace NeoPay
 {
@@ -70,6 +71,7 @@ namespace NeoPay
             services.AddAuthentication(options => 
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer(options =>
             {
@@ -80,6 +82,7 @@ namespace NeoPay
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
