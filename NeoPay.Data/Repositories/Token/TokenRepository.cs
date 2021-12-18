@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NeoPay.Data.Repositories
 {
-    internal class TokenRepository: Repository<RefreshToken>, ITokenRepository
+    public class TokenRepository: Repository<RefreshToken>, ITokenRepository
     {
         public TokenRepository(NeoPayContext context)
            : base(context)

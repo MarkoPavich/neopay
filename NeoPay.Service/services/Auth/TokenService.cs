@@ -14,12 +14,12 @@ namespace NeoPay.Service.Services.Auth
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
-        private readonly ITokenRepository _tokenRepository;
+        private readonly ITokenRepository _repository;
 
         public TokenService(IConfiguration configuration, ITokenRepository tokenRepository)
         {
             _configuration = configuration;
-            _tokenRepository = tokenRepository;
+            _repository = tokenRepository;
         }
 
         public JwtSecurityToken GenerateToken(IUserModel user)
@@ -44,20 +44,21 @@ namespace NeoPay.Service.Services.Auth
             return tokenDescriptor;
         }
 
-        public async Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires)
+        public async Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires, string clientIp)
         {
             RefreshToken refreshToken = new()
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
+                ClientIpAddress = clientIp,
                 CreatedAtUtc = DateTime.UtcNow,
                 ExpiresAtUtc = expires,
-                IsUsed = true,
+                IsUsed = false,
                 IsRevoked = false,
                 Token = Guid.NewGuid().ToString(),
             };
 
-            await _tokenRepository.AddAsync(refreshToken);
+            await _repository.AddAsync(refreshToken);
             return refreshToken;
         }
     }

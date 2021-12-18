@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -52,7 +53,7 @@ namespace NeoPay.Controllers
             if (result.Succeeded)
             {
 
-                return Ok(CreateAuthResponse(user));
+                return Ok(await CreateAuthResponse(user));
             }
 
             foreach(var error in result.Errors)
@@ -78,7 +79,7 @@ namespace NeoPay.Controllers
             if (signInResult.Succeeded)
             {
 
-                return Ok(CreateAuthResponse(user));
+                return Ok(await CreateAuthResponse(user));
             }
 
             return Unauthorized("Invalid username and/or password");
@@ -106,18 +107,22 @@ namespace NeoPay.Controllers
                 await _userManager.CreateAsync(user);
             }
 
-            return Ok(CreateAuthResponse(user));
+            return Ok(await CreateAuthResponse(user));
         }
 
-        private AuthenticateResponse CreateAuthResponse(NeoPayUser user)
+        private async Task<AuthenticateResponse> CreateAuthResponse(NeoPayUser user)
         {
             var userDto = user.ToDto();
+            var clientIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
             var tokenDescriptor = _tokenService.GenerateToken(userDto);
+            var refreshToken = await _tokenService.GenerateRefreshTokenAsync(user.Id, tokenDescriptor.ValidTo, clientIpAddress);
+
             var response = new AuthenticateResponse()
             {
                 User = userDto,
                 Token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor),
+                RefreshToken = refreshToken.Token,
                 ValidTo = tokenDescriptor.ValidTo
             };
 

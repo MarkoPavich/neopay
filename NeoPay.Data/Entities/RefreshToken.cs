@@ -11,6 +11,7 @@ namespace NeoPay.Data.Entities
         public Guid Id { get; init; }
         public string UserId { get; init; }
         public string Token { get; init; }
+        public string ClientIpAddress { get; init; }
         public DateTime CreatedAtUtc { get; init; }
         public DateTime ExpiresAtUtc { get; init; }
         public bool IsUsed { get; set; }

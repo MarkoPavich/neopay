@@ -13,6 +13,7 @@ using NeoPay.Service.Services.Auth;
 using NeoPay.Data.Entities;
 using NeoPay.Data.Repositories;
 using NeoPay.Service.services;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace NeoPay
 {
@@ -39,6 +40,11 @@ namespace NeoPay
             {
                 options.AddDefaultPolicy(builder =>
                 {
+                    //builder.WithOrigins("https://neopay.local")
+                    //    .AllowCredentials()
+                    //    .AllowAnyHeader()
+                    //    .AllowAnyMethod();
+
                     builder.AllowAnyOrigin()  // TODO - define allowed origins 
                         .AllowAnyMethod()     // TODO - debug firefox
                         .AllowAnyHeader();
@@ -55,9 +61,10 @@ namespace NeoPay
 
             // DI registrations
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
+
             services.AddScoped<IInvoiceService, InvoiceService>();
-            
-            services.AddTransient<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             //Auth
             services.AddAuthentication(options => 
@@ -93,6 +100,12 @@ namespace NeoPay
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                ForwardedHeaders.XForwardedProto
+            });
 
             app.UseCors();
 
