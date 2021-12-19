@@ -12,5 +12,6 @@ namespace NeoPay.Service.Services.Auth
         Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires, string clientIp);
         Task<RefreshToken> GetRefreshTokenByValue(string token);
         Task MarkAsUsed(RefreshToken refreshToken);
+        Task InvalidateRefreshTokenFamily(RefreshToken refreshToken);
     }
 }

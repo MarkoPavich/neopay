@@ -38,7 +38,6 @@ export class AuthenticationGuard implements CanActivate {
     if (refreshToken) {
       return this.authService.refresh(refreshToken).pipe(
         map((succeeded: boolean | null) => {
-          console.log('succedded: ', succeeded);
           if (succeeded) {
             return true;
           }

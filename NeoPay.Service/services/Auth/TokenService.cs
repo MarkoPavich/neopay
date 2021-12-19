@@ -34,7 +34,7 @@ namespace NeoPay.Service.Services.Auth
             var issuer = _configuration["Jwt:Issuer"];
             var key = _configuration["Jwt:Key"];
             var audience = _configuration["Jwt:Audience"];
-            var expires = DateTime.Now.AddSeconds(Int16.Parse(_configuration["Jwt:DurationMinutes"]));
+            var expires = DateTime.UtcNow.AddMinutes(Int16.Parse(_configuration["Jwt:DurationMinutes"]));
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
@@ -73,6 +73,9 @@ namespace NeoPay.Service.Services.Auth
             await _repository.SaveChanges();
         }
 
-        // TODO - revoke
+        public async Task InvalidateRefreshTokenFamily(RefreshToken refreshToken)
+        {
+            await _repository.InvalidateRefreshTokenFamily(refreshToken.UserId);
+        }
     }
 }

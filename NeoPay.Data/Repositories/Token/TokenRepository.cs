@@ -17,6 +17,20 @@ namespace NeoPay.Data.Repositories
             return await base.GetAll().Where(a => a.Token == token).FirstOrDefaultAsync();
         }
 
+        public async Task InvalidateRefreshTokenFamily(string userId)
+        {
+            var tokenFamily = await base.GetAll()
+                .Where(a => a.UserId == userId && a.IsUsed == false)
+                .ToListAsync();
+
+            foreach(RefreshToken token in tokenFamily)
+            {
+                token.IsRevoked = true;
+            }
+
+            await SaveChanges();
+        }
+
         public override async Task<RefreshToken> AddAsync(RefreshToken refreshToken)
         {
             await base.AddAsync(refreshToken);

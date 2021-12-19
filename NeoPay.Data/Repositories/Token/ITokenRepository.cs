@@ -7,7 +7,7 @@ namespace NeoPay.Data.Repositories
     {
         public Task<RefreshToken> GetByTokenAsync(string token);
         public Task<RefreshToken> AddAsync(RefreshToken refreshToken);
-        public void Remove(RefreshToken refreshToken);
+        public Task InvalidateRefreshTokenFamily(string userId);
         public Task SaveChanges();
     }
 }

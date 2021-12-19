@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using NeoPay.Data.Entities;
 using NeoPay.Dtos;
+using NeoPay.Presentation.Constants;
 using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Services.Auth;
 using System;
@@ -115,15 +116,43 @@ namespace NeoPay.Controllers
         {
             var clientIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
             var token = await _tokenService.GetRefreshTokenByValue(refreshToken);
-            var user = await _userManager.FindByIdAsync(token.UserId);
 
-            // TODO - permission and validity checks
+            if(token == null || token.ExpiresAtUtc < DateTime.UtcNow || token.IsRevoked)
+            {
+                return Unauthorized(new
+                {
+                    error = ErrorTypeStrings.InvalidRequest,
+                    error_description = "Invalid or expired refresh token"
+                });
+            }
+
+            if(token.ClientIpAddress != clientIpAddress)
+            {
+                return Unauthorized(new
+                {
+                    error = ErrorTypeStrings.UnauthorizedClient,
+                    error_description = "Unrecognised client address"
+                });
+            }
+
+            if (token.IsUsed)
+            {
+                // Possibly malicious access attempt
+                await _tokenService.InvalidateRefreshTokenFamily(token);
+
+                return Unauthorized(new
+                {
+                    error = ErrorTypeStrings.InvalidRequest,
+                    error_description = "Invalid or expired refresh token"
+                });
+            }
+
+            var user = await _userManager.FindByIdAsync(token.UserId);
 
             var response = await CreateAuthResponse(user);
             await _tokenService.MarkAsUsed(token);
 
             return Ok(response);
-
         }
 
         private async Task<AuthenticateResponse> CreateAuthResponse(NeoPayUser user)
