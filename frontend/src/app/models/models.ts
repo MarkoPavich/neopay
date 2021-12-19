@@ -50,7 +50,7 @@ export type SessionModel = {
   user: User | null;
   token: string;
   refreshToken: string;
-  expires: string;
+  validTo: string;
 };
 
 export type GoogleSignInResponse = {

@@ -18,7 +18,7 @@ namespace NeoPay.Dtos
         public UserDto User { get; init; }
         public string Token { get; init; }
         public string RefreshToken { get; init; }
-        public DateTime ValidTo { get; init; }
+        public string ValidTo { get; init; }
     }
 
     public record RegisterRequest : IUserRegistrationModel

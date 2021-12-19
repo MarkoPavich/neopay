@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { finalize, map, take } from 'rxjs/operators';
 import {
   LoginForm,
   RegistrationForm,
@@ -45,12 +45,21 @@ export class AuthService {
   refresh(refreshToken: string): Observable<boolean> {
     let body = new HttpParams();
     body = body.append('refreshToken', refreshToken);
-    return this.http.post<SessionModel>(this._apiUrl + 'refresh', body).pipe(
-      map((response: SessionModel) => {
-        this.sessionService.setSession(response);
-        return true;
-      })
-    );
+
+    this.sessionService.isRefreshing = true;
+
+    return this.http
+      .post<SessionModel>(this._apiUrl + 'refresh', body)
+      .pipe(
+        map((response: SessionModel) => {
+          this.sessionService.setSession(response);
+          return true;
+        })
+      )
+      .pipe(
+        take(1),
+        finalize(() => (this.sessionService.isRefreshing = false))
+      );
   }
 
   googleSignIn(idToken: string): Observable<SessionModel> {

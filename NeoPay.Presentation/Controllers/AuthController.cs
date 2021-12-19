@@ -10,6 +10,7 @@ using NeoPay.Presentation.Extensions;
 using NeoPay.Service.Services.Auth;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
@@ -168,7 +169,7 @@ namespace NeoPay.Controllers
                 User = userDto,
                 Token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor),
                 RefreshToken = refreshToken.Token,
-                ValidTo = tokenDescriptor.ValidTo
+                ValidTo = tokenDescriptor.ValidTo.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffK", CultureInfo.InvariantCulture),
             };
 
             return response;

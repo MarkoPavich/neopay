@@ -11,13 +11,27 @@ export class SessionService {
     user: null,
     token: '',
     refreshToken: '',
-    expires: '',
+    validTo: '',
   } as SessionModel);
 
+  private _tokenDuration: number = 0;
+  private _isRefreshing: boolean = false;
   private _loading: BehaviorSubject<number> = new BehaviorSubject(0);
 
   get authToken(): string {
-    return this._session.value['token'];
+    return this._session.value.token;
+  }
+
+  get refreshToken(): string {
+    return this._session.value.refreshToken;
+  }
+
+  get isRefreshing(): boolean {
+    return this._isRefreshing;
+  }
+
+  set isRefreshing(isRefreshing: boolean) {
+    this._isRefreshing = isRefreshing;
   }
 
   get user(): User | null {
@@ -39,6 +53,17 @@ export class SessionService {
       .pipe(distinctUntilChanged());
   }
 
+  get tokenExpired(): boolean {
+    return Date.now() > Date.parse(this._session.value.validTo);
+  }
+
+  get shouldRefresh(): boolean {
+    const tokenExpires = Date.parse(this._session.value.validTo);
+
+    // Refresh when duration over half duration
+    return tokenExpires - Date.now() < this._tokenDuration / 2;
+  }
+
   startLoading() {
     this._loading.next(this._loading.value + 1);
   }
@@ -49,6 +74,7 @@ export class SessionService {
 
   setSession(session: SessionModel) {
     localStorage.setItem('refreshToken', session.refreshToken);
+    this._tokenDuration = Date.parse(session.validTo) - Date.now();
     this._session.next(session);
   }
 
@@ -57,10 +83,11 @@ export class SessionService {
       user: null,
       token: '',
       refreshToken: '',
-      expires: '',
+      validTo: '',
     };
 
     localStorage.removeItem('refreshToken');
+    this.isRefreshing = false;
     this._session.next(session);
   }
 }
