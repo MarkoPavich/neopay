@@ -31,9 +31,9 @@ namespace NeoPay.Data.Repositories
             await SaveChanges();
         }
 
-        public override async Task<RefreshToken> AddAsync(RefreshToken refreshToken)
+        public async Task<RefreshToken> AddAsync(RefreshToken refreshToken)
         {
-            await base.AddAsync(refreshToken);
+            base.Add(refreshToken);
             await SaveChanges();
             return refreshToken;
         }

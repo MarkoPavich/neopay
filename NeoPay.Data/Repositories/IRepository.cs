@@ -6,7 +6,7 @@ namespace NeoPay.Data.Repositories
     public interface IRepository<TEntity> where TEntity : class,  new()
     {
         IQueryable<TEntity> GetAll();
-        Task<TEntity> AddAsync(TEntity entity);
+        void Add(TEntity entity);
         TEntity Update(TEntity entity);
         void Remove(TEntity entity);
         Task SaveChanges();

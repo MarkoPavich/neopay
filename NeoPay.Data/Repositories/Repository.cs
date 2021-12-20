@@ -17,10 +17,9 @@ namespace NeoPay.Data.Repositories
             return Context.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity> AddAsync(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
-            await Context.AddAsync(entity);
-            return entity;
+            Context.Add(entity);
         }
 
         public virtual TEntity Update(TEntity entity)

@@ -24,9 +24,9 @@ namespace NeoPay.Data.Repositories
                 .Include(s => s.Items);
         }
 
-        public override async Task<Invoice> AddAsync(Invoice invoice)
+        public async Task<Invoice> AddAsync(Invoice invoice)
         {
-            await base.AddAsync(invoice);
+            base.Add(invoice);
             await SaveChanges();
             return invoice;
         }
