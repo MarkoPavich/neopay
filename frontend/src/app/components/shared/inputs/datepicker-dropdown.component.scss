@@ -130,7 +130,7 @@
 }
 
 .date-current{
-  background-color: #141625//lightgray; // TODO
+  background-color: var(--color-datepicker-current-date);
 }
 
 .selected{

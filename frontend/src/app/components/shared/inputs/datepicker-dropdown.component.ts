@@ -191,6 +191,7 @@ export class DatepickerDropdownComponent implements OnInit {
   }
 
   onSelect(date: Date) {
+    const doc = <any>document;
     this.controlContainer.control?.get(this._formControlName)?.patchValue(date);
 
     this._fieldText = date.toLocaleString('default', {
@@ -198,5 +199,7 @@ export class DatepickerDropdownComponent implements OnInit {
       month: 'short',
       year: 'numeric',
     });
+
+    doc.activeElement.blur();
   }
 }
