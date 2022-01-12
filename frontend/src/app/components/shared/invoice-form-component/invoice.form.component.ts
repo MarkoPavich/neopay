@@ -5,6 +5,7 @@ import { Invoice, InvoiceItem } from 'src/app/models/models';
 import { InvoiceService } from 'src/app/services/http/invoice.service';
 import { FormHelperService } from 'src/app/services/helpers/form-helper.service';
 import { InvoiceStatus } from 'src/app/enums/enums';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'invoice-form',
@@ -21,7 +22,8 @@ export class InvoiceFormComponent implements OnInit {
   constructor(
     private formFactory: InvoiceFormFactory,
     private service: InvoiceService,
-    private formHelpers: FormHelperService
+    private formHelpers: FormHelperService,
+    private datepipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -103,6 +105,9 @@ export class InvoiceFormComponent implements OnInit {
   onSubmit(status: InvoiceStatus): void {
     if (this._invoiceForm.valid) {
       const invoice: Invoice = this._invoiceForm.value;
+      invoice.billTo.invoiceDate =
+        this.datepipe.transform(invoice.billTo.invoiceDate, 'MM/dd/yyyy') ??
+        invoice.billTo.invoiceDate;
 
       if (invoice.billTo.invoiceDate instanceof Date) {
         invoice.billTo.invoiceDate =
