@@ -33,7 +33,7 @@ namespace NeoPay.Presentation.Extensions
             };
         }
 
-        public static Invoice FromDto(this InvoiceDto invoice, string userId)
+        public static Invoice ToModel(this InvoiceDto invoice, string userId)
         {
             return new Invoice()
             {

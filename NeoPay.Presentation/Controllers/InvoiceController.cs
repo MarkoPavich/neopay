@@ -64,7 +64,7 @@ namespace NeoPay.Controllers
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             invoiceDto.GenerateId();
-            Invoice invoice = invoiceDto.FromDto(userId);
+            Invoice invoice = invoiceDto.ToModel(userId);
 
             await _service.AddAsync(invoice);
 
@@ -88,7 +88,7 @@ namespace NeoPay.Controllers
                 return BadRequest();
             }
 
-            await _service.UpdateInvoiceAsync(invoiceDto.FromDto(userId));
+            await _service.UpdateInvoiceAsync(invoiceDto.ToModel(userId));
 
             return Ok(invoiceDto);
         }
