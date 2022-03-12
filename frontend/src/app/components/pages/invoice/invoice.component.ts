@@ -119,9 +119,17 @@ export class InvoiceComponent implements OnInit {
   }
 
   setStatusPaid() {
-    this.service.setStatusPaid(this._invoice.id).subscribe(() => {
-      this._invoice.status = InvoiceStatus.paid;
-    });
+    const predicate = `mark invoice ${this._invoice.id} as paid`;
+
+    this.modalService
+      .confirmationDialog(predicate)
+      .subscribe((Selection: boolean) => {
+        if (Selection) {
+          this.service.setStatusPaid(this._invoice.id).subscribe(() => {
+            this._invoice.status = InvoiceStatus.paid;
+          });
+        }
+      });
   }
 
   onNavigateBack() {

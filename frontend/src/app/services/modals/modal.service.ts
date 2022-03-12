@@ -50,8 +50,8 @@ export class ModalService {
     this._activeModals.next(activeModals);
   }
 
-  deleteDialog(context: string): Observable<boolean> {
-    this._context = context;
+  deleteDialog(deleteSubject: string): Observable<boolean> {
+    this._context = deleteSubject;
     return this.showModal(modalsRegister.deleteConfirmation).pipe(
       map((selection: string) => {
         return JSON.parse(selection);
@@ -59,7 +59,16 @@ export class ModalService {
     );
   }
 
-  showModal(modal: string): Observable<string> {
+  confirmationDialog(confirmationPredicate: string): Observable<boolean> {
+    this._context = confirmationPredicate;
+    return this.showModal(modalsRegister.confirmationDialog).pipe(
+      map((selection: string) => {
+        return JSON.parse(selection);
+      })
+    )
+  }
+
+  private showModal(modal: string): Observable<string> {
     const activeModals = this._activeModals.value;
     activeModals.push(modal);
     this._activeModals.next(activeModals);

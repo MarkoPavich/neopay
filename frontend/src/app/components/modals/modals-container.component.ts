@@ -11,6 +11,7 @@ import { ModalsRegister } from './modals.types';
       <delete-confirmation-dialog
         *ngIf="isActive(modals.deleteConfirmation)"
       ></delete-confirmation-dialog>
+      <confirmation-dialog *ngIf="isActive(modals.confirmationDialog)"></confirmation-dialog>
     </div>
   `,
   styleUrls: ['modals-container.component.scss'],
