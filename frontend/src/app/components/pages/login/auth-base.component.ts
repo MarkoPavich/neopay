@@ -12,9 +12,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/auth/session.service';
 import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { ToastrService } from 'ngx-toastr';
 
 @Directive()
-export class AuthBaseComponent {
+export abstract class AuthBaseComponent {
   // TODO - toasts
   protected _form!: FormGroup;
   protected _isLoading!: boolean;
@@ -24,7 +25,8 @@ export class AuthBaseComponent {
     private authService: AuthService,
     protected sessionService: SessionService,
     protected router: Router,
-    protected socialAuthService: SocialAuthService
+    protected socialAuthService: SocialAuthService,
+    protected toastr: ToastrService
   ) {}
 
   onSuccessful(session: SessionModel) {

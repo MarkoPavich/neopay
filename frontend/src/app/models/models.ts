@@ -74,3 +74,8 @@ export type StatusFiltersResponse = {
 export type InvoiceStatusFilter = StatusFiltersResponse &{
   checked: boolean;
 }
+
+export type errorResponse = {
+  error_type: string;
+  error_message: string;
+}

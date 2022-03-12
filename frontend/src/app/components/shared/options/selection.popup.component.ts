@@ -31,6 +31,9 @@ import { InvoiceStatusFilter } from 'src/app/models/models';
               <label for="">{{ getFilterName(filter) }}</label>
             </div>
           </li>
+          <li *ngIf="statusFiltersForm.controls.length === 0">
+            <span>No invoices are available</span>
+          </li>
         </ul>
       </div>
     </div>

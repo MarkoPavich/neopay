@@ -73,7 +73,11 @@ namespace NeoPay.Controllers
 
             if(user == null)
             {
-                return Unauthorized("Invalid username and/or password");
+                return Unauthorized(new ErrorResponse
+                {
+                    error_type = "Unauthorized",
+                    error_message = "Invalid username and/or password"
+                });
             }
 
             var signInResult = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
@@ -84,7 +88,11 @@ namespace NeoPay.Controllers
                 return Ok(await CreateAuthResponse(user));
             }
 
-            return Unauthorized("Invalid username and/or password");
+            return Unauthorized(new ErrorResponse
+            {
+                error_type = "Unauthorized",
+                error_message = "Invalid username and/or password"
+            }); ;
         }
 
         [HttpPost("google-signin")]

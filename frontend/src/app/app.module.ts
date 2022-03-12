@@ -29,7 +29,9 @@ import { SecureHttpInterceptor } from './services/http/http-interceptor';
     BrowserAnimationsModule,
     SocialLoginModule,
     ModalsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center'
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -36,4 +36,10 @@ namespace NeoPay.Dtos
         [Required]
         public string IdToken { get; init; }
     }
+
+    public record ErrorResponse
+    {
+        public string error_type { get; init; }
+        public string error_message { get; init; }
+    }
 }
