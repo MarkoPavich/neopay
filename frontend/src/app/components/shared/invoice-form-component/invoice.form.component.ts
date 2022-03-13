@@ -90,6 +90,10 @@ export class InvoiceFormComponent implements OnInit {
     this._invoiceForm.reset();
     this._invoiceDate = new Date(invoice.billTo.invoiceDate);
 
+    for(let i=0; i<invoice.items.length - 1; i++){
+      this.addItem();
+    }
+
     this._invoiceForm.patchValue({
       id: invoice.id,
       items: invoice.items,
