@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 import { SelectOption } from 'src/app/models/generic';
 
@@ -53,7 +53,7 @@ import { SelectOption } from 'src/app/models/generic';
   `,
   styleUrls: ['./datepicker-dropdown.component.scss'],
 })
-export class DatepickerDropdownComponent implements OnInit {
+export class DatepickerDropdownComponent implements OnInit, OnChanges {
   @Input('name') _name: string = '';
   @Input('label') _label: string = 'dropdown field';
   @Input('placeholder') _placeholder: string = 'dropdown field';
@@ -62,18 +62,21 @@ export class DatepickerDropdownComponent implements OnInit {
   @Input('controlName') _formControlName: string = '';
   @Input('formGroup') _formGroup: FormGroup | null = null;
   @Input('options') _options: SelectOption[] = [];
-  @Input('preselectText') _preselectText: string | null = null;
+  @Input('preselectDate') _preselectDate: Date | null = null;
 
   private _fieldText: string = '';
   private _dateArray: Date[] = [];
 
   constructor(private controlContainer: ControlContainer) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this._preselectDate) {
+      this.setFieldText(this._preselectDate);
+    }
+  }
+
   ngOnInit() {
     this.populateDateArray();
-    if (this._preselectText) {
-      this._fieldText = this._preselectText;
-    }
   }
 
   get dateArray(): Date[] {
@@ -190,15 +193,19 @@ export class DatepickerDropdownComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  onSelect(date: Date) {
-    const doc = <any>document;
-    this.controlContainer.control?.get(this._formControlName)?.patchValue(date);
-
+  setFieldText(date: Date): void {
     this._fieldText = date.toLocaleString('default', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
     });
+  }
+
+  onSelect(date: Date) {
+    const doc = <any>document;
+    this.controlContainer.control?.get(this._formControlName)?.patchValue(date);
+
+    this.setFieldText(date);
 
     doc.activeElement.blur();
   }

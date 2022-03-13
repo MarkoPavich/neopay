@@ -18,6 +18,7 @@ export class InvoiceFormComponent implements OnInit {
   private _isNew: boolean = true;
   private _isActive: boolean = false;
   private _invoiceForm!: FormGroup;
+  private _invoiceDate: Date | null = null;
 
   constructor(
     private formFactory: InvoiceFormFactory,
@@ -59,6 +60,10 @@ export class InvoiceFormComponent implements OnInit {
     return InvoiceStatus;
   }
 
+  get invoiceDate(): Date | null {
+    return this._invoiceDate;
+  }
+
   getFormGroupAtIndex(index: number): FormGroup {
     return this.invoiceItems.at(index) as FormGroup;
   }
@@ -71,6 +76,7 @@ export class InvoiceFormComponent implements OnInit {
 
   closeForm(): void {
     this._isActive = false;
+    this._invoiceDate = null;
     this._invoiceForm.reset();
   }
 
@@ -82,12 +88,16 @@ export class InvoiceFormComponent implements OnInit {
 
   openEditForm(invoice: Invoice) {
     this._invoiceForm.reset();
+    this._invoiceDate = new Date(invoice.billTo.invoiceDate);
 
     this._invoiceForm.patchValue({
       id: invoice.id,
       items: invoice.items,
       billFrom: invoice.billFrom,
-      billTo: invoice.billTo,
+      billTo: {
+        ...invoice.billTo,
+        invoiceDate: this.invoiceDate
+      },
     });
 
     this._isNew = false;
