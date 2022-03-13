@@ -106,6 +106,18 @@ export class InvoiceComponent implements OnInit {
     this._invoice = invoice;
   }
 
+  sendDraft(): void {
+    const predicate = `issue invoice ${this._invoice.id}`;
+
+    this.modalService
+      .confirmationDialog(predicate)
+      .subscribe((selection: boolean) => {
+        if (selection) {
+          this._invoiceForm.submitDraft(this._invoice);
+        }
+      });
+  }
+
   handleOnDelete() {
     this.modalService
       .deleteDialog(this._invoice.id)

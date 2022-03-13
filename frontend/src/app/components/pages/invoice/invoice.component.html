@@ -30,6 +30,13 @@
       >
         Mark as Paid
       </button>
+      <button
+      *ngIf="isDraft"
+      (click)="sendDraft()"
+      class="button button-primary"
+    >
+      Send Invoice
+    </button>
     </div>
   </header>
 

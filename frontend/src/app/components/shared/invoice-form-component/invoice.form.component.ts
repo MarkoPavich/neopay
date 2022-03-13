@@ -86,11 +86,11 @@ export class InvoiceFormComponent implements OnInit {
     this._isActive = true;
   }
 
-  openEditForm(invoice: Invoice) {
+  populateForm(invoice: Invoice): void {
     this._invoiceForm.reset();
     this._invoiceDate = new Date(invoice.billTo.invoiceDate);
 
-    for(let i=0; i<invoice.items.length - 1; i++){
+    for (let i = 0; i < invoice.items.length - 1; i++) {
       this.addItem();
     }
 
@@ -100,11 +100,20 @@ export class InvoiceFormComponent implements OnInit {
       billFrom: invoice.billFrom,
       billTo: {
         ...invoice.billTo,
-        invoiceDate: this.invoiceDate
+        invoiceDate: this.invoiceDate,
       },
     });
 
     this._isNew = false;
+  }
+
+  submitDraft(invoice: Invoice): void {
+    this.populateForm(invoice);
+    this.onSubmit(InvoiceStatus.pending);
+  }
+
+  openEditForm(invoice: Invoice) {
+    this.populateForm(invoice);
     this._isActive = true;
   }
 
