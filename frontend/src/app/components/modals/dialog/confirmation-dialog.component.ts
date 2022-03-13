@@ -5,7 +5,7 @@ import { ModalService } from 'src/app/services/modals/modal.service';
   selector: 'confirmation-dialog',
   template: ` <div class="modal-container">
     <div class="text-container">
-      <h1>Confirm Deletion</h1>
+      <h1>Confirm Action</h1>
       <span>Are you sure you want to {{ predicate }} ?</span>
     </div>
     <div class="controls-container">

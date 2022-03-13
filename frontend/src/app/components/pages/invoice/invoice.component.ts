@@ -89,7 +89,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   get isPending(): boolean {
-    return this._invoice.status !== InvoiceStatus.paid;
+    return this._invoice.status === InvoiceStatus.pending;
   }
 
   getItemSum(index: number): string {
