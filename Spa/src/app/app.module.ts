@@ -15,9 +15,9 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule,
 } from 'angularx-social-login';
-import { secrets } from 'src/environments/secrets';
 import { ModalsModule } from './components/modals/modals-module';
 import { SecureHttpInterceptor } from './services/http/http-interceptor';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, PageFrameComponent],
@@ -47,7 +47,7 @@ import { SecureHttpInterceptor } from './services/http/http-interceptor';
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(secrets.googleClientId),
+            provider: new GoogleLoginProvider(environment.googleClientId),
           },
         ],
       } as SocialAuthServiceConfig,

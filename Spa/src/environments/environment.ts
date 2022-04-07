@@ -6,6 +6,8 @@ export const environment = {
   production: false,
 
   googleSignInUrl: 'https://localhost:44332/api/auth/google-login',
+  apiRootUrl: 'https://localhost:44332/api',
+  googleClientId: "200879215479-qqvhkhqso4hk49qiebvibfprtuelgvq9.apps.googleusercontent.com"
 };
 
 /*

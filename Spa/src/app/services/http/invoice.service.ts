@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Invoice, InvoiceStatusFilter } from 'src/app/models/models';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceService {
-  private _apiUrl = 'https://localhost:44332/api/invoice'; // TODO - refactor via config
+  private _apiUrl = `${environment.apiRootUrl}/invoice`;
 
   private _headers = {
     headers: new HttpHeaders({

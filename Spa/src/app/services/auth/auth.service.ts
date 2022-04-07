@@ -8,12 +8,13 @@ import {
   SessionModel,
 } from 'src/app/models/models';
 import { SessionService } from './session.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _apiUrl = 'https://localhost:44332/api/auth/';
+  private _apiUrl = `${environment.apiRootUrl}/auth/`;
 
   private _headers = {
     headers: new HttpHeaders({
