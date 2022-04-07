@@ -15,6 +15,7 @@ using NeoPay.Data.Repositories;
 using NeoPay.Service.services;
 using Microsoft.AspNetCore.HttpOverrides;
 using System;
+using System.Security.Cryptography;
 
 namespace NeoPay
 {
@@ -67,30 +68,37 @@ namespace NeoPay
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<ITokenService, TokenService>();
 
+            services.AddSingleton<RsaSecurityKey>(provider =>
+            {
+                RSA rsa = RSA.Create();
+                return new RsaSecurityKey(rsa);
+            });
+
+            services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+                .Configure<RsaSecurityKey>((options, rsa) => // Use DI in startup via .Configure
+                {
+                    options.SaveToken = false;
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = rsa
+                    };
+                });
+
             //Auth
             services.AddAuthentication(options => 
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(options =>
-            {
-                options.SaveToken = false;
-                options.RequireHttpsMetadata = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])
-                        )
-                };
-            });
+                .AddJwtBearer();
             
             // Allows using HttpContext in other layers
             services.AddHttpContextAccessor();

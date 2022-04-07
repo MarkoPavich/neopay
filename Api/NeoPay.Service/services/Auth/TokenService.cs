@@ -15,11 +15,13 @@ namespace NeoPay.Service.Services.Auth
     {
         private readonly IConfiguration _configuration;
         private readonly ITokenRepository _repository;
+        private readonly RsaSecurityKey _securityKey;
 
-        public TokenService(IConfiguration configuration, ITokenRepository tokenRepository)
+        public TokenService(IConfiguration configuration, ITokenRepository tokenRepository, RsaSecurityKey securityKey)
         {
             _configuration = configuration;
             _repository = tokenRepository;
+            _securityKey = securityKey;
         }
 
         public JwtSecurityToken GenerateToken(IUserModel user)
@@ -32,12 +34,10 @@ namespace NeoPay.Service.Services.Auth
             };
 
             var issuer = _configuration["Jwt:Issuer"];
-            var key = _configuration["Jwt:Key"];
             var audience = _configuration["Jwt:Audience"];
             var expires = DateTime.UtcNow.AddMinutes(Int16.Parse(_configuration["Jwt:DurationMinutes"]));
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var credentials = new SigningCredentials(_securityKey, SecurityAlgorithms.RsaSha256);
 
             var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims, expires: expires, signingCredentials: credentials);
 
