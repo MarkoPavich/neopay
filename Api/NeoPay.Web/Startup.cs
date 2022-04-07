@@ -31,12 +31,17 @@ namespace NeoPay
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // DbContext
+
+            #region DbContext
             services.AddDbContext<NeoPayContext>(options =>
             {
                 // Connects to MariaDb server instance running on RaspberyPi server - connection string stored in secrets
                 options.UseMySql(Configuration["ConnectionStrings:RpiMariaDb"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:RpiMariaDb"]));
             });
+
+            #endregion
+
+            #region CORS
 
             services.AddCors(options =>
             {
@@ -53,6 +58,8 @@ namespace NeoPay
                 });
             });
 
+            #endregion
+
             // Use Microsoft IdentityUser solution
             services.AddIdentity<NeoPayUser, IdentityRole>(options =>
             {
@@ -60,6 +67,8 @@ namespace NeoPay
             }).AddEntityFrameworkStores<NeoPayContext>();
 
             services.AddControllers();
+
+            #region DI registrations
 
             // DI registrations
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
@@ -74,6 +83,9 @@ namespace NeoPay
                 return new RsaSecurityKey(rsa);
             });
 
+            #endregion
+
+            #region Authentication
             services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
                 .Configure<RsaSecurityKey>((options, rsa) => // Use DI in startup via .Configure
                 {
@@ -92,14 +104,14 @@ namespace NeoPay
                     };
                 });
 
-            //Auth
             services.AddAuthentication(options => 
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer();
-            
+            #endregion
+
             // Allows using HttpContext in other layers
             services.AddHttpContextAccessor();
         }
