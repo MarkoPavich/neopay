@@ -9,7 +9,7 @@ namespace NeoPay.Service.Services.Auth
     public interface ITokenService
     {
         JwtSecurityToken GenerateToken(IUserModel user);
-        Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires, string clientIp);
+        Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires);
         Task<RefreshToken> GetRefreshTokenByValue(string token);
         Task MarkAsUsed(RefreshToken refreshToken);
         Task InvalidateRefreshTokenFamily(RefreshToken refreshToken);

@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NeoPay.Data.Entities;
 using NeoPay.Data.Repositories;
 using NeoPay.Service.ModelInterfaces.User;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +18,15 @@ namespace NeoPay.Service.Services.Auth
         private readonly IConfiguration _configuration;
         private readonly ITokenRepository _repository;
         private readonly RsaSecurityKey _securityKey;
+        private readonly HttpContext _httpContext;
 
-        public TokenService(IConfiguration configuration, ITokenRepository tokenRepository, RsaSecurityKey securityKey)
+        public TokenService(IConfiguration configuration, ITokenRepository tokenRepository, 
+            RsaSecurityKey securityKey, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _repository = tokenRepository;
             _securityKey = securityKey;
+            _httpContext = httpContextAccessor.HttpContext;
         }
 
         public JwtSecurityToken GenerateToken(IUserModel user)
@@ -44,8 +49,10 @@ namespace NeoPay.Service.Services.Auth
             return tokenDescriptor;
         }
 
-        public async Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires, string clientIp)
+        public async Task<RefreshToken> GenerateRefreshTokenAsync(string userId, DateTime expires)
         {
+            var clientIp = _httpContext.Request.Headers["X-Real-IP"].FirstOrDefault();
+
             RefreshToken refreshToken = new()
             {
                 Id = Guid.NewGuid(),

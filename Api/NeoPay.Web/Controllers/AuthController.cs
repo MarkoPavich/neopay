@@ -167,10 +167,9 @@ namespace NeoPay.Controllers
         private async Task<AuthenticateResponse> CreateAuthResponse(NeoPayUser user)
         {
             var userDto = user.ToDto();
-            var clientIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
             var tokenDescriptor = _tokenService.GenerateToken(userDto);
-            var refreshToken = await _tokenService.GenerateRefreshTokenAsync(user.Id, tokenDescriptor.ValidTo, clientIpAddress);
+            var refreshToken = await _tokenService.GenerateRefreshTokenAsync(user.Id, tokenDescriptor.ValidTo);
 
             var response = new AuthenticateResponse()
             {
