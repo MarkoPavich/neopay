@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace NeoPay
 {
@@ -16,11 +13,24 @@ namespace NeoPay
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            string basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            var builder = Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+            builder.ConfigureAppConfiguration(configurationBuilder =>
+            {
+                configurationBuilder.SetBasePath(basePath);
+                configurationBuilder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                configurationBuilder.AddEnvironmentVariables();
+            });
+
+            return builder;
+        }
     }
 }
