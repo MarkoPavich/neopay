@@ -26,7 +26,7 @@ build_api:
         - cd Api
         - dotnet restore
         - cd NeoPay.Web
-        - dotnet publish -c Release -r linux-x64 -o api -p:PublishProfile=FolderProfile
+        - dotnet publish -c Release -r linux-arm64 -o api -p:PublishProfile=FolderProfile
         - mv api ../../api
     artifacts:
         name: "api"
