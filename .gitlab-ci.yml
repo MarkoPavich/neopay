@@ -1,0 +1,76 @@
+stages:
+    - build_spa
+    - build_api
+    - deploy_spa
+    - deploy_api
+
+
+build_spa:
+    image: node:gallium-alpine3.15
+    stage: build_spa
+    script:
+        - cd Spa
+        - yarn
+        - yarn build
+        - mv dist/neopay_spa ../spa
+    when: manual
+    artifacts:
+        name: "spa"
+        paths:
+            - spa/
+
+build_api:
+    image: newbe36524/sdk:6.0.101
+    stage: build_api
+    script:
+        - cd Api
+        - dotnet restore
+        - cd NeoPay.Web
+        - dotnet publish -c Release -r linux-x64 -o api -p:PublishProfile=FolderProfile
+        - mv api ../../api
+    artifacts:
+        name: "api"
+        paths: 
+            - api/
+    when: manual
+
+deploy_spa:
+    image: docker:19.03.12
+    stage: deploy_spa
+    dependencies:
+        - build_spa
+    script:
+        - docker stop neopay-spa || true
+        - docker rm neopay-spa || true
+        - docker image rm neopay-spa || true
+        - mv Spa/Dockerfile Dockerfile
+        - docker build -t neopay-spa:latest .
+        
+        - docker run -d --name neopay-spa -p 5030:80 neopay-spa
+    when: manual
+
+deploy_api:
+    image: docker:19.03.12
+    stage: deploy_api
+    dependencies:
+        - build_api
+    script:
+        - mv Api/Dockerfile Dockerfile
+        - docker stop neopay-api || true
+        - docker rm neopay-api || true
+        - docker image rm neopay-api || true
+        - export CONNECTION_STRING=${NEOPAY_CONNECTION_STRING}
+        - export GOOGLE_CLIENT_ID=${NEOPAY_GOOGLE_CLIENT_ID}
+        - export GOOGLE_CLIENT_SECRET=${NEOPAY_GOOGLE_SECRET}
+        - export ISSUER="'https://neopay.duckdns.org'"
+        - export AUDIENCE="'https://neopay.duckdns.org'"
+
+        - docker build --build-arg CONNECTION_STRING="${CONNECTION_STRING}"
+            --build-arg GOOGLE_CLIENT_ID="${GOOGLE_CLIENT_ID}"
+            --build-arg GOOGLE_CLIENT_SECRET="${GOOGLE_CLIENT_SECRET}"
+            --build-arg ISSUER="${ISSUER}"
+            --build-arg AUDIENCE="${AUDIENCE}"
+            -t neopay-api:latest .
+
+        - docker run -d --name neopay-api -p 5035:5001 neopay-api
+    when: manual
