@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NeoPay.Controllers
@@ -123,7 +124,7 @@ namespace NeoPay.Controllers
         [HttpPost("refresh")]
         public async Task<ActionResult<AuthenticateResponse>> Refresh([FromForm]string refreshToken)
         {
-            var clientIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var clientIpAddress = Request.Headers["X-Real-IP"].FirstOrDefault();
             var token = await _tokenService.GetRefreshTokenByValue(refreshToken);
 
             if(token == null || token.ExpiresAtUtc < DateTime.UtcNow || token.IsRevoked)
