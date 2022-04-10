@@ -22,7 +22,7 @@ export class AuthFormFactory {
   registerForm(): FormGroup {
     return this.formBuilder.group({
       username: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
       confirm: new FormControl('', Validators.required),
     });

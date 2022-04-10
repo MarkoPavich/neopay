@@ -13,6 +13,7 @@ import { SessionService } from 'src/app/services/auth/session.service';
 import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { ToastrService } from 'ngx-toastr';
+import { INPUT_ERRORS } from 'src/app/constants/error-messages';
 
 @Directive()
 export abstract class AuthBaseComponent {
@@ -51,6 +52,10 @@ export abstract class AuthBaseComponent {
     } else {
       // TODO user notification
     }
+  }
+
+  getErrorMessage(key: string): string {
+    return INPUT_ERRORS[key];
   }
 
   onLoginSubmit() {

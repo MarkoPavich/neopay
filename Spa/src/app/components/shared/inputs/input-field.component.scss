@@ -3,15 +3,10 @@
 .input-field-container{
   display: flex;
   flex-direction: column;
-}
 
-.input-field-container > label{
-  margin-bottom: 10px;
-  
-  font-size: 12px;
-  font-weight: 500;
-
-  color: var(--color-contrast-medium-lighter);
+  .ng-invalid.ng-dirty{
+    border-color: var(--color-danger);
+  }
 }
 
 .input-field-container > input{
@@ -43,6 +38,26 @@
   text-align: center;
 }
 
-.ng-invalid.ng-dirty{
-  border-color: var(--color-danger) !important;
+.label-container{
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+
+  & > label {
+    font-size: 12px;
+    font-weight: 500;
+  
+    color: var(--color-contrast-medium-lighter);
+  }
+
+  .error-message {
+    display: none;
+    color: red;
+    font-size: 10px;
+  }
+
+  .error-message.active {
+    display: block;
+  }
 }
